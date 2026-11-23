@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+    <title>Trợ lý AI - Nhà máy Điện tử</title>
+ 
+    <script type="module"
+            src="https://img.vanna.ai/vanna-components.js"></script>
+ 
+    <link rel="stylesheet" href="/static/css/style.css?v=20261104_FRONTEND_CLEANUP_05">
+    <link rel="stylesheet" href="/static/css/work.css?v=20261115_COUNT_BADGES_01">
+    <link rel="stylesheet" href="/static/css/ai-modern.css?v=20261105_PHASE19_PRO_REPORT_EXPANDED">
+
+</head>
+ 
+<body>
+ 
+<button class="nav-toggle" id="navToggle" type="button" aria-label="Mở/đóng thanh điều hướng" aria-expanded="true" onclick="toggleSideNav()">☰</button>
+ 
+<div class="app">
+ 
+    <aside class="side-nav" id="sideNav" aria-label="Điều hướng">
+        <div class="brand">
+            <div class="brand-mark">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l6 4V9l6 4V5h3a3 3 0 0 1 3 3v13z"/><path d="M7 17h2M12 17h2M17 17h2"/></svg>
+            </div>
+            <div class="brand-text"><strong>Nhà máy Điện tử</strong><span>Trợ lý AI sản xuất</span></div>
+        </div>
+        <div class="view-tabs">
+            <div class="nav-label">Tổng quan</div>
+            <button class="view-tab active" id="tabDashboard" onclick="showView('dashboard')" ondblclick="refreshMenuView('dashboard')"><svg class="nav-ico" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg><span>Tổng quan công đơn</span></button>
+            
+            <button class="view-tab" id="tabChat" onclick="showView('chat')" ondblclick="refreshMenuView(window.currentUser?.role === 'customer' ? 'customerChat' : 'chat')"><svg class="nav-ico" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></svg><span>AI Assistant</span></button>
+            <button class="view-tab" id="tabWork" onclick="showView('work')" ondblclick="refreshMenuView('work')">📋 Công việc giao ngay</button>
+            <div class="nav-label" id="navAdminLabel">Quản trị</div>
+            <button class="view-tab" id="tabEmployees" onclick="showView('employees')" ondblclick="refreshMenuView('employees')"><svg class="nav-ico" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Nhân viên</span></button>
+            <button class="view-tab" id="tabCustomers" onclick="showView('customers')" ondblclick="refreshMenuView('customers')">🏢 <span>Khách hàng</span></button>
+        </div>
+        <div class="side-nav-spacer"></div>
+        <div id="userBox" style="display:none">
+            <div class="user-card">
+                <div class="user-avatar" id="userAvatar">?</div>
+                <div class="user-info"><div id="userName"></div><div id="userRole"></div></div>
+                <button type="button" class="logout-btn" onclick="logout()" title="Đăng xuất" aria-label="Đăng xuất">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+                </button>
+            </div>
+        </div>
+    </aside>
+ 
+    <main class="main">
+ 
+        <header class="topbar">
+ 
+            <div class="topbar-left">
+                <div>
+                    <h1 class="page-title">
+                        Trợ lý AI Nhà máy
+                    </h1>
+                    <p class="page-subtitle">
+                        Phân tích dữ liệu sản xuất bằng ngôn ngữ tự nhiên
+                    </p>
+                </div>
+            </div>
+ 
+            <div class="top-date" id="topDate"></div>
+            <div class="status-badge">
+ 
+                <span class="status-dot"></span>
+ 
+                Đang kết nối
+ 
+            </div>
+ 
+            
+ 
+        </header>
+ 
+        <section id="ordersView" class="dashboard-area hidden">
+          <div class="dashboard">
+            <div class="panel" id="customerOrderCreate"><div class="panel-head"><h3>Tạo công đơn</h3></div>
+              <form id="customerOrderForm" onsubmit="customerCreateOrder(event)" style="display:grid;gap:12px;padding:20px;max-width:700px">
+                <label>Phân xưởng <select id="coWorkshop" required class="search" style="width:100%"></select></label>
+                <label>Sản phẩm <select id="coProduct" required class="search" style="width:100%"></select></label>
+                <label>Số lượng <input id="coFormQuantity" class="search" required type="number" min="1" max="100000000" style="width:100%"></label>
+                <label>Ngày kết thúc <input id="coDate" class="search" required type="date" style="width:100%"></label>
+                <button class="po-create-btn" type="submit">Gửi công đơn đến tổ trưởng</button>
+              </form></div>
+            <div class="panel" style="margin-top:18px"><div class="panel-head"><h3>Danh sách công đơn khách hàng</h3><div class="co-list-actions"><label class="co-search-box"><span aria-hidden="true">⌕</span><input id="customerOrderSearch" type="search" placeholder="Tìm mã đơn, công ty, sản phẩm..." aria-label="Tìm kiếm công đơn" oninput="filterCustomerOrderRows()" autocomplete="off"></label><button id="customerCreateOrderBtn" class="po-create-btn" onclick="customerOpenCreateModal()" style="display:none">+ Tạo công đơn</button></div></div>
+              <div class="table-wrap co-orders-scroll" id="customerOrdersScroll"><table><thead><tr><th>Mã</th><th>Công ty</th><th>Sản phẩm</th><th>Xưởng</th><th>Số lượng</th><th>Ngày kết thúc</th><th>Trạng thái</th><th>Tiến trình</th><th>Thao tác</th></tr></thead><tbody id="customerOrderRows"></tbody></table></div></div>
+          </div>
+        </section>
+        <section id="leadCustomerView" class="dashboard-area hidden"><div class="dashboard">
+          <div class="panel"><div class="panel-head"><div><h3>Công đơn khách hàng · Xưởng phụ trách</h3><p style="margin:6px 0 0;color:#64748b;font-size:13px">Chỉ hiển thị công đơn của xưởng được phân quyền. Duyệt hoặc từ chối các công đơn đang chờ tiếp nhận.</p></div></div>
+          <div class="table-wrap"><table><thead><tr><th>Mã công đơn</th><th>Công ty</th><th>Sản phẩm</th><th>Xưởng</th><th>Số lượng</th><th>Ngày kết thúc</th><th>Trạng thái</th><th>Tiến trình</th><th>Thao tác</th></tr></thead><tbody id="leadCustomerOrderRows"><tr><td colspan="9">Đang tải công đơn...</td></tr></tbody></table></div></div>
+        </div></section>
+        <section id="customerChatView" class="chat-area customer-ai-page hidden">
+            <div class="chat-card"><div class="vanna-container"><div id="customerVannaMount"></div></div></div>
+        </section>
+        <section id="customersView" class="dashboard-area hidden"><div class="dashboard">
+          <div class="panel"><div class="panel-head"><h3>Danh sách khách hàng</h3><div class="customer-list-actions"><label class="co-search-box"><span aria-hidden="true">⌕</span><input id="customerSearch" type="search" placeholder="Tìm tên công ty, tài khoản..." aria-label="Tìm kiếm khách hàng" oninput="filterCustomerRows()" autocomplete="off"></label><button class="po-create-btn customer-create-framed" onclick="openNewCustomerAccount()">+ Tạo tài khoản khách hàng</button></div></div>
+          <div class="table-wrap"><table><thead><tr><th>Tên công ty</th><th>Tài khoản</th><th>Số công đơn</th><th>Ngày tạo</th><th>Trạng thái</th><th>Thao tác</th><th>Lịch sử tạo đơn</th></tr></thead><tbody id="customersRows"><tr><td colspan="7">Đang tải...</td></tr></tbody></table></div></div>
+          <div class="panel" id="deletedCustomersPanel" style="margin-top:18px"><div class="panel-head"><div><h3>Lịch sử tài khoản đã xóa</h3><p style="margin:6px 0 0;color:#64748b;font-size:13px">Tài khoản đã ngừng hoạt động. Công đơn và lịch sử sản xuất vẫn được giữ nguyên.</p></div></div><div class="table-wrap"><table><thead><tr><th>Tên công ty</th><th>Tài khoản</th><th>Người đại diện</th><th>Số công đơn</th><th>Trạng thái</th><th>Lịch sử tạo đơn</th></tr></thead><tbody id="deletedCustomersRows"><tr><td colspan="6">Đang tải lịch sử...</td></tr></tbody></table></div></div>
+          <div class="panel" id="customerHistoryPanel" style="margin-top:18px;display:none"><div class="panel-head"><h3 id="customerHistoryTitle">Lịch sử tạo công đơn</h3><button class="refresh-btn" onclick="document.getElementById('customerHistoryPanel').style.display='none'">Đóng</button></div><div class="table-wrap"><table><thead><tr><th>Mã đơn</th><th>Tài khoản tạo</th><th>Sản phẩm</th><th>Xưởng</th><th>Số lượng</th><th>Thời gian gửi</th><th>Trạng thái</th><th>Lịch sử duyệt</th></tr></thead><tbody id="customerHistoryRows"></tbody></table></div></div></div></section>
+        <section id="dashboardView" class="dashboard-area">
+            <div class="dashboard" id="customerDashboard" style="display:none">
+              <div class="cards">
+                <div class="metric m-blue"><div class="metric-label">Tổng công đơn của tôi</div><div class="metric-value" id="coTotal">0</div><div class="metric-sub" id="coTotalSub"></div></div>
+                <div class="metric m-violet"><div class="metric-label">Tổng số lượng</div><div class="metric-value" id="coQuantity">0</div><div class="metric-sub" id="coQuantitySub"></div></div>
+                <div class="metric m-green"><div class="metric-label">Đang sản xuất</div><div class="metric-value" id="coProduction">0</div><div class="metric-sub" id="coProductionSub"></div></div>
+                <div class="metric m-amber"><div class="metric-label">Chờ tiếp nhận</div><div class="metric-value" id="coWaiting">0</div><div class="metric-sub" id="coWaitingSub"></div></div>
+              </div>
+              <div id="customerDashboardOrders"></div>
+            </div>
+            <div class="dashboard" id="internalDashboard" style="display:none" aria-hidden="true">
+                <div class="cards">
+                    <div class="metric m-blue"><div class="metric-label">Tổng PO</div><div class="metric-value" id="mTotal">—</div><div class="metric-sub" id="mTotalSub">—</div></div>
+                    <div class="metric m-amber"><div class="metric-label">Đang sản xuất</div><div class="metric-value" id="mProgress">—</div><div class="metric-sub">PO có trạng thái In Progress</div></div>
+                    <div class="metric m-violet"><div class="metric-label">Sản lượng kế hoạch</div><div class="metric-value" id="mPlanned">—</div><div class="metric-sub">Tổng planned quantity</div></div>
+                    <div class="metric m-green"><div class="metric-label">Hoàn thành</div><div class="metric-value" id="mCompletion">—</div><div class="metric-sub" id="mActual">—</div></div>
+                </div>
+                <div class="panel">
+                    <div class="panel-head">
+                        <h3>Danh sách công đơn sản xuất</h3>
+                        <div class="po-head-actions"><select id="poWorkshopFilter" class="search" aria-label="Lọc xưởng" onchange="filterPOs()"><option value="">Tất cả xưởng</option></select><select id="poStatusFilter" class="search" aria-label="Lọc trạng thái" onchange="filterPOs()"><option value="">Tất cả trạng thái</option><option value="Planned">Kế hoạch</option><option value="In Progress">Đang sản xuất</option></select><input id="poSearch" class="search" oninput="filterPOs()" placeholder="Tìm PO, sản phẩm, xưởng, máy..."><button type="button" class="po-create-btn" id="poCreateBtn" style="display:none" onclick="poOpenCreate()">+ Tạo công đơn</button></div>
+                    </div>
+                    <div class="table-wrap">
+                        <table><thead><tr><th>PO</th><th>Sản phẩm</th><th>Xưởng</th><th>Máy</th><th>Kế hoạch</th><th>Thực tế</th><th>Tiến độ</th><th>Trạng thái</th></tr></thead>
+                        <tbody id="poTable"><tr><td colspan="8" class="empty">Đang tải...</td></tr></tbody></table>
+                    </div>
+                </div>
+                <div id="dashboardPriority" class="priority-panel hidden"></div>
+
+ 
+<div id="detailPanel" class="panel hidden">
+    <div class="panel-head">
+        <h3 id="detailTitle">Chỉnh sửa PO</h3>
+        <button class="refresh-btn"
+                onclick="document.getElementById('detailPanel').classList.add('hidden'); setDashboardDetailMode(false); document.getElementById('dashboardView').scrollTo({top:0, behavior:'smooth'});">
+            Đóng
+        </button>
+    </div>
+ 
+    <div class="info-list" id="detailInfo"></div>
+ 
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Công đoạn</th>
+                    <th>Máy</th>
+                    <th>Sản lượng</th>
+                    <th>Lỗi</th>
+                    <th>Tỷ lệ lỗi</th>
+                    <th>Thời gian</th>
+                </tr>
+            </thead>
+            <tbody id="lineTable"></tbody>
+        </table>
+    </div>
+ 
+    <div id="execPanel" class="exec-panel hidden">
+        <div class="exec-head">
+            <h3>Phân tích vận hành nhanh</h3>
+            <button class="refresh-btn" onclick="loadPO(selectedPOCode, false, false)">↻ Cập nhật</button>
+        </div>
+        <div id="execBody"></div>
+    </div>
+ 
+    <div id="qualityBox"></div>
+    <div id="lossBox"></div>
+    <div id="analysisBox"></div>
+    <div id="downtimeBox"></div>
+    <div id="attentionBox"></div>
+</div>
+
+</div>
+        </section>
+ 
+        <section id="workView" class="dashboard-area hidden">
+          <div class="dashboard" id="workContentDashboard" style="display:block">
+            <div class="panel" id="workAssignPanel" style="margin-top:18px"><div class="panel-head"><h3>Giao việc mới</h3></div>
+              <form id="workAssignForm" class="p2-form" onsubmit="submitWork(event)">
+                <label>Máy thuộc xưởng <select id="workMachine" required onchange="loadWorkAssignees()"></select></label>
+                <label>Kỹ thuật viên <select id="workAssignee" required></select></label>
+                <label>Tiêu đề <input id="workTitle" required minlength="3" maxlength="255"></label>
+                <label>Hạn hoàn thành <input id="workDue" type="datetime-local" required></label>
+                <label class="p2-wide">Mô tả <textarea id="workDescription" rows="3"></textarea></label>
+                <button type="submit">Giao việc</button>
+              </form>
+            </div>
+            <div class="panel ktv-completed-panel" id="ktvCompletedPanel" style="display:none;margin-top:18px">
+              <div class="panel-head"><h3>Công việc đã làm</h3><span class="ktv-completed-head-count" id="ktvCompletedCount">0 công việc</span></div>
+              <div class="ktv-completed-caption">Các công việc đã được tổ trưởng duyệt</div>
+              <div class="table-wrap"><table class="ktv-completed-table"><thead><tr><th>Máy</th><th>Công việc</th><th>Người giao</th><th>Thời gian giao</th><th>Hạn hoàn thành</th><th>Trạng thái</th></tr></thead><tbody id="ktvCompletedTable"></tbody></table></div>
+            </div>
+            <div class="panel" id="workTaskListPanel" style="margin-top:18px"><div class="panel-head"><h3 id="workTaskListHeading">Danh sách công việc &amp; lịch sử</h3><div class="work-list-tools"><label class="work-workshop-control" id="workWorkshopFilterLabel" style="display:none"><select id="workWorkshopFilter" aria-label="Lọc theo xưởng" onchange="onWorkWorkshopChange()"><option value="">Tất cả xưởng</option></select></label><label class="work-search-box"><svg class="work-search-icon" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="workTaskSearch" type="search" aria-label="Tìm kiếm công việc" placeholder="Tìm máy, công việc, nhân viên, trạng thái..." oninput="renderWorkTable()"></label></div></div><div id="workTaskSearchCount" class="work-search-count" aria-live="polite"></div><div id="workDeadlineAlerts" class="work-deadline-alert" role="status" hidden></div><div id="workError" role="status"></div><div class="table-wrap"><table><thead><tr><th>Máy</th><th>Công việc</th><th>Người giao</th><th>Người nhận</th><th>Thời gian giao</th><th>Hạn hoàn thành</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody id="workTable"></tbody></table></div></div>
+          </div>
+        </section>
+        <section id="employeesView" class="dashboard-area hidden">
+          <div class="dashboard">
+            <div class="panel"><div class="panel-head"><h3>Nhân viên</h3><input id="employeeSearch" class="search" placeholder="Tìm mã, tên, chức vụ..." oninput="loadEmployees()"><select id="employeeStatus" class="search" onchange="loadEmployees()"><option value="">Tất cả trạng thái</option><option value="Active">Đang làm</option><option value="Inactive">Đã nghỉ</option></select></div>
+              <div class="table-wrap mes-ten-rows" id="employeeTableScroll"><table><thead><tr><th>Mã NV</th><th>Họ tên</th><th>Phân xưởng</th><th>Chức vụ</th><th>Giới tính</th><th>Ngày vào làm</th><th>Trạng thái</th><th>Lịch sử</th></tr></thead><tbody id="employeeTable"><tr><td colspan="8" class="empty">Đang tải...</td></tr></tbody></table></div>
+            </div>
+          </div>
+        </section>
+ 
+        <section id="chatView" class="chat-area hidden">
+ 
+            <div class="chat-card">
+ 
+                <div class="vanna-container">
+ 
+                    <!-- Vanna chỉ được tạo khi Admin/Tổ trưởng mở tab AI; khách hàng dùng AI riêng. -->
+                    <div id="vannaMount"></div>
+ 
+                </div>
+ 
+            </div>
+ 
+        </section>
+ 
+        <footer class="footer">
+ 
+            Đồ án tốt nghiệp • Vanna AI • PostgreSQL • OpenAI
+ 
+        </footer>
+ 
+    </main>
+ 
+</div>
+ 
+<div id="workDialogOverlay" class="work-dialog-overlay" hidden></div>
+<script src="/static/js/ai-thinking.js?v=20261105_PHASE19_PRO_REPORT_EXPANDED"></script>
+<script src="/static/js/app.js?v=20261115_COUNT_BADGES_01"></script>
+<script src="/static/js/production-orders.js?v=20261104_FRONTEND_CLEANUP_08"></script>
+<script src="/static/js/customer-orders.js?v=20261117_COMPLETED_DELETE_HISTORY_01"></script>
+<script src="/static/js/work.js?v=20261115_UNFINISHED_COUNT_02"></script>
+
+ 
+</body>
+</html>
+ 

@@ -1,0 +1,2756 @@
+/* Giao diện chung của hệ thống */
+
+    :root {
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --primary-light: #eff6ff;
+ 
+        --bg: #f5f7fb;
+        --card: #ffffff;
+ 
+        --text: #172033;
+        --text-light: #64748b;
+ 
+        --border: #e5e7eb;
+ 
+ 
+        --success: #10b981;
+ 
+        --shadow:
+            0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+ 
+    * {
+        box-sizing: border-box;
+    }
+ 
+    html,
+    body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
+ 
+    body {
+        font-family:
+            "Segoe UI",
+            Roboto,
+            Arial,
+            sans-serif;
+ 
+        background: var(--bg);
+        color: var(--text);
+        overflow: hidden;
+    }
+ 
+    .app {
+        width: 100%;
+        height: 100vh;
+ 
+        display: flex;
+    }
+ 
+    .main {
+        width: 100%;
+        flex: 1;
+ 
+        height: 100vh;
+ 
+        display: flex;
+        flex-direction: column;
+ 
+        min-width: 0;
+    }
+ 
+    .topbar {
+        height: 70px;
+ 
+        background: white;
+ 
+        border-bottom: 1px solid var(--border);
+ 
+        display: flex;
+ 
+        align-items: center;
+ 
+        justify-content: flex-start;
+ 
+        padding: 0 20px;
+ 
+        flex-shrink: 0;
+    }
+ 
+    .topbar-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        order: 2;
+        flex: 1;
+    }
+ 
+    .page-title {
+        margin: 0;
+ 
+        font-size: 18px;
+        font-weight: 700;
+    }
+ 
+    .page-subtitle {
+        margin: 3px 0 0;
+ 
+        color: var(--text-light);
+ 
+        font-size: 12px;
+    }
+ 
+    .status-badge {
+        margin-left:auto;
+        display: flex;
+ 
+        align-items: center;
+ 
+        gap: 7px;
+ 
+        padding: 7px 11px;
+ 
+        border-radius: 999px;
+ 
+        background: #ecfdf5;
+ 
+        color: #047857;
+ 
+        font-size: 11px;
+ 
+        font-weight: 600;
+    }
+ 
+    .chat-area {
+        flex: 1;
+        min-height: 0;
+        padding: 14px 22px 18px;
+        display: flex;
+        justify-content: center;
+    }
+ 
+    .chat-card {
+        width: 100%;
+        max-width: 1200px;
+        height: 100%;
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+ 
+    .welcome {
+        padding: 16px 18px 14px;
+        border-bottom: 1px solid var(--border);
+        background: #fff;
+    }
+ 
+    .welcome-row {
+        display: none;
+    }
+ 
+    .welcome-icon {
+        width: 48px;
+        height: 48px;
+ 
+        border-radius: 14px;
+ 
+        display: flex;
+ 
+        align-items: center;
+        justify-content: center;
+ 
+        background: var(--primary-light);
+ 
+        font-size: 24px;
+    }
+ 
+    .welcome h2 {
+        margin: 0;
+ 
+        font-size: 19px;
+    }
+ 
+    .welcome p {
+        margin: 5px 0 0;
+ 
+        color: var(--text-light);
+ 
+        font-size: 12px;
+    }
+ 
+    .vanna-container {
+        flex: 1;
+        min-height: 0;
+        width: 100%;
+        overflow: hidden;
+        background: #f8fafc;
+    }
+ 
+    vanna-chat {
+        width: 100%;
+        height: 100%;
+ 
+        display: block;
+    }
+ 
+    .vanna-container::before {
+        content: "Trợ lý AI";
+        display: block;
+        height: 0;
+        overflow: hidden;
+    }
+ 
+    .footer {
+        height: 36px;
+ 
+        display: flex;
+ 
+        align-items: center;
+ 
+        justify-content: center;
+ 
+        color: #94a3b8;
+ 
+        font-size: 10px;
+ 
+        flex-shrink: 0;
+    }
+ 
+    .chat-context {
+        margin: 0;
+        padding: 10px 12px;
+        border: 1px solid #dbeafe;
+        background: #eff6ff;
+        border-radius: 11px;
+    }
+    .chat-context-head {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:10px;
+        font-size:10px;
+        font-weight:800;
+        color:#1e3a8a;
+    }
+    .chat-context-po {
+        font-size:12px;
+        color:#172033;
+        margin-top:3px;
+        font-weight:800;
+    }
+    .chat-context-sub {
+        font-size:9.5px;
+        color:#64748b;
+        margin-top:2px;
+    }
+    .chat-actions {
+        display:flex;
+        flex-wrap:wrap;
+        gap:6px;
+        margin-top:7px;
+    }
+    .chat-action {
+        border:1px solid #bfdbfe;
+        background:white;
+        color:#1d4ed8;
+        border-radius:8px;
+        padding:6px 9px;
+        font-size:10px;
+        font-weight:700;
+        cursor:pointer;
+    }
+    .chat-action:hover { background:#dbeafe; }
+ 
+    @media (max-width: 800px) {
+ 
+        .nav-toggle {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 1200;
+        width: 42px;
+        height: 42px;
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        background: #ffffff;
+        color: #0f172a;
+        font-size: 21px;
+        line-height: 1;
+        cursor: pointer;
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.10);
+    }
+    .nav-toggle:hover { background:#f8fafc; }
+    .side-nav.closed {
+        width: 0 !important;
+        min-width: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        border-right: 0 !important;
+        overflow: hidden;
+    }
+    .side-nav.closed .view-tabs,
+    .side-nav.closed .side-nav-spacer {
+        display: none;
+    }
+ 
+    .side-nav {
+            width: 104px;
+            min-width: 104px;
+            padding: 12px 8px;
+        }
+        .side-nav .view-tab {
+            font-size: 11px;
+            padding: 8px 5px;
+        }
+ 
+ 
+        .topbar {
+            padding: 0 16px;
+        }
+ 
+        .chat-area {
+            padding: 10px;
+        }
+ 
+        .chat-card {
+            border-radius: 10px;
+        }
+ 
+        .welcome {
+            padding: 10px 12px;
+        }
+ 
+        .status-badge {
+            display: none;
+        }
+    }
+ 
+    @media (max-width: 500px) {
+ 
+        .page-title {
+            font-size: 15px;
+        }
+ 
+        .page-subtitle {
+            font-size: 10px;
+        }
+ 
+        .welcome h2 {
+            font-size: 16px;
+        }
+ 
+        .welcome p {
+            font-size: 11px;
+        }
+    }
+ 
+    .side-nav {
+        width: 118px;
+        min-width: 118px;
+        height: 100vh;
+        background: #0f172a;
+        border-right: 1px solid #1e293b;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 18px 10px;
+        flex-shrink: 0;
+    }
+    .side-nav-spacer { flex: 1; }
+    .side-nav .view-tabs {
+        position: static;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .side-nav .view-tab {
+        width: 100%;
+        min-height: 40px;
+        border: 1px solid #334155;
+        background: #1e293b;
+        color: #cbd5e1;
+        border-radius: 9px;
+        padding: 9px 8px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        text-align: center;
+        white-space: nowrap;
+    }
+    .side-nav .view-tab.active {
+        background: var(--primary);
+        color: #fff;
+        border-color: var(--primary);
+    }
+    .side-nav .view-tab:hover {
+        background: #334155;
+        color: #fff;
+    }
+ 
+    .view-tab {
+        width:100%;
+        border:1px solid var(--border);
+        background:#fff;
+        color:var(--text);
+        border-radius:9px;
+        padding:9px 12px;
+        font-size:12px;
+        font-weight:700;
+        cursor:pointer;
+        text-align:left;
+        transition:.18s ease;
+    }
+    .view-tab:hover { background:#f8fafc; border-color:#cbd5e1; }
+    .view-tab.active { background:var(--primary); color:#fff; border-color:var(--primary); }
+    .topbar { position:relative; }
+    .topbar-left { margin-left:184px; }
+    .dashboard-area { flex:1; min-height:0; overflow:auto; padding:22px; }
+    .dashboard { max-width:1200px; margin:0 auto; }
+    .dash-head { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:16px; }
+    .dash-head h2 { margin:0; font-size:20px; }
+    .dash-head p { margin:4px 0 0; color:var(--text-light); font-size:12px; }
+    .refresh-btn { border:1px solid var(--border); background:#fff; border-radius:9px; padding:9px 12px; cursor:pointer; font-weight:700; font-size:12px; }
+    .cards { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+    .metric { background:#fff; border:1px solid var(--border); border-radius:14px; padding:16px; box-shadow:var(--shadow); }
+    .metric-label { color:var(--text-light); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; }
+    .metric-value { margin-top:7px; font-size:24px; font-weight:800; }
+    .metric-sub { margin-top:4px; color:var(--text-light); font-size:11px; }
+    .panel { margin-top:14px; background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; }
+    .panel-head { padding:15px 16px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; gap:10px; }
+    .panel-head h3 { margin:0; font-size:14px; }
+    .search { border:1px solid var(--border); border-radius:8px; padding:8px 10px; font-size:12px; width:240px; }
+    .table-wrap { overflow:auto; }
+    table { width:100%; border-collapse:collapse; font-size:12px; }
+    th,td { padding:11px 12px; border-bottom:1px solid #eef2f7; text-align:left; white-space:nowrap; }
+    th { color:var(--text-light); font-size:10px; text-transform:uppercase; letter-spacing:.04em; background:#f8fafc; }
+    tr.po-row { cursor:pointer; }
+    tr.po-row:hover { background:#f8fbff; }
+    tr.po-row:focus { outline:2px solid var(--primary); outline-offset:-2px; }
+    .pill { display:inline-flex; padding:4px 8px; border-radius:999px; font-size:10px; font-weight:700; }
+    .pill-progress { background:#eff6ff; color:#1d4ed8; }
+    .pill-complete { background:#ecfdf5; color:#047857; }
+    .pill-planned { background:#fefce8; color:#a16207; }
+    .progress { width:120px; height:7px; background:#e5e7eb; border-radius:99px; overflow:hidden; display:inline-block; vertical-align:middle; }
+    .progress > span { display:block; height:100%; background:var(--primary); }
+    .detail-grid { display:grid; grid-template-columns:1.1fr 1.9fr; gap:14px; }
+    .info-list { padding:16px; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .info-item label { display:block; color:var(--text-light); font-size:10px; text-transform:uppercase; margin-bottom:3px; }
+    .info-item strong { font-size:12px; }
+    .alert-note { margin:14px 16px; padding:12px; background:#fff7ed; border:1px solid #fed7aa; border-radius:10px; color:#9a3412; font-size:11px; line-height:1.5; }
+    .empty { padding:30px; text-align:center; color:var(--text-light); font-size:12px; }
+    .hidden { display:none !important; }
+    @media (max-width:1000px) { .cards{grid-template-columns:repeat(2,1fr)} .detail-grid{grid-template-columns:1fr} }
+    @media (max-width:600px) { .cards{grid-template-columns:1fr} .dash-head{align-items:flex-start; flex-direction:column} .search{width:100%} .panel-head{flex-direction:column; align-items:stretch} }
+    @media (max-width:700px) {
+        .topbar{padding:0 12px; gap:8px; min-height:70px;}
+        .topbar-left{min-width:0; margin-left:0;}
+        .page-title{white-space:nowrap}
+    }
+    @media (max-width:500px) {
+        .topbar-left > div{min-width:0}
+        .page-subtitle{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    }
+ 
+    @media (max-width:500px) {
+        .side-nav {
+            width: 92px;
+            min-width: 92px;
+            padding: 10px 6px;
+        }
+        .side-nav .view-tab {
+            font-size: 10px;
+            padding: 8px 4px;
+        }
+    }
+ 
+    .detail-section { padding:14px 16px; border-top:1px solid #eef2f7; }
+    .detail-section h4 { margin:0 0 10px; font-size:12px; }
+    .warning-box { padding:12px; background:#fff7ed; border:1px solid #fed7aa; border-radius:10px; color:#9a3412; font-size:11px; line-height:1.5; }
+    .danger-box { padding:12px; background:#fef2f2; border:1px solid #fecaca; border-radius:10px; color:#991b1b; font-size:11px; line-height:1.5; }
+    .ok-box { padding:12px; background:#ecfdf5; border:1px solid #a7f3d0; border-radius:10px; color:#065f46; font-size:11px; line-height:1.5; }
+    .detail-actions { display:flex; gap:8px; flex-wrap:wrap; }
+    .analysis-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:10px; }
+    .analysis-card { background:#f8fafc; border:1px solid var(--border); border-radius:10px; padding:12px; }
+    .analysis-card .label { color:var(--text-light); font-size:10px; text-transform:uppercase; font-weight:700; }
+    .analysis-card .value { margin-top:5px; font-size:18px; font-weight:800; }
+    .recommend-list { margin:8px 0 0; padding-left:18px; font-size:11px; line-height:1.7; }
+    .analysis-meta { margin-top:10px; color:var(--text-light); font-size:10px; line-height:1.6; }
+    .exec-panel { margin-top:14px; background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; }
+    .exec-head { padding:15px 16px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; gap:10px; }
+    .exec-head h3 { margin:0; font-size:14px; }
+    .exec-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; padding:12px 16px 16px; }
+    .exec-card { border:1px solid #eef2f7; border-radius:10px; padding:12px; background:#f8fafc; }
+    .exec-card .label { color:var(--text-light); font-size:10px; font-weight:700; text-transform:uppercase; }
+    .exec-card .value { margin-top:5px; font-size:18px; font-weight:800; }
+    .exec-card .sub { margin-top:3px; color:var(--text-light); font-size:10px; }
+    .stage-bars { padding:0 16px 16px; }
+    .stage-row { display:grid; grid-template-columns:120px 1fr 70px; align-items:center; gap:10px; margin-top:8px; font-size:11px; }
+    .stage-track { height:8px; background:#e5e7eb; border-radius:99px; overflow:hidden; }
+    .stage-track span { display:block; height:100%; background:var(--primary); }
+    .stage-loss { color:#991b1b; font-weight:700; text-align:right; }
+    @media (max-width:1100px) { .exec-grid{grid-template-columns:repeat(3,1fr)} }
+    @media (max-width:700px) { .exec-grid{grid-template-columns:repeat(2,1fr)} .stage-row{grid-template-columns:90px 1fr 55px} }
+    @media (max-width:500px) { .exec-grid{grid-template-columns:1fr} }
+    @media (max-width:1000px) { .analysis-grid{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:600px) { .analysis-grid{grid-template-columns:1fr} }
+    .priority-panel { margin-top:14px; border:1px solid #fecaca; border-radius:12px; overflow:hidden; background:#fff; }
+    .priority-head { padding:13px 16px; background:#fef2f2; border-bottom:1px solid #fecaca; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .priority-head h4 { margin:0; font-size:13px; color:#991b1b; }
+    .priority-list { padding:12px 16px 14px; display:grid; gap:9px; }
+    .priority-item { border:1px solid #eef2f7; border-radius:10px; padding:11px 12px; background:#fff; }
+    .priority-item.high { border-left:4px solid #dc2626; }
+    .priority-item.medium { border-left:4px solid #f59e0b; }
+    .priority-title { font-size:12px; font-weight:800; }
+    .priority-reason { margin-top:4px; font-size:10.5px; color:#475569; line-height:1.55; }
+    .priority-badge { display:inline-block; margin-left:7px; padding:2px 6px; border-radius:999px; font-size:9px; font-weight:800; background:#fee2e2; color:#991b1b; }
+    .priority-badge.medium { background:#fef3c7; color:#92400e; }
+    .mini-btn { border:1px solid var(--border); background:#fff; border-radius:8px; padding:7px 10px; cursor:pointer; font-size:11px; font-weight:700; }
+    .action-track { margin:0 16px 14px; border:1px solid #e2e8f0; border-radius:10px; overflow:hidden; background:#f8fafc; }
+    .action-track-head { padding:10px 12px; display:flex; justify-content:space-between; align-items:center; gap:8px; border-bottom:1px solid #e2e8f0; }
+    .action-track-head strong { font-size:11px; }
+    .action-status { display:inline-flex; align-items:center; gap:5px; padding:3px 7px; border-radius:999px; font-size:9px; font-weight:800; }
+    .action-status.todo { background:#fee2e2; color:#991b1b; }
+    .action-status.doing { background:#fef3c7; color:#92400e; }
+    .action-status.done { background:#dcfce7; color:#166534; }
+    .action-row { display:grid; grid-template-columns:1fr auto; gap:10px; align-items:center; padding:9px 12px; border-top:1px solid #eef2f7; }
+    .action-row:first-child { border-top:0; }
+    .action-name { font-size:10.5px; font-weight:700; }
+    .action-actions { display:flex; gap:5px; flex-wrap:wrap; justify-content:flex-end; }
+    .action-btn { border:1px solid var(--border); background:#fff; border-radius:7px; padding:5px 7px; cursor:pointer; font-size:9px; font-weight:700; }
+    .action-btn:hover { background:#eff6ff; }
+    @media (max-width:600px) { .action-row{grid-template-columns:1fr} .action-actions{justify-content:flex-start} }
+ 
+    .action-plan-panel { margin:14px 16px 16px; border:1px solid #dbeafe; border-radius:12px; overflow:hidden; background:#fff; }
+    .action-plan-head { padding:14px 16px; background:#eff6ff; border-bottom:1px solid #dbeafe; display:flex; justify-content:space-between; align-items:center; gap:10px; }
+    .action-plan-head h4 { margin:0; font-size:13px; color:#1e3a8a; }
+    .action-plan-head p { margin:3px 0 0; font-size:10px; color:#64748b; }
+    .action-plan-list { padding:12px; display:grid; gap:10px; }
+    .action-plan-item { border:1px solid #e2e8f0; border-radius:10px; padding:12px; background:#fff; }
+    .action-plan-item.p1 { border-left:4px solid #dc2626; }
+    .action-plan-item.p2 { border-left:4px solid #f59e0b; }
+    .action-plan-item.p3 { border-left:4px solid #64748b; }
+    .ap-top { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
+    .ap-title { font-size:12px; font-weight:800; }
+    .ap-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:9px; }
+    .ap-field { background:#f8fafc; border:1px solid #eef2f7; border-radius:8px; padding:8px; }
+    .ap-field label { display:block; color:#64748b; font-size:9px; font-weight:800; text-transform:uppercase; margin-bottom:3px; }
+    .ap-field div { font-size:10.5px; line-height:1.5; color:#334155; }
+    .ap-evidence { margin-top:9px; }
+    .ap-evidence label { display:block; color:#64748b; font-size:9px; font-weight:800; text-transform:uppercase; margin-bottom:4px; }
+    .ap-evidence textarea { width:100%; min-height:54px; resize:vertical; border:1px solid #dbe3ef; border-radius:8px; padding:8px; font:inherit; font-size:10.5px; color:#172033; }
+    .ap-actions { margin-top:8px; display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; }
+    .ap-status { display:inline-flex; padding:3px 7px; border-radius:999px; font-size:9px; font-weight:800; }
+    .ap-status.todo { background:#fee2e2; color:#991b1b; }
+    .ap-status.doing { background:#fef3c7; color:#92400e; }
+    .ap-status.done { background:#dcfce7; color:#166534; }
+    .ap-save { border:1px solid #bfdbfe; background:#2563eb; color:#fff; border-radius:8px; padding:7px 10px; cursor:pointer; font-size:10px; font-weight:800; }
+    .ap-save:hover { background:#1d4ed8; }
+    .ap-btn { border:1px solid var(--border); background:#fff; border-radius:8px; padding:6px 8px; cursor:pointer; font-size:9px; font-weight:700; }
+    .ap-btn:hover { background:#eff6ff; }
+    .ap-footer { padding:10px 12px; border-top:1px solid #eef2f7; background:#f8fafc; font-size:10px; color:#475569; line-height:1.55; }
+    .ap-note { margin-top:6px; color:#64748b; }
+    @media (max-width:700px) { .ap-grid{grid-template-columns:1fr} .ap-top{flex-direction:column} }
+ 
+ 
+    /* =====================================================================
+       GIAO DIỆN: phẳng, đơn giản, kiểu trang quản trị thông thường
+       ===================================================================== */
+    :root {
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --primary-light: #eff6ff;
+        --bg: #f3f4f6;
+        --text: #1f2937;
+        --text-light: #6b7280;
+        --border: #d9dde3;
+        --shadow: none;
+    }
+    body { font-family: "Segoe UI", Roboto, Arial, sans-serif; font-size: 14px; }
+ 
+    /* ---------- Thanh bên ---------- */
+    .nav-toggle { display: none; }
+    .side-nav { width: 220px; min-width: 220px; padding: 0; gap: 0; background: #1f2937; border-right: 0; box-shadow: none; }
+    .brand { display: block; padding: 18px 20px; margin: 0; border-bottom: 1px solid #374151; }
+    .brand-mark { display: none; }
+    .brand-text strong { display: block; color: #fff; font-size: 16px; font-weight: 600; }
+    .brand-text span { display: block; color: #9ca3af; font-size: 12px; margin-top: 2px; }
+    .side-nav .view-tabs { gap: 0; margin: 0; padding: 8px 0; }
+    .nav-label { padding: 14px 20px 6px; color: #9ca3af; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+    .side-nav .view-tab {
+        display: flex; align-items: center; justify-content: flex-start; gap: 12px;
+        min-height: 0; padding: 11px 20px; border: 0; border-left: 3px solid transparent; border-radius: 0;
+        background: transparent; color: #d1d5db; font-size: 14px; font-weight: 400; text-align: left; box-shadow: none;
+    }
+    .side-nav .view-tab .nav-ico { width: 18px; height: 18px; opacity: .8; }
+    .side-nav .view-tab:hover { background: #2b3544; color: #fff; }
+    .side-nav .view-tab.active { background: #111827; color: #fff; border-left-color: #3b82f6; box-shadow: none; font-weight: 600; }
+    #userBox { margin: 0; padding: 0; border-top: 1px solid #374151; }
+    .user-card { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border: 0; border-radius: 0; background: transparent; }
+    .user-avatar { width: 32px; height: 32px; border-radius: 50%; background: #4b5563; color: #fff; font-size: 14px; font-weight: 600; display: grid; place-items: center; flex: 0 0 auto; }
+    .user-info { flex: 1; min-width: 0; }
+    .user-info #userName { color: #f9fafb; font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .user-info #userRole { color: #9ca3af; font-size: 12px; }
+    .logout-btn { width: 32px; height: 32px; border: 0; border-radius: 4px; background: transparent; color: #9ca3af; cursor: pointer; display: grid; place-items: center; }
+    .logout-btn:hover { background: #374151; color: #fff; }
+ 
+    /* ---------- Thanh trên ---------- */
+    .topbar { height: 60px; padding: 0 24px; background: #fff; backdrop-filter: none; border-bottom: 1px solid var(--border); }
+    .topbar-left { margin-left: 0; order: 0; }
+    .page-title { font-size: 18px; font-weight: 600; letter-spacing: 0; }
+    .page-subtitle { font-size: 13px; margin-top: 1px; }
+    .top-date { margin-left: auto; margin-right: 18px; color: var(--text-light); font-size: 13px; white-space: nowrap; }
+    .status-badge { margin-left: 0; padding: 0; background: transparent; border: 0; border-radius: 0; color: #4b5563; font-size: 13px; font-weight: 400; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; animation: none; box-shadow: none; }
+    .topbar { height: 76px; }
+    .topbar .search, .topbar .refresh-btn { height: 40px; font-size: 14px; }
+    .top-refresh { margin-left: 18px; flex-shrink: 0; }
+    .top-refresh.hidden { display: none; }
+ 
+    /* ---------- Nội dung ---------- */
+    .dashboard-area { padding: 20px 24px 28px; }
+    .dashboard { max-width: none; }
+    .dash-head { margin-bottom: 16px; }
+    .dash-head h2 { font-size: 20px; font-weight: 600; letter-spacing: 0; }
+    .dash-head p { font-size: 13px; margin-top: 3px; }
+ 
+    /* ---------- Nút, ô nhập ---------- */
+    .refresh-btn, .mini-btn {
+        display: inline-flex; align-items: center; height: 36px; padding: 0 14px;
+        border: 1px solid #c9ced6; border-radius: 4px; background: #fff; color: #374151;
+        font-size: 13px; font-weight: 500; box-shadow: none; transition: none;
+    }
+    .refresh-btn:hover, .mini-btn:hover { background: #f3f4f6; border-color: #aeb4be; box-shadow: none; }
+    .search {
+        height: 36px; padding: 0 10px; border: 1px solid #c9ced6; border-radius: 4px;
+        background: #fff; color: var(--text); font-size: 13px; font-family: inherit; box-shadow: none; transition: none;
+    }
+    .search:hover { border-color: #aeb4be; }
+    .search:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(37, 99, 235, .2); }
+ 
+    /* ---------- Thẻ số liệu ---------- */
+    .cards { gap: 14px; }
+    .metric { padding: 16px 18px; border: 1px solid var(--border); border-radius: 6px; box-shadow: none; background: #fff; overflow: visible; }
+    .metric::after { display: none; }
+    .metric-ico { display: none; }
+    .metric-label { padding-right: 0; font-size: 12px; font-weight: 600; letter-spacing: .03em; color: var(--text-light); }
+    .metric-value { margin-top: 6px; font-size: 26px; font-weight: 700; letter-spacing: 0; line-height: 1.2; }
+    .metric-sub { margin-top: 4px; font-size: 12px; }
+ 
+    /* ---------- Khối, bảng ---------- */
+    .panel, .exec-panel { margin-top: 16px; border: 1px solid var(--border); border-radius: 6px; box-shadow: none; background: #fff; }
+    .panel-head, .exec-head { padding: 14px 18px; }
+    .panel-head h3, .exec-head h3 { font-size: 15px; font-weight: 600; }
+    table { font-size: 13px; }
+    th, td { padding: 10px 14px; border-bottom: 1px solid #e5e7eb; }
+    th { position: sticky; top: 0; z-index: 1; background: #f9fafb; color: #4b5563; font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; border-bottom: 1px solid var(--border); }
+    tbody tr { transition: none; }
+    tbody tr:hover { background: #f9fafb; }
+    tbody tr:last-child td { border-bottom: 0; }
+    td strong { font-weight: 600; }
+    .empty { padding: 36px 16px; font-size: 13px; }
+    .pill { padding: 3px 9px; border-radius: 4px; font-size: 12px; font-weight: 600; gap: 0; }
+    .pill::before { display: none; }
+    .pill-ok { background: #dcfce7; color: #166534; }
+    .pill-warn { background: #fef3c7; color: #92400e; }
+    .pill-bad { background: #fee2e2; color: #991b1b; }
+    .pill-off { background: #e5e7eb; color: #374151; }
+    .progress { width: 90px; height: 6px; background: #e5e7eb; border-radius: 3px; }
+    .progress > span { background: #3b82f6; border-radius: 3px; }
+    .info-list { padding: 16px 18px; gap: 14px; }
+    .info-item strong { font-size: 13px; }
+    .detail-section { padding: 14px 18px; }
+    .analysis-card, .exec-card { background: #f9fafb; border: 1px solid var(--border); border-radius: 4px; box-shadow: none; padding: 12px 14px; }
+    .analysis-card .value, .exec-card .value { font-size: 20px; letter-spacing: 0; }
+    .priority-panel, .action-plan-panel { border-radius: 6px; box-shadow: none; }
+    .stage-track, .stage-track span { height: 8px; border-radius: 3px; }
+    #poTable td:nth-child(2), #poTable td:nth-child(3), #poTable td:nth-child(4) { white-space: normal; min-width: 110px; }
+    
+    
+ 
+    /* ---------- Khung chat ---------- */
+    .chat-area { padding: 16px 20px 18px; }
+    .chat-card { max-width: none; border-radius: 6px; box-shadow: none; border: 1px solid var(--border); }
+    .footer { height: 34px; font-size: 12px; color: #9ca3af; }
+ 
+    /* ---------- Màn hình nhỏ ---------- */
+    @media (max-width: 800px) {
+        .nav-toggle { display: grid; place-items: center; border-radius: 4px; box-shadow: none; }
+        .side-nav { position: fixed; left: 0; top: 0; z-index: 1100; width: 220px !important; min-width: 220px !important; padding: 0 !important; }
+        .side-nav.closed { transform: translateX(-100%); width: 220px !important; min-width: 220px !important; padding: 0 !important; }
+        .side-nav.closed .view-tabs, .side-nav.closed .side-nav-spacer { display: flex; }
+        .side-nav .view-tab { font-size: 14px; padding: 11px 20px; }
+        .topbar { padding: 0 14px 0 62px; }
+        .top-date { display: none; }
+        .dashboard-area, .chat-area { padding: 14px; }
+    }
+    @media (max-width: 500px) {
+        .side-nav { width: 220px !important; min-width: 220px !important; padding: 0 !important; }
+        .side-nav .view-tab { font-size: 14px; padding: 11px 20px; }
+    }
+
+/* Action Plan - giao diện báo cáo và duyệt hai cấp */
+.ap-modal-overlay { position:fixed;inset:0;z-index:99999;background:rgba(15,23,42,.56);display:flex;align-items:center;justify-content:center;padding:16px; }
+.ap-modal {width:min(580px,100%);background:white;border-radius:14px;box-shadow:0 18px 55px #11182744;max-height:90vh;overflow:auto;color:#172b41;font-size:14px;}
+.ap-modal-head,.ap-modal-footer{padding:18px 22px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e5eaf1;gap:12px;}
+.ap-modal-head h3 {font-size:17px;margin:0;} .ap-modal-body {padding:20px 22px;max-height:60vh;overflow:auto;}
+.ap-modal-footer {border-top:1px solid #e5eaf1;border-bottom:0;background:#f8fafc;justify-content:flex-end;}
+.ap-modal button {border:1px solid #cbd5e1;border-radius:8px;background:#fff;padding:9px 13px;cursor:pointer;}
+.ap-modal .ap-modal-save{background:#0d9488;color:white;border-color:#0d9488;}
+.ap-form-label {display:block;font-weight:650;font-size:13px;margin-bottom:7px;}
+.ap-modal-input {display:block;width:100%;box-sizing:border-box;border:1px solid #cbd5e1;border-radius:8px;padding:10px;font:inherit;margin-bottom:16px;}
+.ap-modal-error {color:#b91c1c;margin-right:auto;font-size:12px;} .ap-history-entry {border:1px solid #dbe4ef;border-radius:9px;padding:12px;margin-bottom:10px;line-height:1.5;}
+.ap-status.submitted,.ap-status.lead_approved {background:#fef3c7;color:#92400e;}
+.ap-status.returned {background:#fee2e2;color:#991b1b;} .ap-status.approved {background:#dcfce7;color:#166534;}
+.ap-no-action {font-size:11px;color:#64748b;}
+
+/* Action Plans manually created by team lead */
+.ap-head-buttons{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.ap-head-buttons [hidden]{display:none!important}
+.ap-manual-section{border-top:1px solid #e2e8f0;padding:18px;margin-top:8px}
+.ap-manual-section h4{margin:0 0 14px;font-size:15px;color:#16324b}
+.ap-manual-section .action-plan-item{margin-bottom:12px}
+.ap-empty{font-size:13px;color:#64748b}
+
+.ap-admin-overview{border:1px solid #dce5ed;background:#fff;border-radius:12px;margin-bottom:18px;padding:18px}
+.ap-overview-title{display:flex;justify-content:space-between;gap:12px;font-size:16px;font-weight:700;color:#17314a;margin-bottom:14px}
+.ap-overview-title span{font-size:12px;font-weight:500;color:#64748b}
+.ap-overview-list{display:grid;gap:10px}
+.ap-overview-po{border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+.ap-overview-pohead{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px;background:#f8fafc}
+.ap-overview-items{padding:4px 12px}
+.ap-overview-row{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:9px 0;border-top:1px solid #edf2f7;font-size:13px}
+.ap-overview-row:first-child{border-top:0}
+.ap-overview-empty{color:#64748b;font-size:13px;margin:0;padding:12px}
+@media(max-width:700px){.ap-overview-pohead,.ap-overview-row{flex-direction:column;align-items:flex-start}}
+
+/* Admin Action Plan overview — isolated from the rest of Dashboard. */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media(max-width:640px){#dashboardActionPlan .ap-admin-overview{margin:12px 8px;padding:12px}#dashboardActionPlan .ap-filter-label,#dashboardActionPlan .ap-workshop-filter{width:100%}#dashboardActionPlan .ap-overview-pohead{align-items:stretch}#dashboardActionPlan .ap-po-open{width:100%}}
+
+/* Admin Action Plan: danh sách và phê duyệt theo PO */
+.ap-modal:has(.ap-po-plan-list){width:min(850px,100%)}
+.ap-po-plan-list{display:grid;gap:12px}
+.ap-po-plan-entry{border:1px solid #e2e8f0;border-radius:12px;padding:15px;background:#fff}
+.ap-po-plan-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+.ap-po-plan-top strong{font-size:15px;color:#17314a}
+.ap-po-plan-top p,.ap-po-plan-entry p{margin:5px 0;font-size:13px;line-height:1.5;color:#475569}
+.ap-po-plan-buttons{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-top:13px}
+.ap-po-plan-buttons .ap-review-primary{color:white;background:#0d9488;border-color:#0d9488}
+.ap-muted{color:#64748b;font-size:12px}
+
+/* Action Plans thật trong DB; điều khiển theo PO của từng xưởng */
+.ap-overview-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ap-manual-section{padding:16px 20px}.ap-manual-section .action-plan-item{margin:0 0 12px}
+@media(max-width:760px){.ap-overview-controls{width:100%}.ap-overview-pohead{flex-wrap:wrap}}
+
+/* KTV work metrics — isolated from attendance & other pages */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ============================================================
+   MES DESIGN SYSTEM — Industrial Operations Console / v2
+   Visual-only restyle. All feature hooks and element IDs retained.
+   ============================================================ */
+:root {
+  --primary: #176b76;
+  --primary-dark: #11515b;
+  --primary-light: #eaf4f3;
+  --bg: #f3f5f7;
+  --card: #fff;
+  --text: #192b38;
+  --text-light: #6b7b89;
+  --border: #dfe6ea;
+  --success: #217b55;
+  --shadow: 0 1px 3px rgba(18,36,48,.035), 0 8px 22px rgba(18,36,48,.035);
+  --mes-navy: #122c3a;
+  --mes-navy-dark: #0d2230;
+  --mes-navy-hover: #1d3c4c;
+  --mes-radius: 9px;
+  --mes-focus: 0 0 0 3px rgba(23,107,118,.15);
+}
+html { color-scheme: light; }
+body { font: 13px/1.5 "Segoe UI", Tahoma, Arial, sans-serif; letter-spacing: .002em; color: var(--text); background: var(--bg); }
+button,input,select,textarea { font-family: inherit; }
+button,select { -webkit-tap-highlight-color:transparent; }
+button:focus-visible,a:focus-visible,[tabindex]:focus-visible { outline:2px solid var(--primary); outline-offset:2px; }
+input:focus-visible,select:focus-visible,textarea:focus-visible {outline:none; border-color:var(--primary)!important;box-shadow:var(--mes-focus)!important}
+::selection {background:#cbe4e3;color:#123c43}
+::-webkit-scrollbar {width:9px;height:9px}
+::-webkit-scrollbar-track {background:transparent}
+::-webkit-scrollbar-thumb {background:#c4d0d6;border-radius:9px;border:2px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover {background:#9eaeb6;background-clip:padding-box}
+
+/* Workspace frame */
+.app {background:var(--bg)}
+.main {background:var(--bg)}
+.side-nav {width:244px!important;min-width:244px!important;padding:0!important;gap:0!important;background:var(--mes-navy)!important;border-right:1px solid #213d4c!important;box-shadow:none!important;overflow-y:auto;overflow-x:hidden;align-items:stretch!important}
+.side-nav.closed {width:0!important;min-width:0!important;padding:0!important;border-right:0!important;overflow:hidden}
+.side-nav .brand {display:flex;align-items:center;gap:11px;min-height:83px;padding:18px 20px!important;margin:0!important;border-bottom:1px solid rgba(255,255,255,.095);background:var(--mes-navy-dark);box-sizing:border-box}
+.side-nav .brand-mark {width:36px;height:36px;min-width:36px;border-radius:8px;background:#197581;display:grid;place-items:center;box-shadow:none}
+.side-nav .brand-text {min-width:0;display:flex;flex-direction:column;gap:2px}
+.side-nav .brand-text strong {color:#f4f8fa;font-size:14px;font-weight:700;line-height:1.35;white-space:normal}
+.side-nav .brand-text span {font-size:11px;color:#9cb2bf;letter-spacing:.01em}
+.side-nav .view-tabs {width:100%;padding:14px 11px 8px;box-sizing:border-box;display:flex;flex-direction:column;gap:3px!important;position:static!important}
+.side-nav .nav-label {display:block;margin:17px 11px 8px;padding:0;color:#869fae;font-size:10px;font-weight:700;letter-spacing:.095em;text-transform:uppercase}
+.side-nav .nav-label:first-child {margin-top:8px}
+.side-nav .view-tab {display:flex;align-items:center;gap:12px;width:100%;min-height:43px;padding:10px 13px!important;border:1px solid transparent!important;border-radius:7px!important;background:transparent!important;color:#b9cbd4!important;text-align:left!important;font-size:13px!important;font-weight:500!important;line-height:1.35!important;white-space:normal!important;transition:background .14s ease,color .14s ease}
+.side-nav .view-tab .nav-ico {width:18px;height:18px;flex:0 0 18px;opacity:.86}
+.side-nav .view-tab:hover {background:var(--mes-navy-hover)!important;color:#fff!important}
+.side-nav .view-tab.active {background:#254c59!important;color:#fff!important;border-color:rgba(143,208,208,.17)!important;font-weight:650!important;box-shadow:inset 3px 0 0 #55b8b5!important}
+.side-nav .view-tab.active .nav-ico{opacity:1}
+.side-nav #userBox {margin:0 11px 13px}
+.side-nav .user-card {padding:12px!important;background:rgba(255,255,255,.055)!important;border:1px solid rgba(255,255,255,.07)!important;border-radius:8px!important;box-shadow:none!important;gap:9px}
+.side-nav .user-avatar {background:#2d5b67!important;color:#f4fbfb!important;border-radius:7px!important}
+.side-nav .user-info {min-width:0}
+.side-nav .logout-btn {background:transparent!important;color:#c1d5dc!important;border:1px solid rgba(255,255,255,.14)!important;border-radius:6px!important}
+.side-nav .logout-btn:hover {background:rgba(255,255,255,.09)!important}
+.nav-toggle {z-index:1201!important;border-radius:7px!important;box-shadow:0 1px 3px rgba(12,37,48,.12)!important}
+
+/* Top app bar */
+.topbar {min-height:70px;height:70px;padding:0 26px!important;background:#fff!important;border-bottom:1px solid var(--border)!important;box-shadow:none!important;gap:16px}
+.topbar-left {margin-left:0!important;order:0!important;min-width:0;flex:1}
+.page-title {font-size:17px!important;font-weight:700!important;line-height:1.3;letter-spacing:-.02em;color:#162f3d}
+.page-subtitle {font-size:11px!important;color:#71828e!important;margin-top:3px!important}
+.top-date {white-space:nowrap;color:#778997!important;font-size:12px}
+.status-badge {border:1px solid #d3e8df;border-radius:6px!important;padding:6px 9px!important;background:#edf7f1!important;color:#236d4f!important;font-size:11px!important;white-space:nowrap}
+.status-dot {background:#27936b!important;box-shadow:none!important}
+.top-refresh {margin-left:2px}
+.footer {background:var(--bg)!important;color:#9aabb4!important;border-top:1px solid #e5ebef!important;font-size:11px!important}
+.dashboard-area {padding:23px 26px 30px!important;scrollbar-gutter:stable}
+.dashboard {max-width:1480px!important;margin:0 auto}
+.chat-area {padding:22px 26px!important}
+
+/* Surface, headings, KPI */
+.cards {gap:14px!important}
+.metric {min-height:112px;padding:17px 20px!important;background:#fff!important;border:1px solid var(--border)!important;border-radius:var(--mes-radius)!important;box-shadow:var(--shadow)!important;position:relative;overflow:hidden!important}
+.metric::before {content:"";position:absolute;top:0;left:0;bottom:0;width:3px;background:#a7bdc7}
+.metric.m-blue::before {background:#268699}.metric.m-amber::before{background:#d1a14b}.metric.m-violet::before{background:#8291ae}.metric.m-green::before{background:#5c9c79}
+.metric::after {display:none!important}
+.metric-label {font-size:11px!important;letter-spacing:.07em!important;font-weight:700!important;text-transform:uppercase;color:#6d7e8b!important}
+.metric-value {margin-top:5px!important;font-size:28px!important;font-weight:750!important;line-height:1.2!important;letter-spacing:-.04em!important;color:#192e3b!important;font-variant-numeric:tabular-nums}
+.metric-sub {margin-top:6px!important;font-size:11px!important;color:#85939d!important}
+.panel,.exec-panel,.chat-card {background:#fff!important;border:1px solid var(--border)!important;border-radius:var(--mes-radius)!important;box-shadow:var(--shadow)!important;overflow:hidden}
+.panel,.exec-panel {margin-top:17px!important}
+.panel-head,.exec-head {min-height:58px;padding:15px 19px!important;gap:12px;border-bottom:1px solid #e5ebef!important;background:#fff!important}
+.panel-head h3,.exec-head h3 {font-size:14px!important;font-weight:700!important;line-height:1.4;color:#233b48!important;letter-spacing:-.01em;margin:0}
+.dash-head h2 {font-size:20px!important;font-weight:700;color:#203844}
+.dash-head p {color:#778996!important;font-size:12px!important}
+
+/* Form controls and actions */
+.search,.refresh-btn,.mini-btn,select,input[type="date"],input[type="search"],input[type="text"],input[type="number"],textarea {font-family:inherit}
+.search,.refresh-btn,.mini-btn {border-radius:6px!important}
+.search {min-height:37px;padding:8px 12px!important;border:1px solid #cad5dc!important;background:#fff!important;color:#1e3542!important;font-size:12px!important;box-shadow:none!important}
+.search::placeholder,input::placeholder,textarea::placeholder {color:#96a6b0;opacity:1}
+.refresh-btn,.mini-btn {min-height:36px;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:8px 13px!important;background:#fff!important;border:1px solid #cbd5dc!important;color:#29414d!important;font-size:12px!important;font-weight:650!important;box-shadow:none!important;cursor:pointer}
+.refresh-btn:hover,.mini-btn:hover {background:#f1f6f7!important;border-color:#8eacb7!important;color:#124c55!important}
+button:disabled {cursor:not-allowed;opacity:.57}
+
+/* Tabular density and readability */
+.table-wrap {overflow-x:auto;overscroll-behavior-x:contain}
+.table-wrap table {width:100%;border-collapse:separate!important;border-spacing:0!important;font-size:12px!important;line-height:1.45!important}
+.table-wrap th {position:relative;background:#f7f9fa!important;color:#637885!important;font-size:10.5px!important;letter-spacing:.055em!important;text-transform:uppercase!important;font-weight:750!important;white-space:nowrap;padding:12px 14px!important;border-bottom:1px solid #dfe7eb!important}
+.table-wrap td {padding:12px 14px!important;border-bottom:1px solid #edf1f3!important;color:#304653!important;vertical-align:middle;font-size:12px!important}
+.table-wrap tbody tr:last-child td {border-bottom:0!important}
+.table-wrap tbody tr:hover {background:#f7fafb!important}
+.table-wrap tbody tr.po-row {cursor:pointer}
+.table-wrap tbody tr.po-row:hover {background:#eff7f8!important}
+.table-wrap th:first-child,.table-wrap td:first-child {padding-left:19px!important}
+.table-wrap th:last-child,.table-wrap td:last-child {padding-right:19px!important}
+.table-wrap .empty {padding:44px 16px!important;color:#8394a0!important;font-size:12px!important}
+.progress {height:6px!important;background:#e4eaee!important;border-radius:3px!important}
+.progress > span {background:#267f8b!important;border-radius:3px!important}
+.pill,.work-process-badge,.work-status {border-radius:5px!important;font-size:11px!important;font-weight:700!important;letter-spacing:0!important;padding:4px 8px!important}
+.pill::before {display:none!important}
+.pill-ok,.pill-complete,.work-approved,.work-process-done {background:#eaf5ee!important;color:#216b49!important}
+.pill-warn,.pill-planned,.work-process-pending,.work-process-soon {background:#fbf2df!important;color:#8a641f!important}
+.pill-bad,.work-returned,.work-process-danger {background:#fbeceb!important;color:#a43f39!important}
+.pill-off,.work-process-active {background:#edf1f3!important;color:#5d707d!important}
+.pill-progress {background:#e9f2f6!important;color:#2a657a!important}
+
+/* Detail sections */
+.info-list {padding:17px 20px!important;gap:16px!important}
+.info-item label {font-size:10px!important;letter-spacing:.055em!important;color:#80919b!important}
+.info-item strong {font-size:13px!important;font-weight:650!important;color:#203844!important}
+.detail-section {padding:18px 20px!important;border-top:1px solid #edf1f3!important}
+.detail-section h4 {font-size:13px!important;font-weight:700!important;color:#223c49!important}
+.analysis-card,.exec-card {border:1px solid #e2e8ec!important;background:#fafbfc!important;border-radius:7px!important;padding:14px 15px!important;box-shadow:none!important}
+.analysis-card .label,.exec-card .label {color:#718591!important;font-size:10px!important}
+.analysis-card .value,.exec-card .value {color:#193745!important;font-size:21px!important;font-weight:750!important}
+.stage-track {background:#e9eef0!important}.stage-track span{background:#377d89!important}
+.warning-box,.danger-box,.ok-box,.alert-note {border-radius:7px!important;line-height:1.55!important;font-size:12px!important}
+.priority-panel,.action-plan-panel {border-radius:var(--mes-radius)!important;box-shadow:var(--shadow)!important}
+.priority-item,.action-plan-item {border-radius:7px!important;box-shadow:none!important}
+.priority-title {font-size:13px!important;font-weight:700!important}
+.priority-reason {font-size:12px!important;line-height:1.55!important}
+.priority-badge {border-radius:4px!important;font-size:10px!important}
+.action-track {background:#f8fafb!important;border-radius:7px!important;border-color:#e3eaed!important}
+
+/* Action plan admin view & manual forms */
+
+
+
+
+
+
+
+
+
+
+
+
+
+.ap-modal-overlay {background:rgba(12,30,42,.57)!important;backdrop-filter:blur(2px)}
+.ap-modal {border:1px solid #dbe5e9;border-radius:10px!important;box-shadow:0 18px 56px rgba(13,32,43,.23)!important}
+.ap-modal-head,.ap-modal-footer {padding:17px 21px!important;border-color:#e3eaee!important}
+.ap-modal-head h3 {font-size:16px!important;font-weight:750!important;color:#1c3644!important}
+.ap-modal-body {padding:19px 21px!important}
+.ap-modal-footer {background:#f8fafb!important}
+.ap-modal button {border-radius:6px!important;font-weight:600!important}
+.ap-modal .ap-modal-save {background:#176b76!important;border-color:#176b76!important}
+.ap-form-label {font-size:12px!important;color:#344e5b!important}
+.ap-modal-input {border-radius:6px!important;border-color:#cbd6dd!important}
+.ap-history-entry {border-radius:7px!important;background:#fbfcfc!important}
+.ap-manual-section {border-color:#e8edef!important}
+
+/* Technician metrics */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Chat — restrained SaaS look */
+.chat-card {max-width:1320px!important}
+.welcome {padding:17px 20px!important;background:#fff!important}
+.welcome h2 {font-size:16px!important;color:#203b47!important}
+.welcome p {font-size:12px!important;color:#738793!important}
+
+/* Layout adaptations */
+@media (max-width:1200px) {
+ .side-nav {width:222px!important;min-width:222px!important}
+ .dashboard-area {padding:20px!important}
+ 
+}
+@media (max-width:1000px) {
+ .cards {grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .analysis-grid {grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ 
+}
+@media (max-width:800px) {
+ .side-nav {position:fixed!important;left:0;top:0;z-index:1200!important;width:244px!important;min-width:244px!important;box-shadow:14px 0 40px rgba(7,25,39,.16)!important}
+ .side-nav.closed {transform:translateX(-100%)!important;width:244px!important;min-width:244px!important}
+ .side-nav.closed .view-tabs,.side-nav.closed .side-nav-spacer {display:flex!important}
+ .topbar {padding:0 15px 0 62px!important}
+ .dashboard-area {padding:16px!important}
+ .chat-area {padding:15px!important}
+ .top-date {display:none!important}
+ .page-title {font-size:15px!important}
+ .page-subtitle {max-width:360px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ #dashboardActionPlan .ap-overview-list {padding:13px!important}
+}
+@media (max-width:600px) {
+ .cards {grid-template-columns:1fr!important}
+ 
+ 
+ .panel-head,.exec-head {flex-wrap:wrap;align-items:stretch!important}
+ .panel-head .search {width:100%!important;max-width:none!important}
+ .topbar {gap:9px!important}
+ .status-badge {display:none!important}
+ .top-refresh {font-size:0!important;min-width:38px!important;padding:0 9px!important}
+ .dashboard-area {padding:12px!important}
+ .metric {min-height:97px}
+ .metric-value {font-size:25px!important}
+ .info-list {grid-template-columns:1fr!important}
+ 
+}
+@media (prefers-reduced-motion:reduce) {*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}}
+
+/* Production Order Management */
+.po-head-actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.po-head-actions .search{min-width:130px;max-width:245px}.po-create-btn{background:#0c6874;color:white;border:1px solid #0c6874;border-radius:7px;padding:10px 14px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}.po-create-btn:hover{background:#095660}.po-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.po-form-grid>label{display:flex;flex-direction:column;gap:7px;font-size:12px;font-weight:650;color:#30465a}.po-form-grid input:not([type=checkbox]),.po-form-grid select{border:1px solid #d2dce2;border-radius:7px;padding:10px;font:inherit;background:white;color:#183343;width:100%;box-sizing:border-box}.po-machine-picker{grid-column:1/-1;border:1px solid #d2dce2;border-radius:9px;padding:12px}.po-machine-picker legend{font-size:12px;font-weight:700;padding:0 5px}.po-machine-picker>div{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-height:210px;overflow:auto}.po-machine-picker label{font-size:12px;display:flex;gap:8px;align-items:center}.po-form-hint{grid-column:1/-1;margin:0;color:#687c8e;font-size:12px}.po-row-quick{display:flex;gap:5px;margin-top:7px}.po-row-quick button{border:1px solid #cad8e0;background:#f5f9fa;border-radius:5px;color:#285368;padding:4px 8px;font-size:11px;cursor:pointer}.po-row-quick button:hover{background:#e5f0f1}@media(max-width:900px){.po-head-actions{justify-content:flex-start}.po-form-grid{grid-template-columns:1fr}.po-machine-picker>div{grid-template-columns:1fr}}
+
+/* PO detail production journal */
+.po-detail-modal{width:min(1050px,calc(100vw - 32px));max-width:1050px}.po-detail-modal .ap-modal-body{max-height:min(72vh,730px);overflow:auto}.po-detail-intro{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:15px}.po-detail-intro>div{padding:11px;background:#f5f8fa;border:1px solid #e0e8ed;border-radius:7px;display:flex;flex-direction:column;gap:5px}.po-detail-intro span{color:#697d8d;font-size:11px}.po-detail-intro strong{font-size:13px;color:#1d3b4d}.po-detail-note{color:#5c7180;font-size:12px;margin:0 0 14px;line-height:1.6}.po-detail-locked{color:#8a610e;background:#fdf7e8;border:1px solid #eddfb3;padding:10px;border-radius:6px;font-size:12px}.po-detail-machine-list{display:flex;flex-direction:column;gap:13px}.po-detail-machine{border:1px solid #dce5e9;border-radius:9px;overflow:hidden;background:white}.po-detail-machine-head{padding:13px 15px;background:#f7f9fa;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}.po-detail-machine-head b{font-size:13px;color:#203c50}.po-detail-machine-head small{display:block;margin-top:5px;color:#738696;font-size:11px}.po-detail-totals{display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-size:12px}.po-detail-totals strong{color:#183e52}.po-detail-totals button,.po-detail-table button{font-size:12px;padding:7px 10px;background:#e9f3f3;border:1px solid #b7d5d4;color:#166573;border-radius:6px;cursor:pointer;font-weight:600}.po-detail-totals button:hover,.po-detail-table button:hover{background:#d9e9e9}.po-detail-table-wrap{width:100%;overflow-x:auto}.po-detail-table{width:100%;border-collapse:collapse;min-width:580px}.po-detail-table th{text-align:left;color:#667d8c;font-size:11px;background:#fbfcfd;padding:10px 14px;border-bottom:1px solid #e3ebef}.po-detail-table td{font-size:12px;padding:10px 14px;border-bottom:1px solid #edf1f3}.po-detail-table tr:last-child td{border-bottom:0}.po-detail-empty{text-align:center;color:#738696;padding:18px!important}@media(max-width:780px){.po-detail-intro{grid-template-columns:repeat(2,minmax(0,1fr))}.po-detail-machine-head{align-items:flex-start}}
+
+/* Dashboard: tiến độ sản lượng và chất lượng là hai chỉ số khác nhau. */
+.po-quality-info { margin-top: 5px; font-size: 11px; line-height: 1.35; white-space: nowrap; }
+.po-quality-warning { color: #a35a0b; font-weight: 650; }
+.po-quality-muted { color: #64748b; }
+
+/* Completion vs production yield shown independently in PO edit modal */
+.po-completion-summary{margin:14px 0 18px;padding:16px;border:1px solid #dbe6ef;border-radius:12px;background:#f7fbfd}
+.po-completion-title{font-size:15px;font-weight:700;color:#12344b;margin-bottom:12px}
+.po-completion-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.po-completion-grid>div{padding:11px;background:white;border:1px solid #e4ebf1;border-radius:8px;min-width:0}
+.po-completion-grid span{display:block;font-size:12px;color:#5a6b7d;margin-bottom:6px}
+.po-completion-grid strong{font-size:18px;color:#12344b}
+.po-completion-track{background:#dce7ed;height:8px;border-radius:99px;overflow:hidden;margin:14px 0 9px}
+.po-completion-track span{display:block;background:#21818d;height:100%;border-radius:99px}
+.po-completion-summary p{font-size:12px;color:#5e7183;margin:0;line-height:1.5}
+@media(max-width:700px){.po-completion-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Work screen: remove page heading and reclaim its vertical space. */
+body.work-no-topbar .topbar { display:none!important; }
+.po-edit-toolbar-actions { display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:9px; }
+.po-start-action { background:#187448!important;color:#fff!important;border-color:#187448!important; }
+.po-start-action:disabled { opacity:.5;cursor:not-allowed; }
+
+/* Production order editor */
+/* Phân công máy tích hợp trong hộp thoại chỉnh sửa Production Order */
+.po-edit-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;background:#f4f8fa;border:1px solid #dbe5e9;border-radius:8px;margin:16px 0}
+.po-edit-toolbar strong{display:block;font-size:14px;color:#153a49}
+.po-edit-toolbar p{margin:5px 0 0;font-size:12px;color:#627587}
+.po-edit-toolbar .po-edit-assign{flex-shrink:0;cursor:pointer;background:#166b76;color:white;border:1px solid #166b76;border-radius:6px;padding:10px 15px;font:inherit;font-weight:600}
+.po-edit-toolbar .po-edit-assign:hover{background:#0f5260}
+@media(max-width:600px){.po-edit-toolbar{align-items:stretch;flex-direction:column}.po-edit-toolbar .po-edit-assign{width:100%}}
+
+/* Customer account creation v2 */
+.customer-password-row{display:flex;align-items:center;gap:8px;margin-top:5px}
+.customer-password-eye{flex:0 0 auto;border:1px solid #bacbd6;border-radius:7px;background:#f6f9fc;color:#16465a;min-height:40px;padding:0 12px;cursor:pointer}
+.customer-password-eye:hover{background:#dceff4}
+.customer-create-version{font-size:12px;font-weight:600;color:#087487;margin-bottom:12px}
+
+/* Trình tự công trạm sản xuất */
+.co-machine-sequence{margin-top:12px;display:grid;gap:8px}
+.co-sequence-title{font-weight:700;color:#244457;margin-bottom:2px}
+.co-sequence-step{display:flex;align-items:center;gap:10px;padding:9px 11px;border:1px solid #d7e3e9;border-radius:9px;background:#f7fafb}
+.co-step-index{display:grid;place-items:center;flex:none;width:27px;height:27px;border-radius:50%;background:#0d6e7f;color:white;font-weight:700}
+.co-step-name{flex:1;min-width:0;font-size:13px}
+.co-sequence-step button{border:1px solid #c8d6df;border-radius:6px;background:white;cursor:pointer;min-width:30px;min-height:30px}
+.co-sequence-step button:disabled{opacity:.35;cursor:not-allowed}
+
+
+/* Bố cục chuyên nghiệp cho Công trạm sản xuất – form khách hàng */
+.ap-modal.co-create-modal{width:min(990px,calc(100vw - 28px));max-width:990px;display:flex;flex-direction:column;max-height:min(94vh,1000px);overflow:hidden}
+.co-create-modal .ap-modal-head,.co-create-modal .ap-modal-footer{flex:none}
+.co-create-modal .ap-modal-body{flex:1;max-height:none;overflow-y:auto;min-height:0}
+.co-create-modal .co-station-section{grid-column:1/-1;border-top:1px solid #e1e9ee;margin-top:4px;padding-top:17px;min-width:0}
+.co-station-heading{font-size:15px;font-weight:750;margin:0 0 13px;color:#1b3949}
+.co-station-heading span{font-size:12px;font-weight:600;color:#567080}
+.co-station-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:17px}
+.co-station-card{border:1px solid #dce6ed;background:#fbfcfd;border-radius:10px;padding:13px;min-width:0}
+.co-station-card-head,.co-sequence-head{font-size:13px;color:#1d3a4d;font-weight:750;min-height:31px;display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}
+.co-station-search-label{height:38px;display:flex;align-items:center;gap:8px;padding:0 11px;border:1px solid #ccdbe4;border-radius:7px;background:white;margin-bottom:9px;color:#6b8596}
+.co-station-search-label input{border:0!important;outline:0;box-shadow:none!important;min-width:0!important;width:100%;height:100%;font-size:12px!important;padding:0!important}
+.co-station-list{height:225px;overflow:auto;display:flex;flex-direction:column;gap:3px;padding-right:4px}
+.co-station-option{display:flex;gap:9px;align-items:center;padding:8px;border-radius:6px;font-size:12px;line-height:1.4;cursor:pointer;color:#263f50}
+.co-station-option input{accent-color:#087d8a;flex:none}
+.co-station-option.is-selected{background:#e4f3f4}
+.co-station-option:hover{background:#eff5f7}
+.co-machine-sequence{margin:0;display:flex;flex-direction:column;gap:7px;max-height:272px;min-height:160px;overflow:auto;padding-right:3px}
+.co-sequence-step{display:flex;align-items:center;gap:9px;padding:9px 10px;border:1px solid #dce6ec;border-radius:8px;background:white;min-width:0}
+.co-step-index{width:27px;height:27px;flex:none;display:grid;place-items:center;background:#e9f1f5;border-radius:50%;color:#31586a;font-weight:750;font-size:12px}
+.co-step-name{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;overflow-wrap:anywhere;font-size:12px}
+.co-step-name b{font-size:12px;color:#1c394b}.co-step-name small{color:#577082;font-size:11px}
+.co-step-actions{display:flex;align-items:center;gap:3px;flex:none}
+.co-create-modal .co-step-actions button{padding:0!important;width:29px;height:30px;min-width:29px;min-height:30px;display:grid;place-items:center;color:#34566b;font-size:15px}
+.co-create-modal .co-step-actions button.co-step-remove{color:#b94a4a}
+.co-create-modal .co-step-actions button:disabled,.co-create-modal .co-clear-stations:disabled{opacity:.35;cursor:not-allowed}
+.co-create-modal .co-clear-stations{padding:6px 9px!important;font-size:11px!important;color:#466579;background:white}
+.co-sequence-help{font-size:11px;line-height:1.5;background:#ecf5fb;border:1px solid #deebf6;color:#526f83;border-radius:7px;padding:8px 10px;margin:11px 0 0}
+.co-station-empty{text-align:center;font-size:12px;line-height:1.7;color:#73889a;margin:auto;padding:25px 8px}
+@media(max-width:740px){.co-station-columns{grid-template-columns:1fr}.co-station-list{height:160px}.co-machine-sequence{max-height:235px}.co-create-modal .ap-modal-body{padding:14px!important}}
+
+/* Modal tạo công đơn - bố cục 2 cột desktop, áp dụng độc lập với grid nội bộ cũ */
+.ap-modal-overlay>.ap-modal.co-create-modal {
+ width:min(1060px,calc(100vw - 42px))!important;
+ max-width:1060px!important;
+ min-width:0!important;
+ max-height:calc(100dvh - 32px)!important;
+ display:flex!important;flex-direction:column!important;overflow:hidden!important;
+ border-radius:12px!important;
+}
+.ap-modal.co-create-modal .ap-modal-body{overflow-y:auto!important;overflow-x:hidden!important;max-height:none!important;flex:1 1 auto!important;padding:23px 26px!important}
+.ap-modal.co-create-modal .ap-modal-head{flex:none!important;padding:19px 26px!important}
+.ap-modal.co-create-modal .ap-modal-footer{flex:none!important;padding:15px 26px!important}
+.ap-modal.co-create-modal .po-form-grid{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:18px 22px!important;width:100%!important}
+.ap-modal.co-create-modal .po-form-grid>label{min-width:0!important}
+.ap-modal.co-create-modal .co-station-section{display:block!important;grid-column:1 / -1!important;grid-row:auto!important;width:100%!important;min-width:0!important;clear:both!important}
+.ap-modal.co-create-modal .co-station-columns{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:22px!important;align-items:stretch!important;width:100%!important}
+.ap-modal.co-create-modal .co-station-card{display:flex!important;flex-direction:column!important;min-width:0!important;width:100%!important;box-sizing:border-box!important;padding:16px!important}
+.ap-modal.co-create-modal .co-station-card-head,.ap-modal.co-create-modal .co-sequence-head{font-size:14px!important;line-height:1.4!important;min-width:0!important}
+.ap-modal.co-create-modal .co-station-list{display:flex!important;flex-direction:column!important;grid-template-columns:none!important;gap:4px!important;height:255px!important;overflow-y:auto!important;overflow-x:hidden!important;max-height:255px!important;min-width:0!important}
+.ap-modal.co-create-modal .co-station-option{display:flex!important;grid-template-columns:none!important;align-items:center!important;gap:9px!important;min-width:0!important;flex:none!important;line-height:1.5!important;padding:8px 10px!important;border-radius:6px!important}
+.ap-modal.co-create-modal .co-station-option span{min-width:0!important;overflow-wrap:anywhere!important}
+.ap-modal.co-create-modal .co-station-option input[type=checkbox]{width:16px!important;min-width:16px!important;height:16px!important;margin:0!important;flex:none!important;padding:0!important}
+.ap-modal.co-create-modal .co-machine-sequence{display:flex!important;flex-direction:column!important;grid-template-columns:none!important;gap:8px!important;min-height:220px!important;max-height:315px!important;margin:0!important;overflow:auto!important}
+.ap-modal.co-create-modal .co-sequence-step{display:flex!important;align-items:center!important;gap:10px!important;min-width:0!important;width:100%!important;box-sizing:border-box!important;flex:none!important;padding:10px!important}
+.ap-modal.co-create-modal .co-step-name{display:flex!important;flex-direction:column!important;flex:1!important;min-width:0!important;overflow-wrap:anywhere!important}
+.ap-modal.co-create-modal .co-step-actions{display:flex!important;flex:none!important;gap:4px!important;align-items:center!important}
+.ap-modal.co-create-modal .co-step-actions button{width:32px!important;height:32px!important;min-width:32px!important;padding:0!important;display:grid!important;place-items:center!important;font-size:16px!important}
+.ap-modal.co-create-modal .po-form-hint{grid-column:1/-1!important;line-height:1.6!important}
+@media(max-width:760px){
+ .ap-modal-overlay>.ap-modal.co-create-modal{width:calc(100vw - 20px)!important;max-height:calc(100dvh - 20px)!important}
+ .ap-modal.co-create-modal .po-form-grid{grid-template-columns:minmax(0,1fr)!important}
+ .ap-modal.co-create-modal .co-station-columns{grid-template-columns:minmax(0,1fr)!important}
+ .ap-modal.co-create-modal .ap-modal-body{padding:15px!important}
+}
+
+/* Required marker in the production-station section heading */
+.co-station-heading .co-required-star{color:#dc2626;font-size:16px;font-weight:750;margin-left:3px}
+
+/* Customer order history: layout independent of legacy PO styles */
+.co-history-modal{width:min(840px,94vw)!important;max-width:840px!important}
+.co-history-modal .ap-modal-body{max-height:68vh;overflow:auto;padding:24px!important}
+.co-history-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:18px;background:#f7fafc;border:1px solid #e0e8ee;border-radius:12px}
+.co-history-field{display:flex;flex-direction:column;gap:5px;min-width:0;font-size:13px}
+.co-history-field span,.co-history-muted{color:#667e8f}.co-history-field strong{color:#213c4d;overflow-wrap:anywhere}
+.co-history-wrap h4{font-size:15px;margin:23px 0 12px;color:#173a4d}
+.co-history-events{border-left:2px solid #d8e9ec;margin-left:15px;padding-left:22px}
+.co-history-event{position:relative;margin-bottom:20px;font-size:13px;color:#506778;line-height:1.6}
+.co-history-event strong{display:block;color:#183d50;font-size:14px}
+.co-history-event small{color:#667e8f}.co-history-dot{position:absolute;left:-37px;top:0;width:28px;height:28px;border-radius:50%;background:#e2f4f3;border:1px solid #b6dbdb;color:#0c6872;display:grid;place-items:center;font-weight:700}
+.co-history-stations{display:grid;gap:8px}.co-history-station{display:flex;align-items:center;gap:12px;padding:11px 14px;border:1px solid #e0e8ee;border-radius:9px;flex-wrap:wrap;font-size:13px}
+.co-history-station-number{width:28px;height:28px;border-radius:50%;background:#e7f1f5;display:grid;place-items:center;font-weight:700;color:#126b77}
+.co-history-reason{border-left:3px solid #d9735b;padding:10px 14px;background:#fff4f0;border-radius:6px}
+@media(max-width:640px){.co-history-summary{grid-template-columns:1fr}}
+
+/* Customer order row opens history directly; controls remain independent. */
+.co-clickable-order{cursor:pointer;transition:background-color .16s ease}
+.co-clickable-order:hover{background:#eef7f8}
+.co-clickable-order:focus-visible{outline:2px solid #087b88;outline-offset:-2px;background:#eef7f8}
+.co-clickable-order td:last-child button{cursor:pointer}
+
+/* Chỉnh sửa công đoạn sản xuất của Admin */
+.co-stage-modal{width:min(1040px,95vw)!important;max-width:1040px!important}
+.co-stage-modal .ap-modal-body{max-height:68vh;overflow:auto}
+.co-progress-hint{color:#64748b;font-size:13px;line-height:1.6}
+.co-progress-toolbar{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}
+.co-progress-toolbar select{flex:1;min-width:220px;padding:10px;border:1px solid #cbd5e1;border-radius:8px}
+.co-stage-edit-row{display:grid;grid-template-columns:minmax(220px,2fr) 110px minmax(155px,1fr) 34px 34px 64px;gap:10px;align-items:center;padding:12px;border:1px solid #e2e8f0;border-radius:10px;margin:8px 0}
+.co-stage-edit-row input[type=number]{width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:8px}
+.co-stage-edit-row button{min-height:34px}
+.co-stage-name{font-weight:600;color:#183547}
+@media(max-width:850px){.co-stage-edit-row{grid-template-columns:1fr 95px 1fr;gap:8px}.co-stage-name{grid-column:1/-1}}
+
+/* V15 - Tiến độ công đơn dựa trên sản phẩm hoàn tất ở công đoạn cuối */
+.co-progress-wrap {min-width:145px;max-width:195px;display:flex;flex-direction:column;gap:5px;padding:2px 0}
+.co-progress-heading {display:flex;align-items:center;justify-content:flex-end;color:#1c5560;font-size:12px;font-variant-numeric:tabular-nums}
+.co-progress-track {height:8px;width:100%;border-radius:99px;background:#e8eef1;overflow:hidden}
+.co-progress-fill {height:100%;background:#167c86;border-radius:99px;transition:width .2s ease}
+.co-progress-detail {font-size:10.5px;line-height:1.3;color:#667d89;white-space:normal}
+
+/* V16: số lượng còn lại theo dòng chảy công đoạn */
+.co-stage-name{display:flex;flex-direction:column;gap:5px;min-width:0}
+.co-stage-remaining{font-size:11px;color:#587386;font-weight:400;line-height:1.45}
+.co-stage-remaining.co-stage-invalid{color:#be123c;font-weight:600}
+
+/* Phân bổ sản phẩm theo công trạm — tổng các phần bằng số lượng kế hoạch */
+.co-stage-breakdown{margin-top:22px;padding:18px;border:1px solid #dce5eb;border-radius:14px;background:#f8fafc}
+.co-stage-breakdown h4{margin:0 0 8px;font-size:16px;color:#16394b}
+.co-flow-chart{display:grid;grid-template-columns:240px minmax(0,1fr);align-items:center;gap:26px;margin-top:16px}
+.co-stage-pie{width:220px;height:220px;border-radius:50%;position:relative;display:grid;place-items:center;box-shadow:0 3px 12px #0f172a15}
+.co-stage-pie-center{width:128px;height:128px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;flex-direction:column;box-shadow:0 1px 8px #0f172a12}
+.co-stage-pie-center strong{font-size:27px;color:#143b4d}
+.co-stage-pie-center span{font-size:11px;color:#60778a}
+.co-stage-legend{display:flex;flex-direction:column;gap:9px;min-width:0}
+.co-stage-legend-row{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:10px;align-items:center;font-size:13px;color:#24445a}
+.co-stage-legend-row strong{white-space:nowrap;font-variant-numeric:tabular-nums}
+.co-stage-legend-dot{width:11px;height:11px;border-radius:3px}
+.co-stage-side{display:flex;flex-direction:column;gap:12px;min-width:0}
+.co-stage-total-card{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border:1px solid #dbe7ef;border-radius:12px;background:#f8fbfd;color:#24445a}
+.co-stage-total-card strong{font-size:20px;color:#143b4d;font-variant-numeric:tabular-nums}
+.co-stage-total-card span{font-size:12px;color:#60778a}
+.co-stage-pie-solid{box-shadow:0 3px 12px #0f172a15;border:1px solid #e6eef5}
+.co-stage-pie-solid .co-stage-pie-center{display:none}
+
+@media(max-width:760px){.co-flow-chart{grid-template-columns:1fr}.co-stage-pie{margin:auto}}
+
+/* V18: đưa biểu đồ lên đầu cửa sổ, không dùng radio xác định vị trí lô hàng */
+.co-stage-modal .co-stage-breakdown{margin:16px 0 24px;padding:16px 20px}
+.co-stage-modal .co-flow-chart{grid-template-columns:175px minmax(0,1fr);gap:20px;margin-top:10px}
+.co-stage-modal .co-stage-pie{width:160px;height:160px}
+.co-stage-modal .co-stage-pie-center{width:100px;height:100px}
+.co-stage-modal .co-stage-pie-center strong{font-size:22px}
+.co-stage-modal .co-stage-legend{max-height:176px;overflow:auto}
+.co-stage-modal .co-stage-list-heading{font-size:15px;color:#153848;margin:12px 0}
+@media(max-width:700px){.co-stage-modal .co-flow-chart{grid-template-columns:1fr}}
+
+/* V19: lịch sử công đơn read-only cùng dữ liệu phân bổ với Admin */
+.co-history-stage-details{display:flex;flex-direction:column;gap:5px;min-width:0}.co-history-stage-details small{font-size:12px;color:#64748b;line-height:1.5}.co-history-breakdown{margin-top:22px;margin-bottom:22px}.co-history-breakdown .co-flow-chart{padding:10px 0}.co-history-breakdown .co-stage-pie{flex-shrink:0}
+
+/* Khung chat AI dành riêng cho khách hàng, tối ưu desktop/mobile. */
+.customer-chat-shell{max-width:1080px;margin:0 auto;overflow:hidden;display:flex;flex-direction:column;min-height:min(690px,calc(100vh - 215px));padding:0!important}
+.customer-chat-head{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 24px;border-bottom:1px solid #e2e8f0}
+.customer-chat-head h3{margin:0 0 6px;font-size:19px;color:#15394a}.customer-chat-head p{margin:0;color:#708497;font-size:13px}
+.customer-chat-scope{background:#e9f5f3;color:#16736e;border:1px solid #cce7e3;padding:7px 11px;border-radius:20px;font-size:12px;white-space:nowrap}
+.customer-chat-messages{flex:1;min-height:330px;max-height:62vh;overflow-y:auto;padding:26px 24px;display:flex;flex-direction:column;gap:15px;background:#fafcfd}
+.customer-chat-bubble{max-width:83%;width:fit-content;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65;padding:13px 17px;border-radius:15px;font-size:14px;box-shadow:0 1px 3px #17344310}
+.customer-chat-bubble.assistant{background:#fff;border:1px solid #dce6ec;align-self:flex-start;color:#233e4b;border-bottom-left-radius:4px}
+.customer-chat-bubble.user{background:#106c79;align-self:flex-end;color:#fff;border-bottom-right-radius:4px}
+.customer-chat-suggestions{display:flex;flex-wrap:wrap;gap:8px;padding:12px 24px 4px}
+.customer-chat-suggestions button{background:#fff;border:1px solid #cbdbe2;border-radius:22px;padding:8px 12px;color:#216776;cursor:pointer;font-size:12px}
+.customer-chat-form{display:flex;gap:12px;padding:14px 24px 6px;align-items:end}
+.customer-chat-form textarea{flex:1;min-width:0;resize:vertical;min-height:48px;max-height:120px;padding:12px 14px;border:1px solid #cbd8e2;border-radius:12px;font:inherit;line-height:1.45}
+.customer-chat-form button{height:48px;min-width:80px;border-radius:10px}
+.customer-chat-note{font-size:11px;color:#7890a0;margin:0;padding:2px 24px 17px}
+@media(max-width:700px){.customer-chat-head{padding:16px}.customer-chat-scope{display:none}.customer-chat-messages{padding:15px;min-height:250px}.customer-chat-suggestions,.customer-chat-form{padding-left:14px;padding-right:14px}.customer-chat-bubble{max-width:94%}}
+
+/* V21: Khách hàng dùng bố cục AI Assistant toàn trang như khu vực chat nội bộ. */
+.customer-ai-page {display:flex;flex-direction:column;min-height:0;flex:1;}
+.customer-ai-page.hidden {display:none!important;}
+.customer-ai-page .customer-chat-shell {max-width:1320px!important;width:100%;height:calc(100vh - 225px);min-height:490px;max-height:900px;display:flex;flex-direction:column; margin:0 auto; padding:0!important;overflow:hidden;}
+.customer-ai-page .customer-chat-head {flex:none;background:#fff;padding:18px 25px;}
+.customer-ai-page .customer-chat-messages {flex:1;min-height:0;max-height:none;overflow-y:auto;background:#f8fafc;}
+.customer-ai-page .customer-chat-footer {flex:none;background:#fff;border-top:1px solid #e2e8f0;}
+.customer-ai-page .customer-chat-form textarea {resize:none;}
+@media(max-width:700px){.customer-ai-page .customer-chat-shell{height:calc(100dvh - 190px);min-height:420px}.customer-ai-page .customer-chat-head{padding:14px}}
+
+/* V22: chat công đơn rõ ràng, bảng AI có cấu trúc, thanh % cho mọi vai trò. */
+.customer-ai-page{padding:16px 20px!important;}
+.customer-ai-page .customer-chat-shell{max-width:1460px!important;width:100%!important;height:calc(100dvh - 202px)!important;min-height:560px!important;border-radius:20px!important;box-shadow:0 10px 30px rgba(19,48,64,.07)!important;border:1px solid #dce6ec!important}
+.customer-ai-page .customer-chat-head{padding:18px 28px!important;min-height:80px}
+.customer-ai-heading{display:flex;align-items:center;gap:13px}
+.customer-ai-logo{width:42px;height:42px;border-radius:14px;background:#e6f4f3;display:grid;place-items:center;color:#0c7280;font-size:24px}
+.customer-ai-page .customer-chat-messages{padding:26px 28px!important;gap:22px!important;background:#f7f9fb!important}
+.customer-ai-message{display:flex;gap:12px;align-items:flex-start;max-width:100%}
+.customer-ai-message.user{align-self:flex-end;flex-direction:row-reverse;max-width:min(880px,94%)}
+.customer-ai-avatar{flex:0 0 32px;width:32px;height:32px;border-radius:11px;display:grid;place-items:center;font-size:11px;font-weight:800;color:#16717d;background:#dff1ef}
+.customer-ai-message.user .customer-ai-avatar{color:#fff;background:#156d79}
+.customer-ai-message .customer-chat-bubble{max-width:min(840px,100%)!important;width:auto;min-width:0;border-radius:14px!important;box-shadow:0 2px 5px rgba(18,48,64,.035)!important;line-height:1.55!important;padding:14px 18px!important}
+.customer-ai-message.assistant .customer-chat-bubble{background:#fff!important}
+.customer-ai-message.assistant.table-reply .customer-chat-bubble{width:min(1120px,calc(100vw - 180px))!important;max-width:100%!important}
+.customer-ai-message.user .customer-chat-bubble{background:#116c78!important;color:#fff!important}
+.customer-ai-paragraph{margin:0 0 9px;white-space:pre-wrap;overflow-wrap:anywhere}
+.customer-ai-paragraph:last-child{margin-bottom:0}
+.customer-ai-table-scroll{width:100%;max-width:100%;overflow:auto;margin:14px 0;border:1px solid #dbe6ed;border-radius:12px;background:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
+.customer-ai-result-table{border-collapse:separate;border-spacing:0;min-width:980px;width:100%;font-size:13px;table-layout:auto}
+.customer-ai-result-table th,.customer-ai-result-table td{padding:12px 14px;text-align:left;white-space:normal;vertical-align:top;border-bottom:1px solid #e7edf2}
+.customer-ai-result-table th{position:sticky;top:0;z-index:1;background:#f3f7fa;color:#27485e;font-weight:700;white-space:nowrap;border-bottom:1px solid #d7e2ea}
+.customer-ai-result-table tbody tr:nth-child(even) td{background:#fbfdfe}
+.customer-ai-result-table tbody tr:hover td{background:#f4fafc}
+.customer-ai-result-table tr:last-child td{border-bottom:0}
+.customer-ai-page .customer-chat-footer{box-shadow:0 -5px 14px rgba(27,56,75,.035)}
+.customer-ai-page .customer-chat-suggestions{padding-top:11px}
+.customer-ai-page .customer-chat-form{align-items:center;padding-top:11px}
+.customer-ai-page .customer-chat-form textarea{min-height:48px;max-height:110px;resize:vertical}
+.customer-ai-page .customer-chat-form button{padding:0 19px;white-space:nowrap}
+.customer-ai-page .customer-chat-note{padding-bottom:13px}
+@media(max-width:1100px){.customer-ai-message.assistant.table-reply .customer-chat-bubble{width:100%!important}}
+@media(max-width:700px){.customer-ai-page{padding:10px!important}.customer-ai-page .customer-chat-shell{height:calc(100dvh - 175px)!important;min-height:410px!important}.customer-ai-page .customer-chat-head{padding:14px 16px!important}.customer-ai-page .customer-chat-messages{padding:14px!important}.customer-ai-avatar{width:27px;height:27px;flex-basis:27px}.customer-ai-message .customer-chat-bubble{padding:12px 14px!important}.customer-ai-result-table{min-width:720px}}
+
+
+/* V24: AI Khach hang mo rong toan bo vung noi dung ben phai sidebar. */
+#customerChatView.customer-ai-page {
+  flex:1 1 auto!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-width:none!important;
+  padding:0!important;
+  margin:0!important;
+  align-items:stretch!important;
+  justify-content:stretch!important;
+  overflow:hidden!important;
+}
+#customerChatView.customer-ai-page .customer-chat-shell {
+  flex:1 1 auto!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-height:none!important;
+  height:100%!important;
+  margin:0!important;
+  border-radius:0!important;
+  border-top:0!important;
+  border-left:0!important;
+  border-right:0!important;
+  box-shadow:none!important;
+}
+#customerChatView .customer-chat-messages {
+  flex:1 1 auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  overflow-y:auto!important;
+  padding:24px clamp(18px,3vw,50px)!important;
+}
+#customerChatView .customer-chat-head {padding:16px clamp(18px,3vw,50px)!important}
+#customerChatView .customer-chat-footer {width:100%!important}
+#customerChatView .customer-chat-suggestions,
+#customerChatView .customer-chat-form {padding-left:clamp(18px,3vw,50px)!important;padding-right:clamp(18px,3vw,50px)!important}
+#customerChatView .customer-chat-note {padding-left:clamp(18px,3vw,50px)!important;padding-right:clamp(18px,3vw,50px)!important}
+#customerChatView .customer-ai-message.assistant.table-reply .customer-chat-bubble {
+  width:min(1250px,100%)!important;
+  max-width:100%!important;
+}
+@media (max-width:700px) {
+ #customerChatView .customer-chat-messages{padding:14px!important}
+ #customerChatView .customer-chat-head{padding:12px 15px!important}
+ #customerChatView .customer-chat-suggestions,
+ #customerChatView .customer-chat-form{padding-left:12px!important;padding-right:12px!important}
+}
+
+/* V25 - An rieng thanh topbar chung khi mo AI Assistant cua khach hang. */
+body.customer-ai-no-topbar .topbar { display:none!important; }
+body.customer-ai-no-topbar .main { min-height:0; }
+body.customer-ai-no-topbar #customerChatView.customer-ai-page { flex:1 1 auto!important; min-height:0!important; }
+body.customer-ai-no-topbar #customerChatView .customer-chat-shell { height:100%!important; min-height:0!important; }
+
+/* V26: Full-screen AI nội bộ cho Admin/Tổ trưởng; giữ nguyên chức năng Vanna và quyền Backend. */
+body.internal-ai-fullscreen .topbar{display:none!important}
+body.internal-ai-fullscreen #chatView.chat-area{flex:1 1 auto!important;min-width:0!important;min-height:0!important;padding:0!important;align-items:stretch!important;justify-content:stretch!important;overflow:hidden!important}
+body.internal-ai-fullscreen #chatView .chat-card{flex:1 1 auto!important;width:100%!important;height:100%!important;max-width:none!important;min-height:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;margin:0!important}
+body.internal-ai-fullscreen #chatView .vanna-container,
+body.internal-ai-fullscreen #chatView #vannaMount,
+body.internal-ai-fullscreen #chatView vanna-chat{display:block;width:100%!important;height:100%!important;min-height:0!important;max-width:none!important}
+body.internal-ai-fullscreen .footer{display:none!important}
+
+/* V27: Vanna fills the whole available workspace, including the internal chat panel. */
+body.internal-ai-fullscreen .main {height:100dvh!important;overflow:hidden!important;}
+body.internal-ai-fullscreen #chatView.chat-area {height:100%!important;max-height:100%!important;}
+body.internal-ai-fullscreen #chatView .chat-card,
+body.internal-ai-fullscreen #chatView .vanna-container,
+body.internal-ai-fullscreen #chatView #vannaMount,
+body.internal-ai-fullscreen #chatView vanna-chat {box-sizing:border-box!important;flex:1 1 auto!important;height:100%!important;min-height:0!important;max-height:100%!important;}
+
+/* Pie chart theo mẫu: hình tròn đặc và phần trăm ngay trên mỗi lát cắt. */
+.co-stage-pie-solid{overflow:visible;isolation:isolate;flex-shrink:0}
+.co-pie-percentage{position:absolute;z-index:1;transform:translate(-50%,-50%);font-size:13px;line-height:1;font-weight:750;color:#123c58;text-shadow:0 1px 2px #ffffffb8;white-space:nowrap;pointer-events:none;font-variant-numeric:tabular-nums}
+.co-stage-pie-solid .co-pie-percentage:first-child{color:#fff;text-shadow:0 1px 3px #06263c88}
+.co-stage-modal .co-pie-percentage{font-size:11px}
+@media(max-width:700px){.co-stage-pie-solid{margin:12px auto}.co-stage-breakdown{padding:12px}}
+
+/* Refined high-contrast color labels for the solid stage distribution pie. */
+.co-stage-pie-solid .co-pie-percentage, .co-stage-pie-solid .co-pie-percentage:first-child{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5);font-weight:800}
+.co-stage-pie-solid{box-shadow:0 8px 24px rgba(24,59,101,.13);border:0}
+.co-stage-breakdown{background:#fff}
+
+/* Pie color fix V3: crisp separation and readable percentage labels. */
+.co-stage-pie-solid{border:2px solid #fff;box-shadow:0 10px 28px rgba(25,62,95,.18)}
+.co-stage-pie-solid .co-pie-percentage{color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.6)!important;font-weight:800}
+.co-stage-legend-dot{border-radius:4px;width:12px;height:12px}
+
+/* Màu nhãn trên từng lát cắt do JavaScript chọn theo độ sáng của màu nền. */
+.co-stage-pie-solid .co-pie-percentage{color:inherit!important;text-shadow:none!important}
+
+/* V6 – tông màu sáng theo bản mockup đã duyệt; áp dụng cả Admin & Lịch sử. */
+.co-stage-breakdown{background:#fff;border:1px solid #d7e4f6;border-radius:16px;padding:22px 24px;box-shadow:0 3px 14px rgba(37,79,139,.035)}
+.co-stage-breakdown h4{color:#122c52;font-weight:750;font-size:17px}
+.co-stage-breakdown .co-progress-hint{color:#657b9a}
+.co-stage-total-card{min-height:62px;background:#e9f2ff;border:1px solid #c8dcfc;border-radius:12px;padding:12px 18px}
+.co-stage-total-card strong{font-size:26px;color:#113f75;font-weight:800}
+.co-stage-total-card span{font-size:13px;color:#5f7290;font-weight:550}
+.co-stage-legend-row{color:#233b60;font-size:13px;gap:12px;line-height:1.55}
+.co-stage-legend-row strong{color:#112c52;font-weight:750}
+.co-stage-legend-dot{width:14px;height:14px;border-radius:5px}
+.co-stage-pie-solid{border:1px solid #fff;box-shadow:0 8px 24px rgba(31,74,137,.12)}
+.co-stage-pie-solid .co-pie-percentage{color:#fff!important;text-shadow:0 1px 2px rgba(17,42,79,.24)!important;font-weight:800}
+.co-history-breakdown .co-flow-chart{gap:32px}
+@media(max-width:760px){.co-stage-breakdown{padding:16px}.co-history-breakdown .co-flow-chart{gap:18px}}
+
+/* Customer-order search beside Create Order */
+.co-list-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+.co-search-box{display:flex;align-items:center;gap:8px;border:1px solid #d5e1ec;background:#fff;border-radius:9px;padding:0 12px;height:39px;min-width:230px;max-width:340px;box-sizing:border-box;color:#688298}
+.co-search-box:focus-within{border-color:#559be2;box-shadow:0 0 0 3px rgba(85,155,226,.12)}
+.co-search-box input{border:0;outline:0;background:transparent;font:inherit;color:#213b53;width:100%;min-width:0;font-size:13px}
+.co-search-box input::placeholder{color:#8b9dac}
+#customerOrderRows tr[hidden]{display:none}
+@media(max-width:760px){.co-list-actions{width:100%;justify-content:flex-start}.co-search-box{flex:1;max-width:none;min-width:175px}}
+
+.ap-assign-meta{font-size:12px;color:#64748b;margin:5px 0 8px;font-weight:500;}
+
+/* MES V13: dedicated action plan and customer search */
+.customer-list-actions,.ap-page-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.customer-list-actions .co-search-box{min-width:260px;max-width:360px}
+.ap-page-controls{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.ap-page-description{font-size:12px;color:#64748b;margin:6px 0 0}
+.ap-page-actions label{font-size:12px;color:#64748b;font-weight:600}
+.ap-page-actions select{min-width:220px;max-width:370px}
+
+
+#customerSearchEmpty[hidden]{display:none}
+@media(max-width:700px){.customer-list-actions,.ap-page-actions{width:100%}.customer-list-actions .co-search-box,.ap-page-actions select{flex:1;min-width:150px}}
+
+/* MES V13: Action Plan is inside Dashboard, below the production orders. */
+
+
+
+
+
+#customersView .customer-list-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+#customersView .co-search-box{display:flex;align-items:center;gap:8px;border:1px solid #cbd5e1;background:#fff;border-radius:8px;padding:8px 12px;min-width:230px;flex:1;}
+#customersView .co-search-box input{width:100%;border:0;outline:0;background:transparent;min-width:0;font:inherit;}
+
+/* V14: Search and create action in same row, no duplicate refresh button. */
+#customersView .customer-list-actions{display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:12px;justify-content:flex-end;}
+#customersView .customer-list-actions .co-search-box{flex:0 1 310px;min-width:180px;max-width:360px;}
+#customersView .customer-list-actions .po-create-btn{white-space:nowrap;flex-shrink:0;}
+
+
+@media(max-width:720px){#customersView .customer-list-actions{flex-wrap:wrap;}#customersView .customer-list-actions .co-search-box{flex:1 1 100%;max-width:none;}}
+
+/* V15: single Action Plan toolbar; selector is alongside create and reload controls. */
+
+
+
+
+
+
+
+@media(max-width:760px){#dashboardActionPlanSection .ap-head-buttons{width:100%;justify-content:flex-start}#dashboardActionPlanSection #actionPlanPOSelect{width:100%}}
+
+/* V17: số công đơn đang sản xuất cạnh tiêu đề Action Plan */
+
+
+
+
+/* V18: Action Plan chọn tự động công đơn đang sản xuất, không có dropdown hoặc bộ đếm. */
+
+
+/* V19 - Searchable production orders in Action Plan */
+
+
+
+
+
+
+
+
+
+@media(max-width:760px){#dashboardActionPlan .ap-order-search{width:100%;min-width:0}}
+
+/* V20: Chọn duy nhất công đơn đang sản xuất, bỏ ô tìm kiếm và danh sách Action Plan cũ */
+
+
+@media(max-width:760px){#dashboardActionPlan .ap-production-select{min-width:0;width:100%}}
+
+/* Customer uses the identical Vanna web-component layout. */
+body.internal-ai-fullscreen #customerChatView.chat-area{flex:1 1 auto!important;min-height:0!important;padding:0!important;overflow:hidden!important;display:flex;align-items:stretch!important}
+body.internal-ai-fullscreen #customerChatView .chat-card,body.internal-ai-fullscreen #customerChatView .vanna-container,body.internal-ai-fullscreen #customerVannaMount{display:flex!important;flex:1 1 auto!important;min-height:0!important;width:100%!important;height:100%!important;max-height:100%!important}
+body.internal-ai-fullscreen #customerVannaMount vanna-chat{display:block!important;flex:1!important;width:100%!important;height:100%!important}
+
+/* Hide the redundant global page header for every menu; keep DOM nodes for existing JS references. */
+.main > .topbar { display: none !important; }
+
+
+/* === TestMES2 · Professional interface refinement · 2026-11-02 ===
+   Design-only: keeps existing page logic, role visibility and interactions. */
+:root {
+ --mes-ui-accent:#21aaa9;
+ --mes-ui-stroke:#dce7ed;
+ --mes-ui-stroke-strong:#bfd4de;
+ --mes-ui-radius:13px;
+ --mes-ui-soft-shadow:0 3px 12px rgba(18,52,72,.045),0 12px 32px rgba(18,52,72,.035);
+}
+.side-nav {
+ background:linear-gradient(180deg,#102e3d 0%,#102b39 55%,#0d2634 100%)!important;
+ border-right:1px solid rgba(154,212,221,.18)!important;
+}
+.side-nav .brand {
+ background:rgba(6,29,43,.42)!important;
+ border-bottom:1px solid rgba(164,215,219,.12)!important;
+}
+.side-nav .brand-mark {
+ border:1px solid rgba(171,241,234,.18)!important;
+ border-radius:11px!important;
+ background:linear-gradient(145deg,#208a91,#116c79)!important;
+}
+.side-nav .view-tabs {padding:15px 11px!important;gap:6px!important}
+.side-nav .nav-label {
+ margin:18px 12px 8px!important;
+ color:#94b5c2!important;
+ font-size:10px!important;
+ letter-spacing:.13em!important;
+}
+.side-nav .view-tab {
+ min-height:45px!important;
+ padding:11px 13px!important;
+ border:1px solid transparent!important;
+ border-radius:10px!important;
+ background:transparent!important;
+ color:#c8d8e1!important;
+ transition:background .18s ease,border-color .18s ease,box-shadow .18s ease,transform .18s ease!important;
+}
+.side-nav .view-tab:hover {
+ background:rgba(89,161,175,.13)!important;
+ border-color:rgba(128,208,215,.21)!important;
+ color:#fff!important;
+ transform:translateX(2px);
+}
+.side-nav .view-tab.active {
+ background:linear-gradient(95deg,rgba(51,123,136,.51),rgba(41,94,110,.35))!important;
+ border:1px solid rgba(116,210,210,.49)!important;
+ box-shadow:inset 3px 0 0 #60d1cd,0 4px 14px rgba(0,18,30,.15)!important;
+ color:#fff!important;
+ font-weight:700!important;
+}
+.side-nav .view-tab:focus-visible,.logout-btn:focus-visible {
+ outline:2px solid #7be0d7!important;
+ outline-offset:2px;
+}
+.side-nav #userBox {margin:0 11px 15px!important}
+.side-nav .user-card {
+ border:1px solid rgba(161,214,220,.20)!important;
+ border-radius:12px!important;
+ background:rgba(255,255,255,.055)!important;
+ box-shadow:0 5px 16px rgba(0,17,27,.12)!important;
+}
+.side-nav .logout-btn {border-radius:9px!important}
+.dashboard-area {background:#f4f7fa!important}
+.panel,.exec-panel,.chat-card {
+ border:1px solid var(--mes-ui-stroke)!important;
+ border-radius:var(--mes-ui-radius)!important;
+ box-shadow:var(--mes-ui-soft-shadow)!important;
+}
+.panel-head,.exec-head {
+ background:linear-gradient(180deg,#fff,#fbfdfe)!important;
+ border-bottom:1px solid #e6eef2!important;
+}
+.metric {
+ border:1px solid #dce8ee!important;
+ border-radius:12px!important;
+ box-shadow:var(--mes-ui-soft-shadow)!important;
+ transition:border-color .2s ease,box-shadow .2s ease!important;
+}
+.metric:hover,.panel:hover {
+ border-color:#c8dce4!important;
+}
+.table-wrap th {
+ background:#f3f8fa!important;
+ border-bottom:1px solid #dbe7ed!important;
+}
+.table-wrap td {border-bottom:1px solid #ecf2f5!important}
+.table-wrap tbody tr:hover {background:#f1f8f9!important}
+.search,.refresh-btn,.mini-btn,
+.co-search-box,.work-search-box,
+.metrics-filters input,.metrics-filters select {
+ border-radius:9px!important;
+}
+button {transition:background-color .16s ease,border-color .16s ease,box-shadow .16s ease}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible {
+ outline:2px solid #2fa9a8!important;
+ outline-offset:2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+ .side-nav .view-tab, button, .metric {transition:none!important}
+ .side-nav .view-tab:hover {transform:none!important}
+}
+
+/* === VISUAL REDESIGN V2: high-contrast navigation + elevated workspace === */
+:root {--bg:#edf4f7!important;--mes-radius:16px!important;--border:#d7e5ed!important;--shadow:0 7px 25px rgba(20,61,81,.075)!important}
+body,.main {background:#edf4f7!important}
+.side-nav {width:270px!important;min-width:270px!important;background:#0b2635!important;border-right:1px solid #285064!important;box-shadow:8px 0 32px rgba(6,30,44,.08)!important}
+.side-nav .brand {min-height:102px!important;padding:24px 18px!important;background:linear-gradient(120deg,#0c4556,#0c3040)!important;border-bottom:1px solid #316577!important}
+.side-nav .brand-mark {width:46px!important;height:46px!important;min-width:46px!important;border-radius:14px!important;background:linear-gradient(135deg,#20b5aa,#07839b)!important;box-shadow:0 8px 24px rgba(0,173,179,.20)!important}
+.side-nav .brand-text strong {font-size:16px!important;color:white!important}
+.side-nav .brand-text span {font-size:12px!important;color:#abced8!important}
+.side-nav .view-tabs {padding:22px 13px 10px!important;gap:9px!important}
+.side-nav .nav-label {margin:21px 13px 7px!important;color:#729dad!important;font-size:10px!important;letter-spacing:.16em!important}
+.side-nav .view-tab {display:flex!important;align-items:center!important;min-height:51px!important;border-radius:13px!important;border:1px solid rgba(171,220,232,.10)!important;background:rgba(255,255,255,.035)!important;color:#d5e8ee!important;padding:12px 15px!important;font-size:13px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.025)!important}
+.side-nav .view-tab:hover {background:#19495b!important;border-color:rgba(78,211,211,.55)!important;transform:none!important}
+.side-nav .view-tab.active {background:linear-gradient(100deg,#0b8e99,#116274)!important;color:#fff!important;border:1px solid #5de0d4!important;border-radius:13px!important;box-shadow:0 6px 18px rgba(0,11,28,.2),inset 0 1px 0 rgba(255,255,255,.21)!important}
+.side-nav .view-tab.active::before {content:"";width:5px;height:22px;border-radius:6px;background:#b9fff0;flex:none;margin-left:-8px;margin-right:2px;box-shadow:0 0 10px #50e9dc}
+.side-nav .view-tab .nav-ico {width:20px;height:20px;flex:0 0 20px}
+.side-nav #userBox {margin:0 13px 18px!important}
+.side-nav .user-card {padding:15px!important;border-radius:14px!important;background:#174257!important;border:1px solid #3a7483!important;box-shadow:0 8px 24px rgba(2,21,34,.2)!important}
+.side-nav .user-avatar {width:41px!important;height:41px!important;border-radius:12px!important;background:#167f8a!important}
+.side-nav .logout-btn {border-radius:10px!important;border-color:#537788!important}
+.dashboard-area {background:#edf4f7!important;padding:28px 30px 34px!important}
+.dashboard {max-width:1500px!important}
+.metric {border-radius:16px!important;border:1px solid #cbdfe7!important;box-shadow:0 5px 22px rgba(25,71,89,.08)!important;min-height:133px!important;padding:24px!important}
+.metric::before {width:6px!important;border-radius:16px 0 0 16px}
+.metric.m-blue::before {background:#13a3b4!important}.metric.m-green::before{background:#25ad86!important}.metric.m-violet::before{background:#6a82cc!important}.metric.m-amber::before{background:#f0b345!important}
+.metric-value {font-size:34px!important;margin-top:11px!important}
+.panel,.exec-panel,.chat-card {border-radius:17px!important;border:1px solid #d0e0e8!important;box-shadow:0 6px 24px rgba(20,62,82,.08)!important;background:#fff!important}
+.panel-head,.exec-head {min-height:69px!important;padding:19px 22px!important;background:#f8fbfc!important;border-bottom:2px solid #e4eef2!important}
+.panel-head h3,.exec-head h3 {font-size:16px!important;color:#123a4c!important}
+.table-wrap table {border-collapse:separate!important;border-spacing:0!important}
+.table-wrap th {background:#eaf3f7!important;color:#3f6474!important;font-size:11px!important;letter-spacing:.055em!important;padding:16px 15px!important}
+.table-wrap td {padding:16px 15px!important;border-bottom:1px solid #e5eef2!important}
+.table-wrap tbody tr:nth-child(even) {background:#fafcfd!important}
+.table-wrap tbody tr:hover {background:#e7f5f6!important}
+.refresh-btn,.po-create-btn,.work-small-btn,.ap-save {border-radius:10px!important;min-height:35px!important}
+.search,.co-search-box,.work-search-box {border-radius:11px!important;border-color:#c9dde6!important}
+@media(max-width:850px){.side-nav:not(.closed){width:244px!important;min-width:244px!important}.dashboard-area{padding:15px!important}}
+
+
+/* UNIFIED PAGE ALIGNMENT — Same outer margins, borders and radius on every menu */
+:root{
+  --layout-gutter:26px;
+  --layout-radius:16px;
+  --layout-border:1px solid #cddfe8;
+  --layout-shadow:0 5px 22px rgba(20,62,82,.07);
+}
+.main{min-width:0!important;overflow-x:hidden!important;}
+.main > section.dashboard-area,
+.main > section.chat-area{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  padding:var(--layout-gutter)!important;
+  margin:0!important;
+  background:#edf4f7!important;
+}
+.main > section.dashboard-area > .dashboard,
+.main > section.chat-area > .chat-card{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin:0!important;
+  box-sizing:border-box!important;
+}
+.main > section.chat-area > .chat-card{
+  overflow:hidden!important;
+  border:var(--layout-border)!important;
+  border-radius:var(--layout-radius)!important;
+  box-shadow:var(--layout-shadow)!important;
+  background:white!important;
+}
+.main .vanna-container,
+.main #vannaMount,
+.main #customerVannaMount{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+}
+.main .dashboard .panel,
+.main .dashboard .metric,
+.main .dashboard .exec-panel,
+.main .dashboard .dashboard-action-plan-section,
+.main .dashboard .metrics-card{
+  box-sizing:border-box!important;
+  border-radius:var(--layout-radius)!important;
+  border:var(--layout-border)!important;
+  box-shadow:var(--layout-shadow)!important;
+}
+.main .dashboard .metrics-row,
+.main .dashboard .metric-grid,
+.main .dashboard .metrics-grid {
+  width:100%!important;box-sizing:border-box!important;
+}
+.main .dashboard .panel, .main .dashboard .table-wrap{
+  max-width:100%!important;
+}
+@media(max-width:850px){
+ :root{--layout-gutter:14px;--layout-radius:12px}
+ .main > section.dashboard-area,.main > section.chat-area{
+   padding:var(--layout-gutter)!important;
+ }
+}
+
+/* === MES FINAL: Unified alignment based on actual section structure === */
+:root{--mes-page-inset:28px;--mes-panel-gap:20px;--mes-panel-radius:16px;--mes-panel-border:#ccdde6}
+.main > section.dashboard-area,.main > section.chat-area{
+ padding:var(--mes-page-inset)!important;margin:0!important;width:100%!important;
+ box-sizing:border-box!important;min-width:0!important;max-width:none!important;
+}
+.main > section.dashboard-area > .dashboard,
+.main > section.chat-area > .chat-card{
+ width:100%!important;max-width:100%!important;margin:0!important;
+ min-width:0!important;box-sizing:border-box!important;
+}
+/* All root panel/card blocks begin exactly at the same top edge. */
+.main > section.dashboard-area > .dashboard > .panel:first-child,
+.main > section.dashboard-area > .dashboard > .cards:first-child,
+.main > section.dashboard-area > .dashboard > .metrics-intro:first-child,
+.main > section.dashboard-area > .dashboard > .exec-panel:first-child,
+.main > section.dashboard-area > .dashboard > .dashboard-action-plan-section:first-child{
+ margin-top:0!important;
+}
+.main > section.dashboard-area > .dashboard > .panel,
+.main > section.dashboard-area > .dashboard > .exec-panel,
+.main > section.dashboard-area > .dashboard > .dashboard-action-plan-section{
+ margin-left:0!important;margin-right:0!important;
+ box-sizing:border-box!important;width:100%!important;max-width:100%!important;
+ border:1px solid var(--mes-panel-border)!important;border-radius:var(--mes-panel-radius)!important;
+}
+.main > section.dashboard-area > .dashboard > .panel + .panel{
+ margin-top:var(--mes-panel-gap)!important;
+}
+
+
+/* Work first panel must not inherit the legacy global 14px offset. */
+
+#workContentDashboard{padding-top:0!important}
+
+/* Keep card widths inside their parent and avoid horizontal overflow. */
+.dashboard .cards,.dashboard .metrics-cards{width:100%!important;max-width:100%!important;box-sizing:border-box!important}
+@media(max-width:850px){:root{--mes-page-inset:14px;--mes-panel-gap:14px}}
+
+/* FIX V5 — Do not show inactive AI panels under the fullscreen body class.
+   The legacy #customerChatView rule forced display:flex!important even with .hidden. */
+body.internal-ai-fullscreen #customerChatView.chat-area.hidden,
+body.internal-ai-fullscreen #chatView.chat-area.hidden,
+#customerChatView.chat-area.hidden,
+#chatView.chat-area.hidden {
+  display:none!important;
+}
+/* Both role-specific AI areas share the same page inset and single card. */
+body.internal-ai-fullscreen #chatView.chat-area:not(.hidden),
+body.internal-ai-fullscreen #customerChatView.chat-area:not(.hidden) {
+  display:flex!important;
+  flex:1 1 auto!important;
+  height:auto!important;
+  max-height:none!important;
+  min-height:0!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:28px!important;
+  box-sizing:border-box!important;
+  background:#edf4f7!important;
+  align-items:stretch!important;
+  justify-content:stretch!important;
+  overflow:hidden!important;
+}
+body.internal-ai-fullscreen #chatView.chat-area:not(.hidden) > .chat-card,
+body.internal-ai-fullscreen #customerChatView.chat-area:not(.hidden) > .chat-card {
+  flex:1 1 auto!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  max-height:100%!important;
+  border:1px solid #ccdde6!important;
+  border-radius:16px!important;
+  overflow:hidden!important;
+  box-shadow:0 6px 24px rgba(20,62,82,.08)!important;
+  background:#fff!important;
+  box-sizing:border-box!important;
+}
+@media(max-width:850px){
+ body.internal-ai-fullscreen #chatView.chat-area:not(.hidden),
+ body.internal-ai-fullscreen #customerChatView.chat-area:not(.hidden){padding:14px!important}
+}
+
+/* FIX V6: keep Vanna chat inside the content area after sending messages. */
+body.internal-ai-fullscreen .main{min-width:0!important;overflow:hidden!important;}
+body.internal-ai-fullscreen #chatView.chat-area:not(.hidden),
+body.internal-ai-fullscreen #customerChatView.chat-area:not(.hidden){
+ position:relative!important;inset:auto!important;width:100%!important;max-width:100%!important;
+ min-width:0!important;flex:1 1 0!important;min-height:0!important;overflow:hidden!important;
+ padding:24px!important;box-sizing:border-box!important;
+}
+body.internal-ai-fullscreen #chatView.chat-area:not(.hidden)>.chat-card,
+body.internal-ai-fullscreen #customerChatView.chat-area:not(.hidden)>.chat-card{
+ position:relative!important;inset:auto!important;width:100%!important;max-width:100%!important;
+ min-width:0!important;height:100%!important;max-height:100%!important;min-height:0!important;
+ overflow:hidden!important;box-sizing:border-box!important;
+}
+body.internal-ai-fullscreen #chatView .vanna-container,
+body.internal-ai-fullscreen #customerChatView .vanna-container,
+body.internal-ai-fullscreen #vannaMount,
+body.internal-ai-fullscreen #customerVannaMount,
+body.internal-ai-fullscreen vanna-chat{
+ position:relative!important;inset:auto!important;transform:none!important;
+ box-sizing:border-box!important;width:100%!important;max-width:100%!important;
+ min-width:0!important;height:100%!important;max-height:100%!important;min-height:0!important;
+ overflow:hidden!important;
+}
+@media(max-width:850px){body.internal-ai-fullscreen #chatView.chat-area:not(.hidden),body.internal-ai-fullscreen #customerChatView.chat-area:not(.hidden){padding:12px!important}}
+
+/* V11: suggested questions are part of the app, not a fragile Vanna status overlay. */
+#chatView .chat-card,#customerChatView .chat-card{position:relative!important;}
+#chatView .mes-role-suggestions,#customerChatView .mes-role-suggestions{
+ position:absolute!important; z-index:50!important; left:25px!important;
+ right:calc(24% + 15px)!important; bottom:115px!important;
+ display:flex!important;align-items:center!important;gap:8px!important;
+ width:auto!important;height:auto!important;max-height:84px!important;
+ padding:8px!important;overflow-x:auto!important;overflow-y:hidden!important;
+ border:1px solid #c6dfe5!important;border-radius:13px!important;
+ background:#f4fafb!important;box-shadow:0 2px 8px rgba(18,62,78,.08)!important;
+ box-sizing:border-box!important;
+}
+#chatView .mes-role-suggestion,#customerChatView .mes-role-suggestion{
+ flex:0 0 auto!important;white-space:nowrap!important;
+ border:1px solid #b5d6de!important;border-radius:999px!important;
+ color:#125466!important;background:#fff!important;
+ padding:9px 12px!important;font:600 12px/1.35 system-ui,sans-serif!important;
+ cursor:pointer!important;
+}
+#chatView .mes-role-suggestion:hover,#customerChatView .mes-role-suggestion:hover{
+ background:#e3f5f4!important;border-color:#66b9b5!important;
+}
+@media(max-width:750px){
+ #chatView .mes-role-suggestions,#customerChatView .mes-role-suggestions{
+  right:15px!important;left:15px!important;bottom:112px!important;
+ }
+}
+
+/* V12: role questions occupy their own row; never overlay Vanna's send/input controls. */
+body.internal-ai-fullscreen #chatView.chat-area:not(.hidden) > .chat-card,
+body.internal-ai-fullscreen #customerChatView.chat-area:not(.hidden) > .chat-card {
+ display:flex!important;flex-direction:column!important;
+}
+body.internal-ai-fullscreen #chatView .vanna-container,
+body.internal-ai-fullscreen #customerChatView .vanna-container {
+ flex:1 1 0!important; height:auto!important; max-height:none!important;
+ min-height:0!important;overflow:hidden!important;
+}
+#chatView .mes-role-suggestions,#customerChatView .mes-role-suggestions{
+ position:relative!important;z-index:1!important;inset:auto!important;
+ left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;
+ order:2!important;flex:0 0 auto!important;align-self:stretch!important;
+ margin:0 20px 14px!important;width:auto!important;max-height:none!important;
+ padding:10px 12px!important;box-shadow:none!important;
+ border:1px solid #d5e6eb!important;background:#f5fafb!important;
+ border-radius:12px!important;display:flex!important;flex-wrap:wrap!important;
+ overflow-x:auto!important;overflow-y:visible!important;
+}
+#chatView .mes-role-suggestion,#customerChatView .mes-role-suggestion {
+ white-space:normal!important;max-width:100%!important;text-align:left!important;
+}
+@media(max-width:800px){
+ #chatView .mes-role-suggestions,#customerChatView .mes-role-suggestions{margin:0 10px 10px!important}
+}
+
+/* FIX V15: hide exact status-bar component found via Chrome DevTools */
+vanna-chat vanna-status-bar, vanna-status-bar { display: none !important; visibility: hidden !important; height: 0 !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important; border: 0 !important; }
+
+/* Welcome heading is a standalone host overlay, above the web component. */
+#chatView .vanna-container,#customerChatView .vanna-container{position:relative!important}
+#chatView .mes-center-welcome,#customerChatView .mes-center-welcome{
+ position:absolute!important; top:48%!important; left:0!important; width:75%!important;
+ transform:translateY(-50%)!important;text-align:center!important;
+ color:#173e54!important;font-size:clamp(22px,2.1vw,32px)!important;font-weight:500!important;
+ letter-spacing:-.02em!important;line-height:1.3!important;pointer-events:none!important;z-index:10!important;
+}
+#chatView .mes-center-welcome.mes-welcome-dismissed,#customerChatView .mes-center-welcome.mes-welcome-dismissed{display:none!important}
+@media(max-width:800px){#chatView .mes-center-welcome,#customerChatView .mes-center-welcome{width:100%!important;font-size:24px!important}}
+
+/* FIX: keep Vanna in the viewport when response cards are added */
+#chatView .vanna-container, #customerChatView .vanna-container {min-height:0!important;overflow:hidden!important;}
+#chatView vanna-chat, #customerChatView vanna-chat {min-height:0!important;max-height:100%!important;}
+#chatView .mes-role-suggestions,#customerChatView .mes-role-suggestions {flex-shrink:0!important;}
+
+/* Technician management navigation is hidden even against important layout rules. */
+body.mes-technician #tabEmployees,body.mes-technician #tabCustomers {display:none!important;}
+
+/* Team leads: do not display employee/customer management navigation. */
+body.mes-team-lead #tabEmployees,body.mes-team-lead #tabCustomers {display:none!important;}
+
+/* CUSTOMER UI: hide internal-only navigation regardless of .view-tab !important rules. */
+body.mes-customer #tabWork,
+body.mes-customer #tabMetrics,
+body.mes-customer #tabEmployees,
+body.mes-customer #tabCustomers,
+body.mes-customer #tabActionPlan,
+body.mes-customer #tabOrders,
+body.mes-customer #navAdminLabel {display:none!important;}
+
+/* Order history: actual timestamps (created / production started / completed). */
+.co-history-summary .co-history-field strong{line-height:1.5}
+.co-recheck-badge{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;
+  padding:5px 10px;margin:5px 0;border:1px solid #f1c37b;border-radius:8px;
+  background:#fff5e8;color:#995400;font-size:12px;font-weight:700;line-height:1.4;
+  vertical-align:middle;cursor:help}
+
+/* Lịch sử: biểu đồ chỉ đọc đồng nhất với form Chỉnh sửa. */
+.co-history-breakdown .co-flow-chart{
+  grid-template-columns:175px minmax(0,1fr);
+  gap:20px;
+  margin-top:10px;
+}
+.co-history-breakdown .co-stage-pie{width:160px;height:160px}
+.co-history-breakdown .co-stage-legend{max-height:220px;overflow:auto}
+@media(max-width:700px){
+  .co-history-breakdown .co-flow-chart{grid-template-columns:1fr}
+}
+
+/* Team lead returned order: informational text below Edit, not a button. */
+.co-teamlead-actions{display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap}
+.co-teamlead-edit-column{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.co-recheck-note{display:block;color:#b26717;font-size:11px;font-weight:500;line-height:1.35;white-space:nowrap;margin:0;padding:0;border:0;background:none;cursor:help}
+
+/* Action Plan: clearly distinguish deletion from normal actions. */
+.ap-btn-delete {color:#b42318!important;border-color:#f4c4c0!important;background:#fff!important;}
+.ap-btn-delete:hover {background:#fff1f0!important;}
+
+/* V83: Danh sách công đơn hiển thị 15 dòng; còn lại cuộn trong bảng. */
+#customerOrdersScroll.co-orders-scroll {
+ overflow-y:auto;
+ overflow-x:auto;
+ /* Allow wheel scrolling to continue on the page when this table reaches its edge,
+    or when the list contains fewer than 15 orders and cannot scroll itself. */
+ overscroll-behavior-y:auto;
+ overscroll-behavior-x:contain;
+ scrollbar-gutter:stable;
+}
+#customerOrdersScroll.co-orders-scroll thead th {
+ position:sticky;
+ top:0;
+ z-index:2;
+ background:#eaf3f7!important;
+}
+
+
+/* V17 – căn giữa nút nộp báo cáo của KTV trong cột thao tác. */
+#workTaskListPanel table th:last-child,
+#workTaskListPanel table td:last-child {text-align:center!important;vertical-align:middle!important;min-width:130px}
+#workTaskListPanel table td:last-child button {display:inline-flex;align-items:center;justify-content:center;min-height:36px;white-space:nowrap;margin:0 auto}
+
+/* V17 – trang hiệu suất chuyên biệt cho kỹ thuật viên; không ảnh hưởng giao diện Admin/Tổ trưởng. */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* V18: giao diện thống kê KTV tối giản theo phong cách phần mềm quản lý sản xuất. */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* V20: Ẩn nút Làm mới chỉ trên màn Hiệu suất của KTV. */
+
+
+/* V22: KTV performance blocks use the same highlighted border language as the navigation. */
+
+
+
+
+/* V23: ưu tiên màu đồng bộ với menu và làm nổi bật trạng thái trả lại. */
+.ap-history-entry .ap-review-note{margin-top:10px;padding:10px 12px;border-radius:10px;border:1px solid #d7e7ea;background:#f8fbfc;color:#244452;line-height:1.55}
+.ap-history-entry .ap-review-note.is-returned{border-color:#f3b4b4;background:#fff1f2;color:#b42318}
+.ap-history-entry .ap-review-note.is-returned b{color:#991b1b}
+.ap-history-entry .ap-review-note.is-approved{border-color:#bfe3d6;background:#f0fdf4;color:#166534}
+
+
+
+
+
+
+
+
+
+
+/* V24: Status / dashboard matching actual active nav (#0b8e99 → #116274). */
+
+
+
+
+
+
+
+
+.ap-history-entry .ap-review-note.is-returned {
+  border:2px solid #f3a4a4 !important;
+  background:#fff0f1 !important;
+  color:#b91c1c !important;
+  border-radius:9px;
+  padding:11px 14px;
+  font-weight:600;
+}
+.ap-history-entry .ap-review-note.is-returned b {color:#991b1b !important;}
+
+/* V26 – Unified turquoise-blue panel headers across all workspace pages.
+   Matches the selected navigation gradient, while content tables remain light. */
+:root {
+  --mes-panel-head-start:#0b8e99;
+  --mes-panel-head-end:#116274;
+  --mes-panel-head-edge:#5de0d4;
+}
+.dashboard-area .panel > .panel-head,
+.dashboard-area .exec-panel > .exec-head,
+#dashboardActionPlan .action-plan-panel > .action-plan-head,
+#dashboardActionPlan .ap-admin-overview > .ap-overview-toolbar {
+  background:linear-gradient(100deg,var(--mes-panel-head-start),var(--mes-panel-head-end)) !important;
+  border-bottom:2px solid var(--mes-panel-head-edge) !important;
+  color:#ffffff !important;
+}
+.dashboard-area .panel > .panel-head h3,
+.dashboard-area .exec-panel > .exec-head h3,
+#dashboardActionPlan .action-plan-panel > .action-plan-head h4,
+#dashboardActionPlan .ap-admin-overview > .ap-overview-toolbar h4 {
+  color:#ffffff !important;
+}
+.dashboard-area .panel > .panel-head p,
+.dashboard-area .panel > .panel-head .metrics-muted,
+.dashboard-area .panel > .panel-head .work-workshop-control,
+.dashboard-area .panel > .panel-head .work-workshop-control > label,
+#dashboardActionPlan .ap-admin-overview > .ap-overview-toolbar p,
+#dashboardActionPlan .ap-admin-overview > .ap-overview-toolbar .ap-filter-label {
+  color:#e4fbfb !important;
+}
+/* Controls stay light and readable when placed over the dark-blue header. */
+.dashboard-area .panel > .panel-head .refresh-btn,
+.dashboard-area .panel > .panel-head .metrics-refresh,
+.dashboard-area .panel > .panel-head .work-refresh-btn,
+.dashboard-area .exec-panel > .exec-head .refresh-btn,
+#dashboardActionPlan .action-plan-panel > .action-plan-head .ap-save {
+  background:#ffffff !important;
+  color:#105d6b !important;
+  border:1px solid rgba(255,255,255,.9) !important;
+  box-shadow:none !important;
+}
+.dashboard-area .panel > .panel-head .refresh-btn:hover,
+.dashboard-area .panel > .panel-head .metrics-refresh:hover,
+.dashboard-area .panel > .panel-head .work-refresh-btn:hover,
+.dashboard-area .exec-panel > .exec-head .refresh-btn:hover,
+#dashboardActionPlan .action-plan-panel > .action-plan-head .ap-save:hover {
+  background:#e9fbf9 !important;
+  color:#084e5b !important;
+}
+/* Keep search/filter inputs white on blue header without changing the form fields. */
+.dashboard-area .panel > .panel-head input,
+.dashboard-area .panel > .panel-head select,
+#dashboardActionPlan .action-plan-panel > .action-plan-head select,
+#dashboardActionPlan .ap-admin-overview > .ap-overview-toolbar select {
+  background:#ffffff !important;
+  color:#183d4c !important;
+}
+
+
+/* V27: align the task status with its column heading and row height. */
+#workTaskListPanel .table-wrap table th:nth-child(7),
+#workTaskListPanel .table-wrap table td:nth-child(7) {
+    text-align:center !important;
+    vertical-align:middle !important;
+    white-space:nowrap;
+}
+#workTaskListPanel .table-wrap table td:nth-child(7) {
+    font-weight:600;
+    line-height:1.45;
+}
+#workTaskListPanel .table-wrap table th:nth-child(8),
+#workTaskListPanel .table-wrap table td:nth-child(8) {
+    text-align:center !important;
+    vertical-align:middle !important;
+}
+/* The customer-order status appears only for roles with a visible status column. */
+#customerOrdersScroll table th:nth-child(7):not([style*="display: none"]),
+#customerOrdersScroll table td:nth-child(7):not([style*="display: none"]),
+#leadCustomerView table th:nth-child(7),
+#leadCustomerView table td:nth-child(7) {
+    vertical-align:middle !important;
+    text-align:center !important;
+}
+/* Removing refresh controls leaves the search field neatly aligned to the right. */
+#workView .work-list-tools { justify-content:flex-end; }
+
+
+/* V28 – staff list shows up to 10 real rows; the rest stays reachable by scrolling. */
+#teamStaffList.mes-ten-rows, #employeeTableScroll.mes-ten-rows {
+  overflow-y: auto !important;
+  overflow-x: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+#teamStaffList.mes-ten-rows table thead th,
+#employeeTableScroll.mes-ten-rows table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #eaf3f7 !important;
+}
+
+
+
+
+
+
+/* V29 – Thông báo lưu công đơn dùng hộp thoại của ứng dụng thay vì alert Chrome. */
+.ap-modal.co-success-modal{width:min(460px,calc(100vw - 32px));max-width:460px;overflow:hidden;border-radius:16px;border:1px solid #b9d9df;box-shadow:0 28px 80px rgba(4,31,43,.24)}
+.co-success-modal .ap-modal-head{background:linear-gradient(100deg,#0b8e99,#116274);color:#fff;border-bottom:none;padding:17px 22px}
+.co-success-modal .ap-modal-head h3{color:#fff!important;font-size:16px}
+.co-success-modal .ap-modal-head .ap-modal-close{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4);color:#fff}
+.co-success-modal .ap-modal-body{padding:26px 28px 18px}
+.co-save-success{text-align:center;display:flex;align-items:center;flex-direction:column;gap:9px}
+.co-save-success-icon{width:52px;height:52px;display:grid;place-items:center;border-radius:50%;color:#047857;background:#dcfce7;border:2px solid #a7e8ce;font-weight:800;font-size:27px}
+.co-save-success h4{font-size:18px;line-height:1.4;margin:6px 0 0;color:#123e4b}
+.co-save-success p{max-width:390px;margin:0;color:#526c77;line-height:1.65;font-size:14px}
+.co-save-success strong{color:#0c6370}
+.co-success-modal .ap-modal-footer{padding:15px 22px 20px;border-top:none;justify-content:center}
+.co-success-modal .ap-modal-footer .ap-modal-close{background:#0c7985;color:#fff;border:1px solid #0b6c76;border-radius:9px;padding:10px 26px;font-weight:700;min-width:120px}
+.co-success-modal .ap-modal-footer .ap-modal-close:hover{background:#095e6c}
+
+/* V34: Team lead actions: buttons side-by-side, recheck notice on its own line. */
+.co-teamlead-actions{display:flex;flex-direction:column;align-items:flex-start;gap:5px;flex-wrap:nowrap;min-width:max-content}
+.co-teamlead-buttons{display:flex;flex-direction:row;align-items:center;gap:8px;white-space:nowrap}
+.co-teamlead-buttons .work-small-btn{margin:0;white-space:nowrap}
+.co-teamlead-actions>.co-recheck-note{display:block;margin:0;white-space:nowrap;color:#b26717;font-size:11px;line-height:1.35;font-weight:500;}
+
+/* V38: framed customer account creation control on teal header */
+#customersView .panel-head .customer-list-actions .customer-create-framed {
+  display:inline-flex !important;
+  justify-content:center !important;
+  align-items:center !important;
+  min-height:42px !important;
+  padding:9px 16px !important;
+  color:#0b6473 !important;
+  background:#fff !important;
+  border:1.5px solid #c4e7e5 !important;
+  border-radius:10px !important;
+  box-shadow:0 1px 3px rgba(7,45,58,.12) !important;
+  font-weight:700 !important;
+  white-space:nowrap;
+}
+#customersView .panel-head .customer-list-actions .customer-create-framed:hover {
+  background:#e8faf8 !important;
+  border-color:#72d8cf !important;
+}
+#customersView .panel-head .customer-list-actions .customer-create-framed:focus-visible {
+  outline:3px solid #d3f7f1 !important;
+  outline-offset:2px;
+}
+
+
+/* V42 – real per-account history UI overlaying the unused Vanna Tasks column. */
+#chatView .chat-card,#customerChatView .chat-card{position:relative!important;isolation:isolate}
+#chatView .mes-ai-history-sidebar,#customerChatView .mes-ai-history-sidebar{
+ position:absolute!important;z-index:40!important;right:0!important;top:0!important;bottom:0!important;
+ width:24.5%!important;box-sizing:border-box!important;display:flex!important;flex-direction:column!important;
+ background:#f7fbfc!important;border-left:1px solid #d4e5eb!important;
+ color:#123747!important;overflow:hidden!important;
+}
+.mes-ai-history-head{height:70px;min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:8px;
+ padding:0 14px;background:linear-gradient(100deg,#0b8e99,#116274);color:white;font-size:14px}
+.mes-history-new{background:#fff;border:1px solid #9edbd6;border-radius:8px;color:#0b6674;padding:8px 10px;cursor:pointer;font-weight:700;white-space:nowrap}
+.mes-ai-history-list{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:10px 9px}
+.mes-history-row{display:flex;align-items:stretch;border:1px solid #dbe8ed;border-radius:9px;background:white;margin-bottom:9px;overflow:hidden}
+.mes-history-open{flex:1;min-width:0;text-align:left;border:0;background:transparent;padding:12px 8px 12px 10px;color:#174657;cursor:pointer}
+.mes-history-open:hover{background:#eaf6f7}
+.mes-history-open strong{display:block;font-size:12px;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mes-history-open small{display:block;color:#7c94a0;font-size:11px;margin-top:4px}
+.mes-history-delete{flex:0 0 30px;border:0;border-left:1px solid #e6edf0;background:white;font-size:19px;color:#a54d4d;cursor:pointer}
+.mes-history-delete:hover{background:#fff1f1}
+.mes-history-empty{text-align:center;color:#718998;padding:30px 10px;font-size:13px}
+.mes-history-empty small{display:block;margin-top:8px}
+.mes-ai-history-bottom{padding:12px;border-top:1px solid #dbe7ed;text-align:center;color:#75919b;font-size:11px;background:#fff}
+.mes-ai-history-overlay{position:fixed;inset:0;background:rgba(9,29,43,.55);z-index:99999;display:flex;align-items:center;justify-content:center;padding:18px}
+.mes-ai-history-modal{background:white;border:1px solid #cddfe7;border-radius:13px;width:min(760px,100%);max-height:min(700px,90vh);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 18px 60px #09243150}
+.mes-ai-history-modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;background:linear-gradient(100deg,#0b8e99,#116274);color:#fff}
+.mes-ai-history-modal-head strong{font-size:16px;overflow-wrap:anywhere}
+.mes-ai-history-modal-head button{background:#ffffff24;color:white;border:1px solid #ffffff70;border-radius:7px;font-size:22px;min-width:36px;height:36px;cursor:pointer}
+.mes-ai-history-messages{flex:1;min-height:0;overflow:auto;padding:20px;background:#f6fafb}
+.mes-ai-history-message{max-width:90%;padding:13px 15px;border:1px solid #d8e6ec;background:white;border-radius:11px;margin:0 0 13px}
+.mes-ai-history-message.is-user{margin-left:auto;border-color:#b7dbdb;background:#eef9f8}
+.mes-ai-history-message small{font-size:11px;color:#597787}
+.mes-ai-history-message p{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;line-height:1.65;margin:8px 0 0;color:#193f4e}
+.mes-ai-history-modal-actions{border-top:1px solid #dce9ef;background:#fff;padding:12px 20px;text-align:right}
+.mes-ai-history-modal-actions button{border:1px solid #d2e1e7;background:white;color:#164252;border-radius:8px;padding:9px 18px;cursor:pointer}
+/* The suggestions are independent of Vanna's input area, avoiding overlap. */
+#chatView .mes-role-suggestions,#customerChatView .mes-role-suggestions{
+ position:absolute!important;z-index:29!important;left:0!important;right:24.5%!important;bottom:86px!important;
+ width:auto!important;max-width:none!important;display:flex!important;flex-wrap:wrap!important;
+ justify-content:center!important;align-items:center!important;gap:7px!important;margin:0!important;
+ padding:0 15px!important;max-height:83px!important;overflow:auto!important;box-sizing:border-box!important;
+ background:transparent!important;pointer-events:none!important;
+}
+#chatView .mes-role-suggestion,#customerChatView .mes-role-suggestion{pointer-events:auto!important}
+@media(max-width:850px){
+ #chatView .mes-ai-history-sidebar,#customerChatView .mes-ai-history-sidebar{width:260px!important;max-width:38%!important}
+ #chatView .mes-role-suggestions,#customerChatView .mes-role-suggestions{right:min(260px,38%)!important}
+}
+
+
+/* V44: independently anchored AI history (outside the Vanna component).
+   It remains visible after Vanna replaces its task panel on chat completion. */
+body > .mes-ai-history-sidebar {
+  position:fixed!important;right:auto!important;bottom:auto!important;
+  z-index:2147480000!important;box-sizing:border-box!important;
+  display:flex;flex-direction:column;background:#f7fbfc!important;
+  border-left:1px solid #d4e5eb!important;color:#123747!important;
+  overflow:hidden!important;
+}
+body > .mes-ai-history-overlay {z-index:2147481000!important}
+
+
+/* V48 – Widen the history area so conversation titles remain readable. */
+body > .mes-ai-history-sidebar {
+ background:#f8fbfd!important;
+ border-left:1px solid #c9dce3!important;
+ box-shadow:-3px 0 12px rgba(12,65,78,.035)!important;
+}
+.mes-ai-history-head {
+ background:linear-gradient(100deg,#0b8e99,#116274)!important;
+ height:76px!important;
+ min-height:76px!important;
+ padding:0 16px!important;
+}
+.mes-ai-history-head strong {font-size:14px!important;line-height:1.4!important}
+.mes-ai-history-list{padding:14px 12px!important;background:#f8fbfd!important}
+.mes-history-row{border-color:#cddfe7!important;border-radius:11px!important;box-shadow:0 2px 8px rgba(17,64,81,.04)!important}
+.mes-history-open{padding:12px 12px 12px 13px!important}
+.mes-history-open strong{
+ white-space:normal!important;overflow:visible!important;text-overflow:clip!important;
+ display:-webkit-box!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:2!important;
+ overflow:hidden!important;overflow-wrap:anywhere!important;line-height:1.55!important;
+ font-size:12.5px!important;
+}
+.mes-history-delete{flex:0 0 34px!important}
+.mes-ai-history-bottom{background:#f8fbfd!important}
+@media(max-width:900px){.mes-ai-history-head{padding:0 10px!important}.mes-history-new{padding:7px 8px!important}}
+
+/* V49 - Nới rộng phần câu hỏi gợi ý (câu hỏi cứng) phía trên ô nhập AI.
+   Chỉ thay đổi các câu hỏi gợi ý, không đụng tới thanh lịch sử. */
+#chatView .mes-role-suggestions,
+#customerChatView .mes-role-suggestions {
+  left:8px!important;
+  right:calc(24.5% + 8px)!important;
+  bottom:88px!important;
+  width:auto!important;
+  max-width:none!important;
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  align-items:stretch!important;
+  justify-content:stretch!important;
+  gap:8px!important;
+  margin:0!important;
+  padding:4px!important;
+  max-height:105px!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  border:0!important;
+}
+#chatView .mes-role-suggestion,
+#customerChatView .mes-role-suggestion {
+  width:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+  min-height:38px!important;
+  padding:7px 12px!important;
+  border:1px solid #a8d6db!important;
+  border-radius:11px!important;
+  background:#f6fbfc!important;
+  color:#135566!important;
+  font:600 12px/1.4 system-ui,sans-serif!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  text-align:center!important;
+  box-sizing:border-box!important;
+  cursor:pointer!important;
+}
+#chatView .mes-role-suggestion:hover,
+#customerChatView .mes-role-suggestion:hover {
+  background:#e4f5f6!important;
+  border-color:#3195a2!important;
+}
+@media(max-width:1050px){
+ #chatView .mes-role-suggestions,
+ #customerChatView .mes-role-suggestions{grid-template-columns:repeat(2,minmax(0,1fr))!important;max-height:102px!important}
+}
+@media(max-width:700px){
+ #chatView .mes-role-suggestions,
+ #customerChatView .mes-role-suggestions{right:10px!important;left:10px!important;bottom:88px!important;grid-template-columns:1fr!important;max-height:114px!important}
+}
+
+
+/* V50 – Lịch sử che vừa cột Tasks, không phủ sang khu vực chat. */
+body > .mes-ai-history-sidebar{
+  box-sizing:border-box!important;
+  border-left:1px solid #c9dce3!important;
+  border-right:0!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+}
+/* V50 – 3 câu hỏi mẫu luôn ở trong MỘT THANH ngang, nằm trong cột chat. */
+#chatView .chat-card > .mes-role-suggestions,
+#customerChatView .chat-card > .mes-role-suggestions{
+  position:absolute!important;
+  z-index:38!important;
+  top:auto!important;
+  bottom:91px!important;
+  left:12px!important;
+  right:calc(var(--mes-history-width, 25%) + 12px)!important;
+  width:auto!important;
+  min-width:0!important;
+  height:50px!important;
+  max-height:50px!important;
+  margin:0!important;
+  padding:5px 8px!important;
+  display:flex!important;
+  flex-direction:row!important;
+  flex-wrap:nowrap!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:8px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scrollbar-width:thin;
+  overscroll-behavior-x:contain;
+  border:1px solid #cce4e8!important;
+  border-radius:12px!important;
+  background:#f8fbfc!important;
+  box-shadow:none!important;
+  box-sizing:border-box!important;
+  pointer-events:auto!important;
+}
+#chatView .chat-card > .mes-role-suggestions > .mes-role-suggestion,
+#customerChatView .chat-card > .mes-role-suggestions > .mes-role-suggestion{
+  display:inline-flex!important;
+  flex:0 0 auto!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:none!important;
+  height:34px!important;
+  min-height:34px!important;
+  margin:0!important;
+  padding:6px 12px!important;
+  white-space:nowrap!important;
+  text-align:center!important;
+  font-size:12px!important;
+  line-height:1.2!important;
+  border-radius:18px!important;
+  background:#fff!important;
+  box-sizing:border-box!important;
+}
+@media(max-width:700px){
+  #chatView .chat-card > .mes-role-suggestions,
+  #customerChatView .chat-card > .mes-role-suggestions{
+    left:8px!important;
+    right:calc(var(--mes-history-width, 25%) + 8px)!important;
+    height:48px!important;
+    max-height:48px!important;
+  }
+}
+
+/* V52: Color match for AI conversation HISTORY panel only.
+   Keep the fixed-question suggestion bar styling as in V50. */
+body > .mes-ai-history-sidebar,
+#chatView .mes-ai-history-sidebar,
+#customerChatView .mes-ai-history-sidebar {
+  background:linear-gradient(180deg,#f2f0e8 0%,#fafaf7 42%,#ffffff 100%)!important;
+  border-left:1px solid #b8d8da!important;
+  box-shadow:-2px 0 12px rgba(10,75,91,.055)!important;
+  color:#0e3a4a!important;
+}
+.mes-ai-history-head {
+  background:linear-gradient(100deg,#14a3a4 0%,#0b6c7f 72%,#15536e 100%)!important;
+  color:#ffffff!important;
+  border-bottom:1px solid #53c6c7!important;
+}
+.mes-ai-history-list {
+  background:transparent!important;
+}
+.mes-history-row {
+  background:rgba(255,255,255,.96)!important;
+  border:1px solid #bddadd!important;
+  box-shadow:0 2px 8px rgba(12,72,85,.055)!important;
+}
+.mes-history-open { color:#10485a!important; }
+.mes-history-open:hover { background:#e9f7f6!important; }
+.mes-history-open small { color:#657f8a!important; }
+.mes-ai-history-bottom {
+  background:rgba(255,255,255,.8)!important;
+  border-top:1px solid #c9e3e3!important;
+}
+
+/* V53 – dialog xác nhận xóa lịch sử đồng bộ giao diện, thay native confirm(). */
+body > .mes-ai-history-confirm-overlay {z-index:2147482000!important;backdrop-filter:blur(2px);}
+.mes-ai-history-confirm {width:min(450px,100%);background:#fff;border:1px solid #cde3e8;
+ border-radius:14px;overflow:hidden;box-shadow:0 22px 72px rgba(5,33,48,.25);display:flex;flex-direction:column;}
+.mes-ai-history-confirm-head {display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding:14px 20px;background:linear-gradient(100deg,#0b8e99,#116274);color:#fff;}
+.mes-ai-history-confirm-head strong {font-size:16px;font-weight:700;}
+.mes-ai-history-confirm-head button {width:32px;height:32px;border-radius:7px;border:1px solid #ffffff55;
+ color:#fff;background:#ffffff18;font-size:23px;cursor:pointer;}
+.mes-ai-history-confirm-head button:hover{background:#ffffff32;}
+.mes-ai-history-confirm-body {padding:28px 24px 24px;display:flex;gap:16px;align-items:flex-start;}
+.mes-ai-history-confirm-icon {flex:none;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;
+ justify-content:center;background:#fff4e7;border:1px solid #f8d1a0;color:#b96710;font-size:20px;font-weight:800;}
+.mes-ai-history-confirm-body p {color:#264a5a;font-size:14px;line-height:1.65;margin:4px 0 0;overflow-wrap:anywhere;}
+.mes-ai-history-confirm-actions {display:flex;justify-content:flex-end;gap:10px;padding:14px 20px;
+ background:#f7fafb;border-top:1px solid #e1eaee;}
+.mes-ai-history-confirm-actions button {font-size:13px;font-weight:700;border-radius:8px;padding:9px 16px;cursor:pointer;}
+.mes-ai-history-confirm-cancel {border:1px solid #c8d8df;background:#fff;color:#335767;}
+.mes-ai-history-confirm-submit {border:1px solid #116f7c;background:#107987;color:#fff;}
+.mes-ai-history-confirm-submit.is-danger {background:#b42318;border-color:#b42318;}
+.mes-ai-history-confirm-actions button:hover {filter:brightness(.94);}
+.mes-ai-history-confirm-actions button:focus-visible,.mes-ai-history-confirm-head button:focus-visible{outline:3px solid #8bdedb;outline-offset:2px;}
+@media(max-width:460px){.mes-ai-history-confirm-body{padding:20px 16px}.mes-ai-history-confirm-actions{padding:12px 16px}}
+
+
+/* V54 – AI as a full-width chat again: no history panel and no Tasks pane. */
+#chatView .chat-card,
+#customerChatView .chat-card,
+#chatView .vanna-container,
+#customerChatView .vanna-container,
+#vannaMount, #customerVannaMount,
+#vannaMount > vanna-chat, #customerVannaMount > vanna-chat {
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+}
+#chatView .chat-card > .mes-role-suggestions,
+#customerChatView .chat-card > .mes-role-suggestions {
+    left:12px !important;
+    right:12px !important;
+    max-width:calc(100% - 24px) !important;
+    width:auto !important;
+    box-sizing:border-box !important;
+    overflow-x:auto !important;
+}
+/* Hard safeguard if a stale history node remains after hot reload. */
+.mes-ai-history-sidebar {display:none!important;}
+
+
+/* V55: White framed Create Order button on the customer order teal header. */
+#customerCreateOrderBtn.po-create-btn {
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:42px!important;padding:9px 16px!important;
+  background:#ffffff!important;color:#0b6473!important;
+  border:1.5px solid #c4e7e5!important;border-radius:10px!important;
+  box-shadow:0 1px 3px rgba(7,45,58,.12)!important;
+  font-weight:700!important;white-space:nowrap;
+}
+#customerCreateOrderBtn.po-create-btn:hover {
+  background:#e8faf8!important;border-color:#72d8cf!important;
+}
+#customerCreateOrderBtn.po-create-btn:focus-visible {
+  outline:3px solid #d3f7f1!important;outline-offset:2px;
+}
+
+
+/* V57: Preserve Vanna's original warm-beige conversation background,
+   remove the white backdrop of the surrounding outer card.
+   Role-based suggested questions remain disabled. */
+#chatView .mes-role-suggestions,#customerChatView .mes-role-suggestions,
+#chatView .mes-role-suggestion,#customerChatView .mes-role-suggestion {
+ display:none!important;
+}
+#chatView .chat-card,#customerChatView .chat-card,
+.main > section.chat-area > .chat-card {
+ background:transparent!important;
+ background-image:none!important;
+}
+#chatView .vanna-container,#customerChatView .vanna-container,
+#vannaMount,#customerVannaMount {
+ /* V58: khung bao không tô vàng, tránh lộ dải màu giữa khung Vanna và nền trang. */
+ background:transparent!important;
+ background-image:none!important;
+}
+/* Không có nền màu chen giữa các lớp bọc; nền ấm bên trong Vanna vẫn giữ nguyên. */
+#chatView .vanna-container,#customerChatView .vanna-container,
+#vannaMount,#customerVannaMount {
+ padding:0!important;
+ border:0!important;
+}
+
+
+/* V59 – AI frame a little larger, with a uniform warm-beige chat surface.
+   Keep the Vanna Tasks sidebar, header and composer functional. */
+:root{--mes-v59-ai-beige:#e7e1d5}
+body:not(.internal-ai-fullscreen) .main > section#chatView.chat-area:not(.hidden),
+body:not(.internal-ai-fullscreen) .main > section#customerChatView.chat-area:not(.hidden){
+ padding:12px 14px!important;
+}
+#chatView.chat-area:not(.hidden) > .chat-card,
+#customerChatView.chat-area:not(.hidden) > .chat-card {
+ width:100%!important;
+ max-width:none!important;
+}
+#chatView .mes-center-welcome,
+#customerChatView .mes-center-welcome{
+ top:55%!important;
+}
+
+/* V60 – pull the entire Vanna panel left to the outer card edge.
+   Preserve the right edge, task column, warm-beige theme and chat behavior. */
+#chatView.chat-area:not(.hidden) > .chat-card > .vanna-container,
+#customerChatView.chat-area:not(.hidden) > .chat-card > .vanna-container {
+  box-sizing:border-box!important;
+  position:relative!important;
+  left:-44px!important;
+  width:calc(100% + 44px)!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+@media (max-width:720px){
+  #chatView.chat-area:not(.hidden) > .chat-card > .vanna-container,
+  #customerChatView.chat-area:not(.hidden) > .chat-card > .vanna-container {
+    left:-14px!important;
+    width:calc(100% + 14px)!important;
+  }
+}
+
+
+/* V64: Same AI card size/spacing/appearance for Admin, Team lead,
+   Technician and Customer, using Customer AI as the reference.
+   Keep the native Vanna Tasks column on the right for every role. */
+body.internal-ai-fullscreen #chatView.chat-area:not(.hidden),
+body.internal-ai-fullscreen #customerChatView.chat-area:not(.hidden) {
+  padding:16px!important;
+  box-sizing:border-box!important;
+  align-items:stretch!important;
+}
+body.internal-ai-fullscreen #chatView.chat-area:not(.hidden) > .chat-card,
+body.internal-ai-fullscreen #customerChatView.chat-area:not(.hidden) > .chat-card {
+  width:100%!important;
+  max-width:none!important;
+  height:100%!important;
+  border-radius:18px!important;
+  border:1px solid #cedfe6!important;
+  background:transparent!important;
+  box-shadow:0 4px 16px rgba(20,62,82,.06)!important;
+}
+body.internal-ai-fullscreen #chatView.chat-area:not(.hidden) > .chat-card > .vanna-container,
+body.internal-ai-fullscreen #customerChatView.chat-area:not(.hidden) > .chat-card > .vanna-container {
+  /* undo legacy V60 left-offset for a consistent full-width card per role */
+  left:0!important;
+  width:100%!important;
+  margin:0!important;
+  min-width:0!important;
+  flex:1 1 0!important;
+}
+#chatView .mes-center-welcome,#customerChatView .mes-center-welcome {
+  top:55%!important;
+  width:75%!important;
+}
+@media(max-width:750px){
+ body.internal-ai-fullscreen #chatView.chat-area:not(.hidden),
+ body.internal-ai-fullscreen #customerChatView.chat-area:not(.hidden){padding:10px!important;}
+ #chatView .mes-center-welcome,#customerChatView .mes-center-welcome{width:100%!important;}
+}
+
+/* V68 - Unified order review dialogs and customer-visible rejection reason */
+.ap-modal.co-review-modal{width:min(94vw,520px);max-width:520px;border-radius:16px;overflow:hidden;box-shadow:0 24px 65px rgba(8,42,54,.23)}
+.co-review-modal .ap-modal-head{background:linear-gradient(110deg,#139d9c,#0d4866);color:#fff;padding:18px 22px}
+.co-review-modal.co-review-reject .ap-modal-head{background:linear-gradient(110deg,#ad4e45,#733949)}
+.co-review-modal .ap-modal-head h3{color:#fff;font-size:18px;font-weight:750}
+.co-review-modal .ap-modal-head .ap-modal-close{color:#fff!important;background:rgba(255,255,255,.12)!important;border-color:rgba(255,255,255,.35)!important}
+.co-review-modal .ap-modal-body{padding:23px 24px!important;background:#fff}
+.co-review-message{display:flex;align-items:center;gap:16px;color:#203f50;font-size:14px;line-height:1.6}
+.co-review-message p{margin:0;flex:1}
+.co-review-symbol{display:grid;place-items:center;flex:0 0 52px;width:52px;height:52px;border-radius:50%;background:#dbf6ef;color:#067e79;font-size:28px;font-weight:800}
+.co-review-reject .co-review-symbol{background:#dbf6ef;color:#067e79}
+.co-review-label{display:block;margin:18px 0 8px;color:#284459;font-weight:700;font-size:13px}
+.co-review-label span{color:#bc2d34}
+.co-review-reason{display:block;box-sizing:border-box;width:100%!important;min-height:96px!important;resize:vertical;background:#fff!important;font:inherit;line-height:1.5}
+.co-review-modal .ap-modal-footer{background:#f7fafc;padding:14px 24px;gap:10px}
+.co-review-modal .ap-modal-save{background:#087780!important;color:#fff!important;border-color:#087780!important;border-radius:9px!important;min-width:110px}
+.co-review-modal.co-review-reject .ap-modal-save{background:#087780!important;border-color:#087780!important}
+.co-review-modal .ap-modal-footer>.ap-modal-close{border-radius:9px!important}
+.co-customer-actions{display:flex;flex-direction:column;align-items:flex-start;gap:8px;max-width:290px}
+.co-customer-action-buttons{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.co-customer-rejection{display:flex;flex-direction:column;gap:4px;max-width:280px;padding:8px 10px;background:#fff4ef;border-left:3px solid #d66a52;border-radius:5px;color:#7b3733;font-size:12px;line-height:1.45;white-space:normal;overflow-wrap:anywhere}
+.co-customer-rejection strong{font-weight:750}
+@media(max-width:620px){.co-review-modal .ap-modal-body{padding:18px!important}.co-review-message{gap:10px}.co-review-symbol{flex-basis:40px;width:40px;height:40px;font-size:22px}}
+/* Specificity overrides for the shared Action Plan modal theme. */
+.ap-modal.co-review-modal .ap-modal-head{padding:18px 22px!important;border-bottom:0!important}
+.ap-modal.co-review-modal.co-review-approve .ap-modal-head{background:linear-gradient(110deg,#139d9c,#0d4866)!important}
+.ap-modal.co-review-modal.co-review-reject .ap-modal-head{background:linear-gradient(110deg,#139d9c,#0d4866)!important}
+.ap-modal.co-review-modal .ap-modal-head h3{color:#fff!important;font-size:18px!important}
+.ap-modal.co-review-modal .ap-modal-body{padding:23px 24px!important}
+.ap-modal.co-review-modal .ap-modal-footer{background:#f7fafc!important;padding:14px 24px!important}
+.ap-modal.co-review-modal .ap-modal-save{border-radius:9px!important}
+
+
+/* V71 - Customer delete confirmation: same custom modal as approve/reject. */
+.ap-modal.co-delete-modal{width:min(94vw,520px);max-width:520px;border-radius:16px;overflow:hidden;box-shadow:0 24px 65px rgba(8,42,54,.23)}
+.ap-modal.co-delete-modal .ap-modal-head{background:linear-gradient(110deg,#139d9c,#0d4866)!important;border-bottom:0!important;padding:18px 22px!important}
+.ap-modal.co-delete-modal .ap-modal-head h3{color:#fff!important;font-size:18px!important}
+.ap-modal.co-delete-modal .ap-modal-body{background:#fff!important;padding:24px!important}
+.ap-modal.co-delete-modal .ap-modal-footer{background:#f7fafc!important;padding:14px 24px!important}
+.ap-modal.co-delete-modal .ap-modal-save{background:#087780!important;border-color:#087780!important;color:white!important;border-radius:9px!important;min-width:120px}
+.ap-modal.co-delete-modal .ap-modal-save:hover{background:#065f67!important}
+.ap-modal.co-delete-modal .ap-modal-head .ap-modal-close{background:rgba(255,255,255,.12)!important;color:white!important;border-color:rgba(255,255,255,.35)!important}
+.co-delete-message{align-items:flex-start}
+.co-delete-modal .co-review-symbol{background:#def4f1;color:#087780}
+.co-delete-description{flex:1;min-width:0}
+.co-delete-description p{margin:0;line-height:1.6}
+.co-delete-description .co-delete-note{margin-top:8px;color:#607487;font-size:13px}
+@media(max-width:620px){.ap-modal.co-delete-modal .ap-modal-body{padding:18px!important}}
+
+/* V80 — Admin return/complete: consistent teal dialog and clear validation. */
+.ap-modal.co-review-modal.co-review-return .ap-modal-head{background:linear-gradient(110deg,#139d9c,#0d4866)!important}
+.ap-modal.co-review-modal.co-review-return .ap-modal-save{background:#087780!important;border-color:#087780!important;color:white!important}
+.co-review-return .co-review-symbol{background:#dbf6ef!important;color:#067e79!important}
+.co-review-modal .co-review-message small{display:inline-block;color:#607487;font-size:12px;margin-top:7px}
+.co-review-modal .co-review-reason:focus{outline:2px solid #119da3!important;outline-offset:1px}
+
+/* V88: the order list must not trap vertical wheel scrolling.
+   Both the full dashboard and the 15-row list may scroll normally. */
+#ordersView.dashboard-area:not(.hidden),
+#dashboardView.dashboard-area:not(.hidden){
+ overflow-y:auto!important;
+ overscroll-behavior-y:auto!important;
+}
+#customerOrdersScroll.co-orders-scroll{
+ overscroll-behavior-y:auto!important;
+}
+
+/* V89 – consistent wheel scrolling across all data tables.
+   Nested table containers may scroll their own rows, but wheel events must
+   propagate to the page when the inner table reaches its top or bottom. */
+.main > section.dashboard-area:not(.hidden) {
+  overflow-y: auto !important;
+  overscroll-behavior-y: auto !important;
+  min-height: 0;
+}
+.main > section.dashboard-area .table-wrap,
+.main > section.dashboard-area .co-orders-scroll,
+.main > section.dashboard-area .mes-ten-rows,
+.main > section.dashboard-area .po-detail-table-wrap,
+.main > section.dashboard-area .customer-ai-table-scroll {
+  overscroll-behavior-y: auto !important;
+  overscroll-behavior-x: auto !important;
+  touch-action: pan-x pan-y !important;
+}
+#teamStaffList.mes-ten-rows,
+#employeeTableScroll.mes-ten-rows,
+#customerOrdersScroll.co-orders-scroll {
+  overflow-y: auto !important;
+  overscroll-behavior-y: auto !important;
+}
+@media (pointer: fine) {
+  .main > section.dashboard-area .table-wrap { scroll-behavior: auto; }
+}
+
+/* V92 – account-level actions in Admin customer list. */
+.customer-account-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;min-width:185px}
+.customer-account-remove{border:1px solid #91c8cc!important;background:#edf8f7!important;color:#08656e!important}
+.customer-account-remove:hover{background:#d5f0ee!important}
+
+/* V93 – account-level status, deleted accounts at the bottom, history far right */
+#customersView .customer-account-status{display:inline-flex;align-items:center;padding:5px 10px;border-radius:99px;font-size:12px;font-weight:700;white-space:nowrap}
+#customersView .customer-account-status.is-active{color:#096f50;background:#e5f5ee}
+#customersView .customer-account-status.is-deleted{color:#64748b;background:#edf1f5}
+#customersView .customer-account-status.is-unassigned{color:#64748b;background:#f1f5f9}
+#customersView .customer-account-deleted-row{background:#f8fafb;color:#708396}
+#customersView .customer-account-history-cell{text-align:right;white-space:nowrap}
+#customersView thead th:last-child{text-align:right}
+#customersView .customer-account-remove{white-space:nowrap}
+#customersView #customersRows tr[hidden]{display:none!important}
+
+/* V96 - Three balanced work metrics and readable technician breakdown. */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* KTV: danh sách việc cần xử lý và việc đã làm cùng một trang. */
+#ktvCompletedPanel .ktv-completed-head-count {font-size:12px;font-weight:700;color:white;background:rgba(255,255,255,.18);padding:6px 12px;border-radius:999px}
+#ktvCompletedPanel .ktv-completed-caption {padding:13px 20px;color:#55727f;font-size:13px;border-bottom:1px solid #e6eff3}
+#ktvCompletedPanel .ktv-completed-table {width:100%;border-collapse:collapse;min-width:800px}
+#ktvCompletedPanel .ktv-completed-table th {white-space:nowrap}
+#ktvCompletedPanel .ktv-completed-table th:nth-child(1) {width:9%}
+#ktvCompletedPanel .ktv-completed-table th:nth-child(2) {width:33%}
+#ktvCompletedPanel .ktv-completed-table th:nth-child(3) {width:16%}
+#ktvCompletedPanel .ktv-completed-table th:nth-child(4),
+#ktvCompletedPanel .ktv-completed-table th:nth-child(5) {width:16%}
+#ktvCompletedPanel .ktv-completed-table th:nth-child(6) {width:10%;text-align:center}
+#ktvCompletedPanel .ktv-completed-table td:last-child {text-align:center}
+#ktvCompletedPanel .ktv-completed-table td {vertical-align:middle}
+#ktvCompletedPanel .ktv-completed-table td b {color:#173f50}
+#ktvCompletedPanel .ktv-completed-table td div {color:#708b99;font-size:12px;margin-top:4px}
+@media(max-width:700px){#ktvCompletedPanel .ktv-completed-caption {padding:12px 15px}}
+
+/* Customer creation: distinguish invalid/incomplete form from a valid form. */
+.ap-modal .ap-modal-save:disabled{background:#80aeb4;border-color:#80aeb4;color:#fff;cursor:not-allowed;opacity:1}
+.ap-modal .ap-modal-save:not(:disabled){background:#087e8b;border-color:#087e8b;color:#fff;cursor:pointer}
+.ap-modal .ap-modal-save:not(:disabled):hover{background:#086574;border-color:#086574}
+#newCustomerForm input[aria-invalid="true"]{border-color:#dc2626;box-shadow:0 0 0 2px #fee2e2}

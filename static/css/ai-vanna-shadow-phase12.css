@@ -1,0 +1,70 @@
+/* Phase 12: Vanna full-width workspace; no API or component replacement. */
+:host{display:block!important;box-sizing:border-box!important;width:100%!important;height:100%!important;max-width:none!important;min-width:0!important;background:#f8fafc!important;color:#1e293b!important;font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif!important}
+#app,.app,.chat-container,.chat-layout,.main-container,.vanna-chat-container,.chat-wrapper,.chat-window{
+  width:100%!important;max-width:none!important;min-width:0!important;
+  box-sizing:border-box!important;background:#f8fafc!important;
+}
+/* Hide Vanna's empty task rail in the AI screen to give the conversation the full width. */
+.task-panel,.tasks-panel,.tasks-sidebar,.task-sidebar,.chat-sidebar,.right-panel,.task-list-container,
+.tasks-container,.tasks-column,.task-list-panel,.task-list-sidebar,
+vanna-task-panel,vanna-tasks-panel,vanna-task-list,vanna-task-sidebar{
+  display:none!important;width:0!important;min-width:0!important;max-width:0!important;
+  flex:0 0 0!important;border:0!important;padding:0!important;margin:0!important;
+}
+.chat-main,.chat-main-content,.chat-content,.chat-body,.conversation-container,.conversation-panel{
+  width:100%!important;max-width:none!important;min-width:0!important;
+  flex:1 1 100%!important;box-sizing:border-box!important;background:#f8fafc!important;
+}
+.chat-layout,.chat-container{grid-template-columns:minmax(0,1fr)!important;gap:0!important}
+header,.chat-header,.header,.chat-topbar,.top-bar{
+  background:linear-gradient(110deg,#0f223a 0%,#123c55 68%,#0c6170 100%)!important;
+  border-bottom:1px solid #284960!important;box-shadow:none!important;color:#fff!important;
+}
+.chat-header,.chat-topbar{padding:14px 26px!important;min-height:70px!important}
+.chat-header button,.chat-topbar button{border-radius:10px!important}
+.chat-history,.chat-messages,.messages-container,.message-list,.conversation-messages,.messages,.chat-main-content{
+  background:#f8fafc!important;background-image:none!important;
+  min-width:0!important;border-color:#e2e8f0!important;
+}
+.message,.chat-message,.message-bubble,.message-content,.user-message,.assistant-message{
+  font-size:14px!important;line-height:1.65!important;overflow-wrap:anywhere!important;
+}
+.user-message,.user-message .message-bubble,.message.user,.message.user .message-content,
+[data-role="user"] .message-bubble,[data-role="user"] .message-content{
+  background:linear-gradient(125deg,#10425a,#087c87)!important;
+  color:#fff!important;border:0!important;border-radius:16px 16px 5px 16px!important;
+  box-shadow:0 5px 16px rgba(15,60,80,.13)!important;
+}
+.assistant-message,.assistant-message .message-bubble,.message.assistant,.message.assistant .message-content,
+[data-role="assistant"] .message-bubble,[data-role="assistant"] .message-content{
+  background:#fff!important;color:#233b50!important;border:1px solid #dce6ed!important;
+  border-radius:16px 16px 16px 5px!important;
+  box-shadow:0 3px 12px rgba(10,43,65,.06)!important;
+}
+.message-content h1,.message-content h2,.message-content h3,.markdown h1,.markdown h2,.markdown h3{
+  color:#12354c!important;line-height:1.3!important;margin:14px 0 9px!important;
+}
+.message-content table,.markdown table{border-collapse:collapse!important;max-width:100%!important;width:100%!important}
+.message-content td,.message-content th,.markdown td,.markdown th{
+  padding:10px 12px!important;border:1px solid #e2e8f0!important;
+}
+.message-content th,.markdown th{background:#eff5f9!important}
+.chat-input-area,.chat-input-wrapper,.chat-input-section,.chat-footer{
+  background:#f8fafc!important;border-top:1px solid #e2e8f0!important;
+  box-shadow:none!important;padding:14px 24px 18px!important;
+}
+.chat-input-container{
+  box-sizing:border-box!important;display:flex!important;align-items:center!important;
+  width:100%!important;max-width:none!important;margin:0!important;
+  padding:8px 10px 8px 16px!important;min-height:58px!important;
+  background:#fff!important;border:1.5px solid #bfceda!important;border-radius:16px!important;
+  box-shadow:0 6px 22px rgba(16,44,63,.08)!important;
+}
+.chat-input-container:focus-within{border-color:#13818d!important;box-shadow:0 0 0 4px rgba(19,129,141,.1)!important}
+.chat-input-container textarea,.chat-input-container input[type="text"],.chat-input-area textarea{
+  min-height:38px!important;font-size:15px!important;line-height:1.5!important;
+  background:transparent!important;color:#1e293b!important;
+}
+.chat-input-area button,.chat-input-container button{border-radius:12px!important}
+.mes-role-suggestions,.mes-role-suggestion{display:none!important}
+@media(max-width:700px){.chat-header,.chat-topbar{padding:10px 14px!important}.chat-input-area,.chat-input-wrapper,.chat-input-section{padding:10px!important}}

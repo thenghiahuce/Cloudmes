@@ -1,0 +1,45 @@
+# Secret and environment files (never publish real keys/passwords)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+.pgpass
+
+# Virtual environments and local Python runtime
+.venv/
+.venv*/
+.python-runtime/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local databases, backups and exports
+*.backup
+*.dump
+*.sql.gz
+*.sqlite
+*.sqlite3
+*.db
+*.log
+*.csv
+*.zip
+*.tar.gz
+*.7z
+*.rar
+
+audit_results/
+
+# OS and editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

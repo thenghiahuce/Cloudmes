@@ -1,0 +1,201 @@
+.p2-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:16px}
+.p2-form label{display:flex;flex-direction:column;gap:5px;font-weight:600;font-size:14px}
+.p2-form input,.p2-form select,.p2-form textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;background:white;color:#123}
+.p2-form .p2-wide{grid-column:1/-1}.p2-form button{background:#0d9488;color:white;border:none;padding:12px;border-radius:8px;cursor:pointer}
+#workView .panel{padding:12px}#workView td{vertical-align:top}#workView td button{cursor:pointer;margin:2px;border-radius:6px;padding:6px 8px;border:1px solid #cbd5e1}#workError{margin:8px}
+@media(max-width:700px){.p2-form{grid-template-columns:1fr}}
+
+/* Giai đoạn 2: polished task dialogs */
+body.work-dialog-open{overflow:hidden}
+.work-dialog-overlay[hidden]{display:none!important}
+.work-dialog-overlay{position:fixed;inset:0;z-index:20000;background:rgba(15,23,42,.52);display:flex;justify-content:center;align-items:center;padding:20px;backdrop-filter:blur(3px)}
+.work-dialog{width:min(100%,630px);max-height:min(88vh,900px);overflow-y:auto;background:#fff;border-radius:16px;box-shadow:0 24px 80px rgba(15,23,42,.24);outline:none;color:#163047}
+.work-dialog-head{padding:22px 26px 18px;border-bottom:1px solid #e5eaf0;display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.work-dialog-head h2{font-size:21px;line-height:1.35;margin:0;color:#11283d}.work-dialog-head p{font-size:13px;color:#64748b;margin:6px 0 0}
+.work-dialog-x{border:0;border-radius:9px;background:#f1f5f9;color:#475569;width:34px;height:34px;font-size:23px;cursor:pointer;flex-shrink:0}
+.work-dialog-body{padding:22px 26px;max-height:60vh;overflow:auto}
+.work-dialog-foot{padding:16px 26px;border-top:1px solid #e5eaf0;display:flex;justify-content:flex-end;gap:10px;background:#f8fafc;border-radius:0 0 16px 16px}
+.work-btn{padding:11px 19px;border-radius:9px;cursor:pointer;font-weight:650;border:1px solid transparent;font-size:14px}
+.work-btn-secondary{background:#fff;border-color:#cbd5e1;color:#334155}.work-btn-primary{background:#0d9488;color:#fff}.work-btn:disabled{opacity:.65;cursor:wait}
+.work-field{display:flex;flex-direction:column;gap:8px;font-size:14px;font-weight:600;margin-bottom:18px}
+.work-field textarea{width:100%;resize:vertical;min-height:80px;border:1px solid #cbd5e1;border-radius:9px;padding:12px 13px;line-height:1.6;font:inherit;font-weight:400;color:#0f172a;box-sizing:border-box}
+.work-field textarea:focus{outline:2px solid rgba(13,148,136,.25);border-color:#0d9488}.required{color:#dc2626}
+.work-dialog-hint{font-size:14px;color:#64748b;margin:0 0 16px;line-height:1.6}
+.work-decision-group{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:19px}
+.work-decision{display:flex;align-items:center;gap:12px;border:1px solid #d5dce5;padding:14px;border-radius:12px;cursor:pointer}
+.work-decision:has(input:checked){border-color:#0d9488;background:#f0fdfa;box-shadow:0 0 0 1px #0d9488}
+.work-decision input{accent-color:#0d9488}.work-decision span{display:flex;flex-direction:column;gap:4px}.work-decision small{font-size:12px;color:#64748b}
+.work-dialog-error{padding:11px 13px;border-radius:9px;background:#fef2f2;color:#b91c1c;margin-top:12px;font-size:13px}
+.work-dialog-error[hidden]{display:none}.work-dialog-loading,.work-empty-history{text-align:center;padding:35px 15px;color:#64748b}
+.work-timeline{padding:2px 0 0}.work-timeline-item{padding:0 0 16px 0;position:relative}
+.work-timeline-item:last-child{padding-bottom:0}
+.work-timeline-card{border:1px solid #e2e8f0;border-radius:11px;padding:16px;background:#fff;overflow-wrap:anywhere}
+.work-timeline-top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:14px}.work-timeline-top time,.work-history-label{font-size:12px;color:#64748b}.work-history-label{margin:6px 0 12px}
+.work-history-section{margin-top:12px}.work-history-section span{font-size:12px;color:#64748b;font-weight:600}.work-history-section p{margin:5px 0 0;font-size:14px;white-space:pre-wrap;line-height:1.6}
+.work-history-review{border-top:1px solid #e5eaf0;margin-top:16px;padding-top:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;color:#64748b}
+.work-history-review p{flex-basis:100%;margin:2px 0;white-space:pre-wrap;color:#334155}
+.work-status{display:inline-flex;padding:5px 9px;border-radius:999px;font-weight:700}.work-approved{background:#dcfce7;color:#166534}.work-returned{background:#fee2e2;color:#991b1b}.work-pending{background:#fef3c7;color:#92400e}
+@media(max-width:600px){.work-dialog-overlay{padding:10px}.work-dialog-head,.work-dialog-body,.work-dialog-foot{padding-left:16px;padding-right:16px}.work-decision-group{grid-template-columns:1fr}.work-dialog-head h2{font-size:18px}}
+
+/* Deadline and staff history for MES shift-level work */
+.work-person-link{border:0;background:none;color:#0f766e;font-weight:650;cursor:pointer;text-align:left;padding:4px 0}
+.work-person-link:hover{text-decoration:underline}
+.work-small-btn{border:1px solid #cbd5e1;background:#fff;color:#334155;border-radius:8px;padding:7px 10px;cursor:pointer}
+.work-small-btn:hover{background:#f0fdfa;border-color:#0d9488}
+.work-deadline-alert{margin:12px 8px;padding:12px 16px;border:1px solid #fecaca;background:#fff1f2;color:#991b1b;border-radius:10px;font-weight:650}
+.work-deadline-alert[hidden]{display:none}
+.work-deadline-badge,.work-soon-badge{display:inline-block;border-radius:99px;font-size:12px;padding:3px 8px;margin:4px 2px;font-weight:700;white-space:nowrap}
+.work-deadline-badge{background:#fee2e2;color:#991b1b}.work-soon-badge{background:#fef3c7;color:#92400e}
+.work-employee-task{padding:14px 0;border-bottom:1px solid #e5e7eb}.work-employee-task:last-child{border:0}
+.work-employee-task p{font-size:13px;color:#475569;line-height:1.5;margin:8px 0}.work-late-text{color:#b91c1c}
+
+.work-nav-count{display:inline-flex;align-items:center;justify-content:center;min-width:19px;height:19px;border-radius:99px;margin-left:8px;padding:0 5px;background:#b91c1c;color:#fff;font-size:11px;font-weight:700}
+
+/* Giai đoạn 2: nhãn cột Quá trình */
+.work-process-badge{display:inline-flex;align-items:center;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+.work-process-active{background:#e8eef5;color:#334155}
+.work-process-soon,.work-process-pending{background:#fef3c7;color:#92400e}
+.work-process-danger{background:#fee2e2;color:#991b1b}
+.work-process-done{background:#dcfce7;color:#166534}
+
+.work-history-process{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;margin-bottom:16px;border:1px solid #e2e8f0;border-radius:10px;background:#f8fafc;color:#334155;font-size:14px}
+
+/* Search inside task list, shared across Admin/Lead/Technician */
+.work-list-tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.work-search-box{display:flex;align-items:center;gap:7px;min-width:260px;width:min(390px,100%);border:1px solid #cbd5e1;border-radius:8px;background:#fff;padding:0 10px;color:#64748b}
+.work-search-box:focus-within{border-color:#0d9488;box-shadow:0 0 0 2px #0d94881c}
+.work-search-box input{border:0;outline:0;min-width:0;width:100%;padding:9px 0;font:inherit;background:transparent;color:#0f172a}
+.work-search-count{font-size:12px;color:#64748b;margin:4px 0 7px}
+@media(max-width:720px){.work-list-tools{width:100%}.work-search-box{width:100%;min-width:0}}
+
+/* Polished task-search toolbar — scoped to work view */
+#workView .panel-head:has(.work-list-tools){display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;min-height:46px;padding-bottom:14px}
+#workView .panel-head:has(.work-list-tools) h3{margin:0;font-size:16px;line-height:1.4;flex:1 1 240px}
+#workView .work-list-tools{display:flex;align-items:center;justify-content:flex-end;flex:0 1 auto;flex-wrap:nowrap;gap:12px;min-width:0}
+#workView .work-list-tools .work-search-box{box-sizing:border-box;display:flex;align-items:center;flex:0 1 380px;width:380px;max-width:45vw;min-width:220px;height:42px;margin:0;padding:0 13px;gap:10px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;color:#64748b;box-shadow:0 1px 2px rgba(15,23,42,.03);cursor:text}
+#workView .work-list-tools .work-search-icon{display:block;flex:0 0 18px;color:#64748b}
+#workView .work-list-tools .work-search-box input[type=search]{box-sizing:border-box;display:block;flex:1 1 auto;width:100%;min-width:0;max-width:100%;height:38px;margin:0;padding:0!important;border:0!important;border-radius:0!important;outline:0!important;box-shadow:none!important;background:transparent!important;font-size:13px!important;line-height:38px!important;font-weight:400;color:#0f172a}
+#workView .work-list-tools .work-search-box input::placeholder{color:#94a3b8;opacity:1}
+#workView .work-list-tools .work-search-box:focus-within{border-color:#0d9488;box-shadow:0 0 0 3px rgba(13,148,136,.12)}
+#workView .work-list-tools .work-refresh-btn{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:8px;flex:none;height:42px;min-width:115px;margin:0;padding:0 16px;background:#fff;border:1px solid #cbd5e1;border-radius:10px;color:#334155;font:600 13px/1.2 inherit;white-space:nowrap;cursor:pointer}
+#workView .work-list-tools .work-refresh-btn:hover{background:#f8fafc;border-color:#94a3b8}
+@media(max-width:900px){#workView .panel-head:has(.work-list-tools){align-items:stretch}#workView .work-list-tools{width:100%;justify-content:stretch}#workView .work-list-tools .work-search-box{flex:1;max-width:none;width:auto;min-width:0}}
+@media(max-width:480px){#workView .work-list-tools{gap:8px}#workView .work-list-tools .work-refresh-btn{min-width:42px;padding:0 10px}#workView .work-list-tools .work-refresh-btn span{display:none}}
+
+/* Họ tên hiển thị dạng liên kết văn bản, không còn nút viền */
+.work-person-link,.work-person-link:visited{display:inline;color:#0f766e;background:transparent;border:0;border-radius:0;padding:0;box-shadow:none;text-decoration:none;font-weight:600;cursor:pointer}
+.work-person-link:hover{color:#115e59;text-decoration:underline}
+.work-person-link:focus-visible{outline:2px solid #0d9488;outline-offset:3px;border-radius:2px}
+
+
+/* MES operational workflow UI — shared style with dashboard */
+.p2-form {gap:14px!important;padding:19px!important}
+.p2-form label {color:#45606c!important;font-size:12px!important;font-weight:650!important}
+.p2-form input,.p2-form select,.p2-form textarea {border:1px solid #cbd6dc!important;border-radius:6px!important;background:#fff!important;color:#1e3947!important;font-size:12px!important;min-height:39px!important;padding:9px 11px!important}
+.p2-form textarea {min-height:86px!important;line-height:1.55!important}
+.p2-form button {border-radius:6px!important;background:#176b76!important;color:#fff!important;min-height:39px!important;padding:9px 17px!important;font-size:12px!important;font-weight:700!important}
+.p2-form button:hover {background:#11515b!important}
+#workView .panel {padding:0!important}
+#workView td {vertical-align:middle!important}
+#workView td button,.work-small-btn {border-radius:6px!important;border:1px solid #cbd5dc!important;background:#fff!important;color:#2b5562!important;font-size:11px!important;font-weight:600!important;padding:7px 10px!important}
+#workView td button:hover,.work-small-btn:hover {background:#f1f6f7!important;border-color:#99bac2!important}
+.work-person-link,.work-person-link:visited {color:#176b76!important;font-weight:650!important}
+.work-person-link:hover {color:#114e57!important}
+.work-deadline-alert {margin:14px 19px!important;border-radius:7px!important;font-size:12px!important}
+.work-deadline-badge,.work-soon-badge {border-radius:5px!important;font-size:11px!important}
+.work-process-badge,.work-status {border-radius:5px!important;font-size:11px!important;padding:4px 8px!important}
+.work-process-active {background:#edf1f3!important;color:#607783!important}
+.work-process-soon,.work-process-pending,.work-pending {background:#fbf2df!important;color:#92691e!important}
+.work-process-danger,.work-returned {background:#fbeceb!important;color:#a43f39!important}
+.work-process-done,.work-approved {background:#eaf5ee!important;color:#216b49!important}
+#workView .panel-head:has(.work-list-tools) {padding:15px 19px!important;gap:13px!important}
+#workView .panel-head:has(.work-list-tools) h3 {font-size:14px!important;font-weight:700!important}
+#workView .work-list-tools .work-search-box {height:38px!important;border-radius:6px!important;border-color:#cbd6dc!important;box-shadow:none!important}
+#workView .work-list-tools .work-search-box:focus-within {border-color:#176b76!important;box-shadow:0 0 0 3px rgba(23,107,118,.12)!important}
+#workView .work-list-tools .work-refresh-btn {height:38px!important;border-radius:6px!important;min-width:96px!important;color:#34505c!important;font-size:12px!important}
+.work-search-count {padding:2px 19px;color:#778b97!important}
+.work-dialog-overlay {background:rgba(12,30,42,.58)!important;backdrop-filter:blur(2px)!important}
+.work-dialog {border-radius:10px!important;border:1px solid #dfe7eb!important;box-shadow:0 22px 66px rgba(13,33,44,.24)!important;color:#223e4a!important}
+.work-dialog-head {padding:20px 23px 17px!important;border-color:#e4ebef!important}
+.work-dialog-head h2 {font-size:17px!important;font-weight:750!important;color:#1d3744!important}
+.work-dialog-head p {font-size:12px!important;color:#7d8e99!important}
+.work-dialog-x {border-radius:6px!important;background:#edf2f4!important;color:#526c79!important}
+.work-dialog-body {padding:20px 23px!important}
+.work-dialog-foot {padding:15px 23px!important;background:#f8fafb!important;border-color:#e4ebef!important;border-radius:0 0 10px 10px!important}
+.work-btn {border-radius:6px!important;font-size:12px!important;min-height:37px!important;padding:8px 16px!important;font-weight:650!important}
+.work-btn-secondary {border-color:#cbd6dc!important;color:#344d59!important}
+.work-btn-primary {background:#176b76!important;color:#fff!important}
+.work-btn-primary:hover {background:#11515b!important}
+.work-field {font-size:12px!important;color:#425b67!important;gap:6px!important}
+.work-field textarea {border-radius:6px!important;border-color:#cbd6dc!important;font-size:12px!important}
+.work-field textarea:focus {border-color:#176b76!important;outline:none!important;box-shadow:0 0 0 3px rgba(23,107,118,.12)!important}
+.work-decision {border-radius:7px!important;padding:13px!important}
+.work-decision:has(input:checked) {border-color:#176b76!important;background:#f0f8f7!important;box-shadow:0 0 0 1px #176b76!important}
+.work-decision input {accent-color:#176b76!important}
+.work-timeline-card {border-radius:7px!important;border-color:#dfe7eb!important}
+.work-history-process {border-radius:7px!important;background:#f7fafa!important}
+.work-dialog-error {border-radius:6px!important}
+@media(max-width:600px) {.p2-form {padding:14px!important}.work-dialog-head,.work-dialog-body,.work-dialog-foot {padding-left:17px!important;padding-right:17px!important}}
+
+/* Lịch sử Tổ trưởng: bố cục tổng quan, thẻ hoạt động và trạng thái tiếng Việt */
+.lead-activity-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 24px}
+.lead-activity-summary>div{padding:13px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:10px;display:flex;flex-direction:column;gap:6px}
+.lead-activity-summary b{font-size:22px;color:#123b4d}.lead-activity-summary span{font-size:12px;color:#64748b}
+.lead-history-section{margin:0 0 24px}.lead-section-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #e2e8f0;padding-bottom:10px;margin-bottom:6px}
+.lead-section-heading h3{font-size:15px;margin:0;color:#1e3445}.lead-section-heading>span{font-size:12px;color:#64748b}
+.lead-history-item{padding:14px 2px;border-bottom:1px solid #edf0f3}.lead-history-top{display:flex;justify-content:space-between;align-items:start;gap:10px;flex-wrap:wrap}.lead-history-top strong{font-size:14px;color:#183b4b}.lead-history-item p{font-size:13px;color:#526579;margin:7px 0 0;line-height:1.5}
+.lead-activity-badge{display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:600;white-space:nowrap}.lead-good{background:#e5f5eb;color:#17653c}.lead-bad{background:#feecec;color:#a22626}.lead-neutral{background:#edf2f8;color:#415974}
+.lead-empty{padding:14px 0;color:#64748b;font-size:13px}@media(max-width:580px){.lead-activity-summary{grid-template-columns:1fr}}
+
+/* Bộ lọc xưởng thống nhất giữa Công việc và Hiệu suất. */
+#workView .work-workshop-head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+#workView .work-workshop-control{display:flex;align-items:center;gap:10px;color:#475569;font-size:13px;font-weight:600}
+#workView .work-workshop-control select{min-width:210px;max-width:100%;height:40px;padding:0 12px;border:1px solid #cbd5e1;border-radius:9px;background:white;color:#183447;font:inherit}
+@media(max-width:620px){#workView .work-workshop-control{width:100%;flex-wrap:wrap}#workView .work-workshop-control select{flex:1;min-width:180px}}
+
+/* Employee assignment history - structured, readable timeline cards */
+.staff-history-overview{display:flex;align-items:center;gap:12px;background:#edf7f6;border:1px solid #d3eae6;border-radius:12px;padding:13px 16px;margin-bottom:23px;color:#42636b;font-size:13px}
+.staff-history-overview strong{font-size:24px;color:#117b76}
+.staff-history-section{margin-bottom:23px}.staff-history-section h3{display:flex;align-items:center;gap:9px;font-size:15px;color:#183747;margin:0 0 13px}.staff-history-section h3 span{font-size:12px;border-radius:99px;background:#e8eef2;padding:3px 9px;color:#536c7b}
+.staff-history-card{border:1px solid #dce7ed;border-radius:12px;background:#fff;box-shadow:0 3px 12px rgba(30,53,67,.045);padding:16px;margin-bottom:12px}
+.staff-history-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.staff-history-top strong{font-size:14px;line-height:1.5;color:#183a48}.staff-history-meta{display:flex;flex-wrap:wrap;gap:7px 18px;margin:11px 0;color:#50697a;font-size:12px}.staff-history-description{background:#f7fafb;border-radius:7px;padding:9px 11px;color:#526878;font-size:12px;line-height:1.5;margin:8px 0}
+.staff-history-report{display:flex;flex-wrap:wrap;gap:8px 15px;padding-top:11px;border-top:1px solid #e8eef2;color:#627889;font-size:12px}.staff-history-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:12px;padding-top:10px;border-top:1px solid #e8eef2;font-size:12px}.staff-history-empty{padding:13px 15px;background:#f4f7fa;border-radius:8px;color:#718594;font-size:12px}
+@media(max-width:650px){.staff-history-top{flex-wrap:wrap}.staff-history-report{flex-direction:column}}
+
+/* Chấm đỏ cho kỹ thuật viên và tổ trưởng khi còn việc chưa hoàn thành. */
+#tabWork .work-assignment-dot {
+ display:inline-block; width:9px; height:9px; min-width:9px;
+ border-radius:50%; background:#ef4444; box-shadow:0 0 0 2px rgba(239,68,68,.18);
+ margin-left:auto; flex-shrink:0;
+}
+
+/* Đảm bảo dấu chấm thông báo dễ nhìn kể cả khi menu đang được chọn. */
+#tabWork .work-assignment-dot {
+ width:11px!important;height:11px!important;min-width:11px!important;
+ background:#ff3838!important;box-shadow:0 0 0 3px rgba(255,56,56,.22)!important;
+ margin-left:auto!important;display:inline-block!important;opacity:1!important;
+}
+
+/* Công đơn chờ tổ trưởng/admin duyệt hoặc xác nhận hoàn thành. */
+#tabDashboard .co-nav-attention-dot {
+ display:inline-block!important; width:11px!important; height:11px!important; min-width:11px!important;
+ flex-shrink:0; margin-left:auto!important; border-radius:50%;
+ background:#ff3838!important; box-shadow:0 0 0 3px rgba(255,56,56,.22)!important;
+ opacity:1!important;
+}
+
+/* Huy hiệu số lượng duy nhất ở góc phải của menu, thay cho chấm thông báo cũ. */
+#tabWork .work-assignment-count,
+#tabDashboard .co-nav-attention-count {
+ display:inline-flex !important;
+ align-items:center;justify-content:center;
+ box-sizing:border-box;
+ min-width:23px;height:23px;
+ padding:0 6px;margin-left:auto !important;
+ flex-shrink:0;border-radius:999px;
+ background:#ef4444;color:#fff !important;
+ font-size:11px;font-weight:750;line-height:1;
+ font-variant-numeric:tabular-nums;
+ box-shadow:0 0 0 2px rgba(239,68,68,.16);
+ opacity:1 !important;
+}
