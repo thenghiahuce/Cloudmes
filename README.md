@@ -73,8 +73,8 @@ AUTH_SECRET=replace_with_random_secret
 
 - **VPS/production có dữ liệu:** không chạy lại `database/schema.sql`, `database/seeds/seed.sql` hay toàn bộ migration. Sao lưu và đối chiếu migration với schema hiện tại trước khi thay đổi.
 - **CSDL mới hoàn toàn:** có thể tham khảo `database/schema.sql`, sau đó `database/auth.sql`, các migration cần thiết. `schema.sql` có `DROP TABLE`, chỉ thực hiện khi chắc chắn DB đang trống và có bản sao lưu.
-- `scripts/apply_migration.py --no-seed` chỉ thực hiện một phần cài đặt phân quyền (`auth.sql` + `001_machine_scope.sql`), **không** tự áp dụng tất cả migration.
-- `scripts/apply_phase2.py` chỉ chạy `002_tasks.sql` (không chạy `002_tasks_reviews.sql`).
+- `scripts/setup_permissions.py --no-seed` chỉ thực hiện một phần cài đặt phân quyền (`auth.sql` + `001_phan_quyen_may.sql`), **không** tự áp dụng tất cả migration.
+- `scripts/setup_tasks.py` chỉ chạy `002_giao_viec_bao_cao.sql` (không chạy `002_giao_viec_cu.sql`).
 - `database/seeds/` là dữ liệu minh họa; **không dùng để ghi đè dữ liệu thật**.
 
 ## 5. Chạy ứng dụng
@@ -103,3 +103,9 @@ node --check static/js/app.js
 ```
 
 GitHub Actions trong `.github/workflows/ci.yml` tự chạy các bài test này mỗi lần push/pull request. **Chưa có integration test kết nối PostgreSQL, Vanna AI hoặc browser.** Test xanh không chứng minh rằng mọi API đã an toàn hay toàn bộ dashboard chạy đúng với dữ liệu thật.
+
+## Từ điển dữ liệu và tên migration
+
+Xem [Từ điển bảng và migration](docs/tu_dien_bang_va_migration.md). Migration đã đổi tên tiếng Việt không dấu; file 002 cũ được lưu trong ZIP lưu trữ riêng. Không chạy lại SQL chỉ vì đổi tên.
+
+Xem [thứ tự migration 001–012 và đối chiếu tên cũ](database/README.md). Các SQL lịch sử được đưa ra ngoài mã nguồn chính, vào ZIP lưu trữ riêng.

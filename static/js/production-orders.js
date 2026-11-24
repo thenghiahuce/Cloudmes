@@ -11,7 +11,7 @@ async function poOpenCreate(){
     if(window.currentUser?.role==='customer')return customerOpenCreateModal();
     if(window.currentUser?.role!=='admin')return alert('Chỉ Admin hoặc khách hàng được tạo công đơn');
     let data;
-    try{data=await apRequest('/api/production-orders/options');}catch(e){return alert(e.message+' — Hãy chạy migration 005 trước.');}
+    try{data=await apRequest('/api/production-orders/options');}catch(e){return alert(e.message+' — Hãy chạy migration 003 trước.');}
     const today=new Date().toLocaleDateString('en-CA');
  const dateValue=value=>value?String(value).slice(0,10):today;
     const opts=(list,id,label)=>list.map(x=>`<option value="${x[id]}">${esc(x[label])}</option>`).join('');

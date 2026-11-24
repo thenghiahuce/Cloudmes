@@ -1,4 +1,4 @@
--- Chạy SAU migration 012_customer_machines_and_auto_po_code.sql.
+-- Chạy SAU migration 005_phan_may_va_tao_ma_cong_don.sql.
 -- Thêm thứ tự thực hiện, không thay đổi/xóa các máy hiện có.
 BEGIN;
 ALTER TABLE public.customer_order_machines

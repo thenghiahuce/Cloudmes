@@ -6,7 +6,7 @@
 Phạm vi luôn được đọc từ DATABASE theo tài khoản (không tin role trong cookie
 hay trong prompt). Truy vấn Dashboard và AI chạy qua `scoped_cursor`, tức là
 dưới role chỉ-đọc `ai_scoped` / `ai_admin` với Row Level Security (xem
-database/migrations/001_machine_scope.sql), nên dù SQL do AI sinh ra có viết
+database/migrations/001_phan_quyen_may.sql), nên dù SQL do AI sinh ra có viết
 sai hay cố truy cập máy khác, database vẫn tự lọc.
 """
 from __future__ import annotations

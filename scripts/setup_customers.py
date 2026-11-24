@@ -1,6 +1,6 @@
 """Create or associate business customers without deleting staff history.
 
-Run after database/migrations/009_customer_orders.sql.
+Run after database/migrations/004_cong_don_khach_hang.sql.
 Examples:
   py scripts/setup_customers.py add Samsung samsung_customer
   py scripts/setup_customers.py add Apple apple_customer

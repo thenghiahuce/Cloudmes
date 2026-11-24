@@ -11,7 +11,7 @@ from backend.db import get_connection
 router = APIRouter(prefix='/api/ai-history', tags=['ai-history'])
 
 # Installation is idempotent for existing databases. The same SQL lives in
-# migrations/023_ai_chat_history.sql for controlled deployments.
+# migrations/012_lich_su_chatbot.sql for controlled deployments.
 _SCHEMA = '''
 CREATE TABLE IF NOT EXISTS ai_conversations (
     id UUID PRIMARY KEY,

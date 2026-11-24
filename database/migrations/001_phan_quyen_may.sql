@@ -2,7 +2,7 @@
 -- MIGRATION 001 - PHÂN QUYỀN THEO MÁY (Giai đoạn 1)
 --
 -- An toàn khi chạy nhiều lần, KHÔNG xóa dữ liệu hiện có.
--- Chạy bằng:  py scripts/apply_migration.py
+-- Chạy bằng:  py scripts/setup_permissions.py
 -- (script tự chạy auth.sql -> file này -> seed_team_leads.sql
 --  trong MỘT transaction, bằng tài khoản trong .env)
 --

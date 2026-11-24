@@ -1,10 +1,10 @@
 """
 Áp dụng phân quyền theo máy (Giai đoạn 1) vào database trong .env.
 
-  py scripts/apply_migration.py            (migration + 5 tổ trưởng mẫu + gán máy)
-  py scripts/apply_migration.py --no-seed  (chỉ migration, không thêm dữ liệu mẫu)
+  py scripts/setup_permissions.py            (migration + 5 tổ trưởng mẫu + gán máy)
+  py scripts/setup_permissions.py --no-seed  (chỉ migration, không thêm dữ liệu mẫu)
 
-Chạy theo thứ tự auth.sql -> migrations/001_machine_scope.sql -> seed_team_leads.sql
+Chạy theo thứ tự auth.sql -> migrations/001_phan_quyen_may.sql -> seed_team_leads.sql
 trong MỘT transaction: lỗi ở bước nào thì không thay đổi gì. Chạy lại nhiều lần vẫn an toàn.
 
 Sau đó tạo tài khoản đăng nhập cho tổ trưởng mới:
@@ -21,7 +21,7 @@ load_dotenv(os.path.join(ROOT, ".env"))
 
 STEPS = [
     ("database/auth.sql", False),
-    ("database/migrations/001_machine_scope.sql", False),
+    ("database/migrations/001_phan_quyen_may.sql", False),
     ("database/seeds/seed_team_leads.sql", True),   # True = dữ liệu mẫu, bỏ qua khi --no-seed
 ]
 

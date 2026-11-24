@@ -1467,7 +1467,7 @@ def _check_scope_ready() -> None:
         )[0]
         if not all(row.values()):
             print("[SCOPE] CẢNH BÁO: chưa có đủ bảng/role phân quyền theo máy "
-                  f"({row}). Hãy chạy: py scripts/apply_migration.py")
+                  f"({row}). Hãy chạy: py scripts/setup_permissions.py")
     except Exception as exc:
         print(f"[SCOPE] Không kiểm tra được phân quyền theo máy: {exc}")
 

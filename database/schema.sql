@@ -611,7 +611,7 @@ ON quality_inspections(production_record_id);
 
 -- ------------------------------------------------------------
 -- SAU KHI CHẠY FILE NÀY (và seed.sql), chạy tiếp:
---     py scripts/apply_migration.py
+--     py scripts/setup_permissions.py
 -- để tạo phân quyền theo máy: machine_assignments, Row Level Security,
 -- role ai_scoped/ai_admin và 5 tổ trưởng mẫu.
 -- ------------------------------------------------------------

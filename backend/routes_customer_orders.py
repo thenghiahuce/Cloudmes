@@ -850,9 +850,9 @@ def create_customer_account(payload: NewCustomerAccount, request: Request):
             raise HTTPException(409, 'Công ty đã tồn tại. Vui lòng nhập tên công ty khác.') from exc
         raise HTTPException(409, 'Tên đăng nhập đã tồn tại. Vui lòng chọn tên khác') from exc
     except pg_errors.UndefinedTable:
-        raise HTTPException(503, 'Chưa tạo bảng khách hàng. Chạy migration 009_customer_orders.sql trong PostgreSQL')
+        raise HTTPException(503, 'Chưa tạo bảng khách hàng. Chạy migration 004_cong_don_khach_hang.sql trong PostgreSQL')
     except pg_errors.UndefinedColumn:
-        raise HTTPException(503, 'Database chưa có cột khách hàng. Chạy migration 009_customer_orders.sql')
+        raise HTTPException(503, 'Database chưa có cột khách hàng. Chạy migration 004_cong_don_khach_hang.sql')
     return {'company_id': company_id, 'username': account['username'], 'id': account['id']}
 
 @router.get('/companies')
@@ -873,7 +873,7 @@ def list_customer_companies(request:Request):
                         GROUP BY c.id,c.company_name,c.created_at ORDER BY c.company_name''')
               return [dict(row) for row in cur.fetchall()]
     except (pg_errors.UndefinedTable, pg_errors.UndefinedColumn) as exc:
-        raise HTTPException(503, 'Chưa cập nhật database cho chức năng khách hàng. Hãy chạy database/migrations/009_customer_orders.sql') from exc
+        raise HTTPException(503, 'Chưa cập nhật database cho chức năng khách hàng. Hãy chạy database/migrations/004_cong_don_khach_hang.sql') from exc
 
 
 @router.delete('/companies/{company_id}/accounts/{account_id}')

@@ -1,4 +1,4 @@
--- Chạy sau 005_po_machine_assignments.sql và 009_customer_orders.sql.
+-- Chạy sau 003_gan_may_lenh_san_xuat.sql và 004_cong_don_khach_hang.sql.
 -- Sao lưu PostgreSQL trước khi chạy. Có thể chạy lặp lại.
 CREATE TABLE IF NOT EXISTS customer_order_machines (
  customer_order_id BIGINT NOT NULL REFERENCES customer_orders(id) ON DELETE CASCADE,

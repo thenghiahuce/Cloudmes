@@ -88,7 +88,7 @@ def create_po(payload: CreatePO, request: Request):
                     raise HTTPException(409, 'Mã PO đã tồn tại')
                 po = dict(cur.fetchone())
                 if not _has_assignment_table(cur):
-                    raise HTTPException(409, 'Thiếu bảng po_machine_assignments. Hãy chạy database/migrations/production_orders/005_po_machine_assignments.sql trong pgAdmin trước khi tạo PO mới.')
+                    raise HTTPException(409, 'Thiếu bảng po_machine_assignments. Hãy chạy database/migrations/003_gan_may_lenh_san_xuat.sql trong pgAdmin trước khi tạo PO mới.')
                 for machine_id in payload.machine_ids:
                     cur.execute('INSERT INTO po_machine_assignments (production_order_id,machine_id) VALUES (%s,%s)',
                                 (po['id'], machine_id))
@@ -153,7 +153,7 @@ def start_po(order_code: str, request: Request):
                 if po['status'] != 'Planned':
                     raise HTTPException(409, 'Chỉ PO đang ở trạng thái Kế hoạch mới có thể bắt đầu')
                 if not _has_assignment_table(cur):
-                    raise HTTPException(409, 'Chưa có bảng phân công máy; cần chạy migration 005')
+                    raise HTTPException(409, 'Chưa có bảng phân công máy; cần chạy migration 003')
                 cur.execute("""SELECT COUNT(*) AS n FROM po_machine_assignments a
                     JOIN machines m ON m.id=a.machine_id
                     WHERE a.production_order_id=%s AND m.workshop_id=%s""",
@@ -219,7 +219,7 @@ def cancel_po(order_code: str, request: Request):
 
 
 def _has_assignment_table(cur):
-    # Keep legacy PO readable when migration 005 was not run yet.
+    # Keep legacy PO readable when migration 003 was not run yet.
     cur.execute("SELECT to_regclass('public.po_machine_assignments') IS NOT NULL AS exists")
     return bool(cur.fetchone()['exists'])
 
@@ -339,7 +339,7 @@ def update_po_machines(order_code: str, payload: AssignPOMachines, request: Requ
         with conn:
             with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
                 if not _has_assignment_table(cur):
-                    raise HTTPException(409, 'Cần chạy migration 005 để phân công máy')
+                    raise HTTPException(409, 'Cần chạy migration 003 để phân công máy')
                 cur.execute('SELECT id,workshop_id,status FROM production_orders WHERE order_code=%s FOR UPDATE', (order_code,))
                 po = cur.fetchone()
                 if not po: raise HTTPException(404, 'Không tìm thấy Production Order')
